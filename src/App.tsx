@@ -1,12 +1,10 @@
 import {
   ChakraProvider,
   extendTheme,
-  // theme,
-  Box,
 } from "@chakra-ui/react"
 
-// import { Logo } from "./Logo"
 import Navbar from "./components/Navbar"
+import Home from "./components/Home"
 
 const colors = {
   brand: {
@@ -21,7 +19,6 @@ const theme = extendTheme({ colors })
 export const App = () => (
   <ChakraProvider theme={theme}>
     <Navbar />
-    <Box textAlign="center" fontSize="xl">
-    </Box>
+    <Home />
   </ChakraProvider>
 )
