@@ -4,6 +4,7 @@ import Clients from './Clients';
 import About from './About';
 import Projects from './Projects';
 import Services from './Services';
+import Footer from './Footer';
 
 const Home: React.FC = () => {
   return (
@@ -13,6 +14,7 @@ const Home: React.FC = () => {
       <Services />
       {/* <Contact /> */}
       <Clients />
+      <Footer />
     </Box>
   );
 }
