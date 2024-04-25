@@ -1,0 +1,65 @@
+// src/components/AboutModal.tsx
+
+import React from 'react';
+import {
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalCloseButton,
+  ModalBody,
+  ModalFooter,
+  Button,
+  Text,
+  Box,
+  VStack,
+  Image,
+} from '@chakra-ui/react';
+
+interface AboutModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+}
+
+const AboutModal: React.FC<AboutModalProps> = ({ isOpen, onClose }) => {
+  return (
+    <Modal isOpen={isOpen} onClose={onClose} size="xl">
+      <ModalOverlay />
+      <ModalContent>
+        <ModalHeader>About Us</ModalHeader>
+        <ModalCloseButton />
+        <ModalBody>
+          <VStack>
+            <Box 
+              overflow="hidden">
+              <Image 
+                src={require(`../data/serviceImages/about.png`)}
+                alt="About Us"
+                width="100%"
+                height="100%"
+                objectFit="cover" 
+                px={2}
+              />
+            </Box>
+            <Box>
+              <Text fontSize="lg" mb={3}>
+                Our team of qualified surveyors cover projects throughout London and the surrounding area.
+              </Text>
+              <Text fontSize="lg" mb={3}>
+                We pride ourselves in providing our clients with tailored engineering survey solutions using leading-edge survey technology.
+              </Text>
+              <Text fontSize="lg" mb={3}>
+                Our “Right First Time” approach which is underpinned by robust quality assurance processes will ensure a high standard of deliverables and value for money. With over 30 years combined experience in the construction industry, we are confident of meeting the engineering survey needs of your project, regardless of scale or complexity.
+              </Text>
+            </Box>
+          </VStack>
+        </ModalBody>
+        <ModalFooter>
+          <Button colorScheme="blue" mr={3} onClick={onClose}>Close</Button>
+        </ModalFooter>
+      </ModalContent>
+    </Modal>
+  );
+};
+
+export default AboutModal;
