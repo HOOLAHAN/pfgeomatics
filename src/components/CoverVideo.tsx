@@ -1,7 +1,12 @@
-import React from 'react';
-import { Box, Text, VStack } from '@chakra-ui/react';
+import React, {useState} from 'react';
+import { Box, Button, Text, VStack } from '@chakra-ui/react';
+import AboutModal from './AboutModal';
 
 const CoverVideo: React.FC<{ src: string }> = ({ src }) => {
+  const [isModalOpen, setModalOpen] = useState(false);
+  const openModal = () => setModalOpen(true);
+  const closeModal = () => setModalOpen(false);
+
   return (
     <Box position="relative" width="100%" height="40vh" overflow="hidden">
       <video
@@ -24,7 +29,9 @@ const CoverVideo: React.FC<{ src: string }> = ({ src }) => {
       >
         <Text fontSize="6xl" fontWeight="bold">PF Geomatics</Text>
         <Text fontSize="3xl">Site Engineering Surveyors</Text>
+        <Button size="lg" onClick={openModal} colorScheme="blue" mt={7} >About</Button>
       </VStack>
+      <AboutModal isOpen={isModalOpen} onClose={closeModal} />
     </Box>
   );
 };
