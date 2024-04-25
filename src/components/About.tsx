@@ -1,10 +1,11 @@
 // src/components/About.tsx
 import React from 'react';
-import { Box, Heading, Text } from '@chakra-ui/react';
+import { Box, Heading, Text, useColorModeValue } from '@chakra-ui/react';
 
 const About: React.FC = () => {
+  const brandColour = useColorModeValue('lightBrand.800', 'darkBrand.800');
   return (
-    <Box bg="brand.800">
+    <Box bg={brandColour}>
       <Box p={5} mx="auto" maxW="1200px">
         <Heading as="h1" size="xl" mb={4} textAlign="center">
           About Us

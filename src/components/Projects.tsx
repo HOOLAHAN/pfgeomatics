@@ -1,7 +1,7 @@
 // src/components/Projects.tsx
 
 import React, { useState } from 'react';
-import { Box, Image, Text, Heading, useDisclosure } from '@chakra-ui/react';
+import { Box, Image, Text, Heading, useDisclosure, useColorModeValue } from '@chakra-ui/react';
 import { projectsData } from '../data/projectsData';
 import ProjectModal from './ProjectModal';
 import ChakraCarousel from './ChakraCarousel';
@@ -20,6 +20,7 @@ interface Project {
 const Projects: React.FC = () => {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const brandColour = useColorModeValue('lightBrand.700', 'darkBrand.700');
 
   const handleProjectClick = (project: Project) => {
     setSelectedProject(project);
@@ -27,7 +28,7 @@ const Projects: React.FC = () => {
   };
 
   return (
-    <Box bg="brand.700">
+    <Box bg={brandColour}>
       <Box p={5} maxW="1200px" mx="auto">
         <Heading as="h2" size="xl" mb={6} textAlign="center">Projects</Heading>
         <ChakraCarousel gap={5}>

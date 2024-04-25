@@ -1,11 +1,12 @@
 // src/components/Contact.tsx
 
-import { Button, Text, VStack, Link, Icon, Heading, HStack, Box } from '@chakra-ui/react';
+import { Button, Text, VStack, Link, Icon, Heading, HStack, Box, useColorModeValue } from '@chakra-ui/react';
 import { FaLinkedin, FaEnvelope } from 'react-icons/fa';
 
 const Contact: React.FC = () => {
+  const brandColour = useColorModeValue('lightBrand.500', 'darkBrand.500');
   return (
-    <Box bg="brand.500">
+    <Box bg={brandColour}>
       <Box p={5} maxW="1200px" mx="auto">
         <VStack spacing={4} align="center">
           <Heading>Contact Us</Heading>

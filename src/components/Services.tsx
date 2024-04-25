@@ -1,8 +1,7 @@
 // src/components/Services.tsx
 import React, { useState } from 'react';
-import { Box, Heading, SimpleGrid, Image, Modal, ModalOverlay, ModalContent, ModalHeader, ModalBody, ModalCloseButton, useDisclosure, Text } from '@chakra-ui/react';
+import { Box, Heading, SimpleGrid, Image, Modal, ModalOverlay, ModalContent, ModalHeader, ModalBody, ModalCloseButton, useDisclosure, Text, useColorModeValue } from '@chakra-ui/react';
 import { servicesData } from '../data/servicesData';
-
 
 interface Service {
   title: string;
@@ -13,6 +12,7 @@ interface Service {
 const Services: React.FC = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [selectedService, setSelectedService] = useState<Service | null>(null);
+  const brandColour = useColorModeValue('lightBrand.600', 'darkBrand.600');
 
   const handleServiceClick = (service: Service) => {
     setSelectedService(service);
@@ -20,7 +20,7 @@ const Services: React.FC = () => {
   };
 
   return (
-    <Box bg="brand.600">
+    <Box bg={brandColour}>
       <Box p={5} maxW="1200px" mx="auto">
         <Heading as="h2" size="xl" mb={6} textAlign="center">Our Services</Heading>
         <SimpleGrid columns={{ sm: 1, md: 2, lg: 3 }} spacing={10}>
