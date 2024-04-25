@@ -29,7 +29,7 @@ const Projects: React.FC = () => {
   return (
     <Box bg="brand.700">
       <Box p={5} maxW="1200px" mx="auto">
-        <Heading as="h2" size="xl" mb={6}>Projects</Heading>
+        <Heading as="h2" size="xl" mb={6} textAlign="center">Projects</Heading>
         <ChakraCarousel gap={5}>
           {projectsData.map((project: Project) => (
             <Box key={project.name} onClick={() => handleProjectClick(project)} cursor="pointer">

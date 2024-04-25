@@ -6,7 +6,7 @@ const About: React.FC = () => {
   return (
     <Box bg="brand.800">
       <Box p={5} mx="auto" maxW="1200px">
-        <Heading as="h1" size="xl" mb={4}>
+        <Heading as="h1" size="xl" mb={4} textAlign="center">
           About Us
         </Heading>
         <Text fontSize="lg" mb={3}>

@@ -13,7 +13,7 @@ const Navbar = () => {
   return (
     <Box px={5} py={4} boxShadow="sm" bg="brand.400" color="white">
       <Flex align="center" justify="space-between">
-        <Box fontWeight="bold" fontSize="lg">PFGeomatics</Box>
+        <Box fontWeight="bold" fontSize="lg">PF Geomatics</Box>
         <Spacer />
         <Flex align="center">
           <Button onClick={openModal} colorScheme="blue" mr={3}>About</Button>
