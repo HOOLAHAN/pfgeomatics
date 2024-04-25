@@ -1,10 +1,6 @@
-import {
-  ChakraProvider,
-  extendTheme,
-} from "@chakra-ui/react"
-
-import Navbar from "./components/Navbar"
-import Home from "./components/Home"
+import { ChakraProvider, extendTheme } from "@chakra-ui/react";
+import Navbar from "./components/Navbar";
+import Home from "./components/Home";
 
 const colors = {
   brand: {
@@ -12,13 +8,15 @@ const colors = {
     800: '#153e75',
     700: '#2a69ac',
   },
-}
+};
 
-const theme = extendTheme({ colors })
+const theme = extendTheme({ colors });
 
-export const App = () => (
+const App = () => (
   <ChakraProvider theme={theme}>
     <Navbar />
     <Home />
   </ChakraProvider>
-)
+);
+
+export default App;

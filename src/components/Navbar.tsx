@@ -1,5 +1,5 @@
 // src/components/Navbar.js
-import React from 'react';
+
 import { Box, Flex, Link, Spacer } from '@chakra-ui/react';
 import { ColorModeSwitcher } from "../ColorModeSwitcher"
 

@@ -1,4 +1,5 @@
 // src/components/Home.tsx
+
 import { Box } from '@chakra-ui/react';
 import Clients from './Clients';
 import About from './About';
