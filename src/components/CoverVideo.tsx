@@ -18,12 +18,11 @@ const CoverVideo: React.FC<{ src: string }> = ({ src }) => {
         transform="translate(-50%, -50%)"
         color="white"
         textAlign="center"
-        fontSize={{ base: '20px', md: '5rem' }}
         spacing={2}
         p={2}
         borderRadius="md"
       >
-        <Text fontWeight="bold">PF Geomatics</Text>
+        <Text fontSize="6xl" fontWeight="bold">PF Geomatics</Text>
         <Text fontSize="3xl">Site Engineering Surveyors</Text>
       </VStack>
     </Box>
