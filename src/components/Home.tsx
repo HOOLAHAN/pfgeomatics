@@ -4,6 +4,7 @@ import Clients from './Clients';
 import About from './About';
 import Projects from './Projects';
 import Services from './Services';
+import Contact from './Contact';
 import Footer from './Footer';
 
 const Home: React.FC = () => {
@@ -12,7 +13,7 @@ const Home: React.FC = () => {
       <About />
       <Projects />
       <Services />
-      {/* <Contact /> */}
+      <Contact />
       <Clients />
       <Footer />
     </Box>
