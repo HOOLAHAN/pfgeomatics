@@ -1,21 +1,23 @@
-import React, {useState} from 'react';
-import { Box, Button, Text, VStack } from '@chakra-ui/react';
+import React, { useState } from 'react';
+import { Box, Button, Text, VStack, useMediaQuery } from '@chakra-ui/react';
 import AboutModal from './AboutModal';
 
 const CoverVideo: React.FC<{ src: string }> = ({ src }) => {
   const [isModalOpen, setModalOpen] = useState(false);
+  const [isSmallScreen] = useMediaQuery('(max-width: 600px)');
+
   const openModal = () => setModalOpen(true);
   const closeModal = () => setModalOpen(false);
 
   return (
     <Box position="relative" width="100%" height="40vh" overflow="hidden">
-      <video
-        src={src}
-        style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-        autoPlay
-        loop
-        muted
-      />
+        <video
+          src={src}
+          style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+          autoPlay
+          loop
+          muted
+        />
       <VStack
         position="absolute"
         top="50%"
@@ -26,10 +28,11 @@ const CoverVideo: React.FC<{ src: string }> = ({ src }) => {
         spacing={2}
         p={2}
         borderRadius="md"
+        zIndex={5}
       >
-        <Text fontSize="6xl" fontWeight="bold">PF Geomatics</Text>
-        <Text fontSize="3xl">Site Engineering Surveyors</Text>
-        <Button size="lg" onClick={openModal} colorScheme="blue" mt={7} >About</Button>
+        <Text fontSize={isSmallScreen ? '2xl' : '6xl'} fontWeight="bold">PF Geomatics</Text>
+        <Text fontSize={isSmallScreen ? 'l' : '3xl'}>Site Engineering Surveyors</Text>
+        <Button size={isSmallScreen ? 'md' : 'lg'} onClick={openModal} colorScheme="blue" mt={7} >About</Button>
       </VStack>
       <AboutModal isOpen={isModalOpen} onClose={closeModal} />
     </Box>
