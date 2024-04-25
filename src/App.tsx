@@ -4,13 +4,22 @@ import Home from "./components/Home";
 
 const colors = {
   brand: {
-    900: '#1a365d',
-    800: '#153e75',
-    700: '#2a69ac',
+    900: '#bcd4de',
+    800: '#A5CCD1',
+    700: '#A0B9BF',
+    600: '#9DACB2',
+    500: '#949BA0',
+    400: '#005E7C',
   },
 };
 
-const theme = extendTheme({ colors });
+const fonts = {
+  heading: "Calibri, sans-serif",
+  body: "Calibri, sans-serif",
+  mono: "Menlo, monospace"  
+};
+
+const theme = extendTheme({ colors, fonts });
 
 const App = () => (
   <ChakraProvider theme={theme}>
