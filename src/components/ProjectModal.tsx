@@ -11,9 +11,13 @@ import {
   Button,
   Text,
   VStack,
+  HStack,
+  Icon,
   Image,
   Link
 } from '@chakra-ui/react';
+
+import { FaLinkedin } from 'react-icons/fa';
 
 interface Project {
   name: string;
@@ -44,14 +48,16 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, isOpen, onClose })
             <Image src={require(`../media/projectImages/${project.image}`)} alt={project.name} boxSize="full" objectFit="cover" />
             <Text><strong>Location:</strong> {project.location}</Text>
             <Text><strong>Client:</strong> {project.client}</Text>
-            <Text><strong>Started:</strong> {project.dateStarted}</Text>
-            <Text><strong>Ended:</strong> {project.dateEnded}</Text>
+            <Text><strong>From:</strong> {project.dateStarted} - {project.dateEnded}</Text>
             <Text>{project.description}</Text>
+            <HStack spacing={1}>
+            <Icon as={FaLinkedin} w={5} h={5} color="blue.500" />
             {project.linkedIn && (
               <Link href={project.linkedIn} isExternal color="blue.500">
-                View on LinkedIn
+                View LinkedIn post
               </Link>
             )}
+            </HStack>
           </VStack>
         </ModalBody>
         <ModalFooter>
