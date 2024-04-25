@@ -28,7 +28,7 @@ const Services: React.FC = () => {
             <Box key={service.title} position="relative" cursor="pointer" onClick={() => handleServiceClick(service)}>
               <Image
                 borderRadius="sm"
-                src={require(`../data/serviceImages/${service.image}`)}
+                src={require(`../media/serviceImages/${service.image}`)}
                 alt={`${service.title} image`}
                 objectFit="cover"
               />
@@ -56,7 +56,7 @@ const Services: React.FC = () => {
             <ModalBody>
             <Image
                 borderRadius="sm"
-                src={require(`../data/serviceImages/${selectedService.image}`)}
+                src={require(`../media/serviceImages/${selectedService.image}`)}
                 alt={`${selectedService.title} image`}
                 objectFit="cover"
               />

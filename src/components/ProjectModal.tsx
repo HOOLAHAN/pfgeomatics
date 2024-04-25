@@ -41,7 +41,7 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, isOpen, onClose })
         <ModalCloseButton />
         <ModalBody>
           <VStack align="stretch" spacing={3}>
-            <Image src={require(`../data/projectImages/${project.image}`)} alt={project.name} boxSize="full" objectFit="cover" />
+            <Image src={require(`../media/projectImages/${project.image}`)} alt={project.name} boxSize="full" objectFit="cover" />
             <Text><strong>Location:</strong> {project.location}</Text>
             <Text><strong>Client:</strong> {project.client}</Text>
             <Text><strong>Started:</strong> {project.dateStarted}</Text>

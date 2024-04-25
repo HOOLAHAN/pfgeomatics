@@ -35,7 +35,7 @@ const Projects: React.FC = () => {
             <Box key={project.name} onClick={() => handleProjectClick(project)} cursor="pointer">
               <Box width="400px" height="200px" overflow="hidden">
                 <Image 
-                  src={require(`../data/projectImages/${project.image}`)}
+                  src={require(`../media/projectImages/${project.image}`)}
                   alt={project.name}
                   width="100%"
                   height="100%"
