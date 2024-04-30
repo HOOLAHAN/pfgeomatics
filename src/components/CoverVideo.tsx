@@ -28,7 +28,6 @@ const CoverVideo: React.FC<{ src: string }> = ({ src }) => {
         spacing={2}
         p={2}
         borderRadius="md"
-        zIndex={5}
       >
         <Text fontSize={isSmallScreen ? '2xl' : '6xl'} fontWeight="bold">PF Geomatics</Text>
         <Text fontSize={isSmallScreen ? 'l' : '3xl'}>Site Engineering Surveyors</Text>
