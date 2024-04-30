@@ -1,7 +1,7 @@
 // src/components/Services.tsx
 
 import React, { useState } from 'react';
-import { Box, Heading, SimpleGrid, Image, Modal, ModalOverlay, ModalContent, ModalHeader, ModalBody, ModalCloseButton, useDisclosure, Text, useColorModeValue, Icon } from '@chakra-ui/react';
+import { Box, Heading, SimpleGrid, Image, Modal, ModalOverlay, ModalContent, ModalHeader, ModalBody, ModalCloseButton, useDisclosure, Text, useColorModeValue, Icon, List, ListItem } from '@chakra-ui/react';
 import { servicesData } from '../data/servicesData';
 import { ViewIcon } from '@chakra-ui/icons';
 
@@ -81,9 +81,11 @@ const Services: React.FC = () => {
                 objectFit="cover"
               />
               <Text fontWeight="bold">Services:</Text>
-              {selectedService.service.map((item, index) => (
-                <Text key={index}>{item}</Text>
-              ))}
+              <List spacing={2} styleType="disc" paddingLeft={4}>
+                {selectedService.service.map((item, index) => (
+                  <ListItem key={index}>{item}</ListItem>
+                ))}
+              </List>
             </ModalBody>
           </ModalContent>
         </Modal>
