@@ -15,7 +15,7 @@ const Navbar = () => {
       color="white"
       position="sticky"
       top={0}
-      zIndex={1}
+      zIndex={11}
       width="100%"
       >
       <Flex align="center" justify="space-between">
