@@ -17,6 +17,7 @@ const Navbar = () => {
       top={0}
       zIndex={11}
       width="100%"
+      m={0}
     >
       <Flex align="center" justify="space-between">
         <Image

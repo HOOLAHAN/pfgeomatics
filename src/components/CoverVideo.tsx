@@ -10,7 +10,7 @@ const CoverVideo: React.FC<{ src: string }> = ({ src }) => {
   const closeModal = () => setModalOpen(false);
 
   return (
-    <Box position="relative" width="100%" height="40vh" overflow="hidden">
+    <Box position="relative" width="100%" height="40vh" overflow="hidden" m={0} mt={-1}>
         <video
           src={src}
           style={{ width: '100%', height: '100%', objectFit: 'cover' }}
