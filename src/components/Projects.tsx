@@ -42,6 +42,7 @@ const Projects: React.FC = () => {
                 boxShadow: '0 0 8px rgba(0,0,0,0.6)'
               }}
             >
+              {project.image && (
               <Box width="400px" height="200px" position="relative">
                 <Image 
                   src={require(`../media/projectImages/${project.image}`)}
@@ -59,6 +60,7 @@ const Projects: React.FC = () => {
                   _groupHover={{ opacity: '1' }}
                 />
               </Box>
+              )}
               <Text textAlign="center">{project.name}</Text>
             </Box>
           ))}

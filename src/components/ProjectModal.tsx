@@ -45,19 +45,23 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, isOpen, onClose })
         <ModalCloseButton />
         <ModalBody>
           <VStack align="stretch" spacing={3}>
+          {project.image && (
             <Image src={require(`../media/projectImages/${project.image}`)} alt={project.name} boxSize="full" objectFit="cover" />
+          )}
             <Text><strong>Location:</strong> {project.location}</Text>
             <Text><strong>Client:</strong> {project.client}</Text>
             <Text><strong>From:</strong> {project.dateStarted} - {project.dateEnded}</Text>
             <Text>{project.description}</Text>
+            {project.linkedIn && (
             <HStack spacing={1}>
             <Icon as={FaLinkedin} w={5} h={5} color="blue.500" />
             {project.linkedIn && (
               <Link href={project.linkedIn} isExternal color="blue.500">
-                View LinkedIn post
+                View on LinkedIn
               </Link>
             )}
             </HStack>
+            )}
           </VStack>
         </ModalBody>
         <ModalFooter>
