@@ -1,14 +1,14 @@
 // src/components/Clients.tsx
 import React from 'react';
-import { Box, Image, Heading, VStack, Text } from '@chakra-ui/react';
+import { Box, Image, Heading, VStack, Text, useColorModeValue } from '@chakra-ui/react';
 import ChakraCarousel from './ChakraCarousel';
 
 // Import images
 import lindnerPraterLogo from '../media/clients/lindner-prater-logo.png';
 import severfieldLogo from '../media/clients/severfield-logo.png';
 import build8Logo from '../media/clients/8build-logo.png';
-import kilnbridgeLogo from '../media/clients/kilnbridge-logo.jpeg';
-import regalLondonLogo from '../media/clients/regal-london-logo.jpeg';
+import kilnbridgeLogo from '../media/clients/kilnbridge-logo.png';
+import regalLondonLogo from '../media/clients/regal-london-logo.png';
 
 // Define an interface for each client logo
 interface ClientLogo {
@@ -26,19 +26,21 @@ const clientLogos: ClientLogo[] = [
 ];
 
 const Clients: React.FC = () => {
+  const boxBg = useColorModeValue('transparent', 'rgba(255, 255, 255, 0.3)');
+
   return (
     <Box pt={7} maxW="1200px" mx="auto">
       <VStack spacing={4} align="center">
         <Heading>Clients</Heading>
         <Text>Working With The Best</Text>
-        <ChakraCarousel gap={10}>
+        <ChakraCarousel gap={1}>
           {clientLogos.map((logo) => (
             <Box 
               key={logo.name} 
-              maxW="300px"
+              maxW="400px"
               maxH="150px"
               p={5}
-              bg="white" 
+              bg={boxBg} 
               display="flex" 
               justifyContent="center" 
               alignItems="center"
