@@ -5,7 +5,6 @@ import ChakraCarousel from './ChakraCarousel';
 
 // Import images
 import lindnerPraterLogo from '../media/clients/lindner-prater-logo.png';
-import typeTenLogo from '../media/clients/typeten-logo.png';
 import severfieldLogo from '../media/clients/severfield-logo.png';
 import build8Logo from '../media/clients/8build-logo.png';
 import kilnbridgeLogo from '../media/clients/kilnbridge-logo.jpeg';
@@ -20,7 +19,6 @@ interface ClientLogo {
 // Client logos array using imported images
 const clientLogos: ClientLogo[] = [
   { name: 'Lindner PRATER', src: lindnerPraterLogo },
-  { name: 'TypeTen', src: typeTenLogo },
   { name: 'Severfield', src: severfieldLogo },
   { name: '8build', src: build8Logo },
   { name: 'Kilnbridge', src: kilnbridgeLogo },
