@@ -14,6 +14,7 @@ import {
   Box,
   VStack,
   Image,
+  useColorModeValue,
 } from '@chakra-ui/react';
 
 interface AboutModalProps {
@@ -22,6 +23,10 @@ interface AboutModalProps {
 }
 
 const AboutModal: React.FC<AboutModalProps> = ({ isOpen, onClose }) => {
+  const buttonBorderColor = useColorModeValue('black', 'white');
+  const buttonTextColor = useColorModeValue('black', 'white');
+  const buttonHoverBg = useColorModeValue('gray.200', 'whiteAlpha.300');
+
   return (
     <Modal isOpen={isOpen} onClose={onClose} size="xl">
       <ModalOverlay />
@@ -30,14 +35,13 @@ const AboutModal: React.FC<AboutModalProps> = ({ isOpen, onClose }) => {
         <ModalCloseButton />
         <ModalBody>
           <VStack>
-            <Box 
-              overflow="hidden">
-              <Image 
+            <Box overflow="hidden">
+              <Image
                 src={require(`../media/serviceImages/about.png`)}
                 alt="About Us"
                 width="100%"
                 height="100%"
-                objectFit="cover" 
+                objectFit="cover"
                 px={2}
               />
             </Box>
@@ -55,7 +59,18 @@ const AboutModal: React.FC<AboutModalProps> = ({ isOpen, onClose }) => {
           </VStack>
         </ModalBody>
         <ModalFooter>
-          <Button colorScheme="blue" mr={3} onClick={onClose}>Close</Button>
+          <Button
+            size="md"
+            variant="outline"
+            borderColor={buttonBorderColor}
+            color={buttonTextColor}
+            _hover={{ bg: buttonHoverBg }}
+            _active={{ bg: buttonHoverBg, transform: 'scale(0.95)' }}
+            transition="all 0.2s ease-in-out"
+            onClick={onClose}
+          >
+            Close
+          </Button>
         </ModalFooter>
       </ModalContent>
     </Modal>
