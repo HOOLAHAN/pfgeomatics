@@ -5,6 +5,10 @@ import { FaLinkedin, FaEnvelope } from 'react-icons/fa';
 
 const Contact: React.FC = () => {
   const brandColour = useColorModeValue('lightBrand.500', 'darkBrand.500');
+  const buttonBorderColor = useColorModeValue('black', 'white');
+  const buttonTextColor = useColorModeValue('black', 'white');
+  const buttonHoverBg = useColorModeValue('gray.200', 'whiteAlpha.300');
+
   return (
     <Box bg={brandColour}>
       <Box p={5} maxW="1200px" mx="auto">
@@ -18,7 +22,12 @@ const Contact: React.FC = () => {
               as="a"
               href="mailto:info@pfgeomatics.co.uk"
               leftIcon={<Icon as={FaEnvelope} />}
-              colorScheme="blue"
+              variant="outline"
+              borderColor={buttonBorderColor}
+              color={buttonTextColor}
+              _hover={{ bg: buttonHoverBg }}
+              _active={{ bg: buttonHoverBg, transform: 'scale(0.95)' }}
+              transition="all 0.2s ease-in-out"
               size="lg"
             >
               Email
@@ -26,7 +35,12 @@ const Contact: React.FC = () => {
             <Link href="https://www.linkedin.com/company/pf-geomatics/" isExternal>
               <Button
                 leftIcon={<Icon as={FaLinkedin} />}
-                colorScheme="blue"
+                variant="outline"
+                borderColor={buttonBorderColor}
+                color={buttonTextColor}
+                _hover={{ bg: buttonHoverBg }}
+                _active={{ bg: buttonHoverBg, transform: 'scale(0.95)' }}
+                transition="all 0.2s ease-in-out"
                 size="lg"
               >
                 LinkedIn
