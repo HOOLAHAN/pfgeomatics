@@ -1,7 +1,7 @@
 // src/components/Clients.tsx
+
 import React from 'react';
-import { Box, Image, Heading, VStack, Text, useColorModeValue } from '@chakra-ui/react';
-import ChakraCarousel from './ChakraCarousel';
+import { Box, Image, Heading, VStack, Text, useColorModeValue, SimpleGrid } from '@chakra-ui/react';
 
 // Import images
 import lindnerPraterLogo from '../media/clients/lindner-prater-logo.png';
@@ -33,22 +33,26 @@ const Clients: React.FC = () => {
       <VStack spacing={4} align="center">
         <Heading>Clients</Heading>
         <Text>Working With The Best</Text>
-        <ChakraCarousel gap={1}>
+        <SimpleGrid columns={{ base: 2, sm: 3, md: 4, lg: 5 }} spacing={5} mt={5}>
           {clientLogos.map((logo) => (
             <Box 
               key={logo.name} 
-              maxW="400px"
-              maxH="150px"
-              p={5}
+              maxW={{ base: "150px", sm: "150px", md: "200px", lg: "250px" }}
+              p={{ base: 2, sm: 3, md: 4, lg: 5 }}
               bg={boxBg} 
               display="flex" 
               justifyContent="center" 
               alignItems="center"
-              >
-              <Image src={logo.src} alt={`${logo.name} logo`} objectFit="contain" maxHeight="100%" />
+            >
+              <Image 
+                src={logo.src} 
+                alt={`${logo.name} logo`} 
+                objectFit="contain" 
+                maxH={{ base: "60px", sm: "80px", md: "100px", lg: "120px" }} 
+              />
             </Box>
           ))}
-        </ChakraCarousel>
+        </SimpleGrid>
       </VStack>
     </Box>
   );
