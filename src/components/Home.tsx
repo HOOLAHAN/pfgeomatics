@@ -11,15 +11,24 @@ import Footer from './Footer';
 const Home: React.FC = () => {
   return (
     <Box>
-      <CoverVideo src={require(`../media/pfg.mp4`)}/>
-      <Projects />
-      <Services />
-      <Contact />
-      <Clients />
+      <Box id="cover-video">
+        <CoverVideo src={require(`../media/pfg.mp4`)} />
+      </Box>
+      <Box id="projects">
+        <Projects />
+      </Box>
+      <Box id="services">
+        <Services />
+      </Box>
+      <Box id="contact">
+        <Contact />
+      </Box>
+      <Box id="clients">
+        <Clients />
+      </Box>
       <Footer />
     </Box>
   );
 }
 
 export default Home;
-
