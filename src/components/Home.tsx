@@ -7,6 +7,7 @@ import Clients from './Clients';
 import Projects from './Projects';
 import Services from './Services';
 import Contact from './Contact';
+import ContactForm from './ContactForm';
 import Footer from './Footer';
 
 const Home: React.FC = () => {
@@ -26,6 +27,9 @@ const Home: React.FC = () => {
       </Box>
       <Box id="contact">
         <Contact />
+      </Box>
+      <Box id="contact-form">
+        <ContactForm />
       </Box>
       <Box id="clients">
         <Clients />
