@@ -2,6 +2,7 @@
 
 import { Box } from '@chakra-ui/react';
 import CoverVideo from './CoverVideo';
+import About from './About';
 import Clients from './Clients';
 import Projects from './Projects';
 import Services from './Services';
@@ -13,6 +14,9 @@ const Home: React.FC = () => {
     <Box>
       <Box id="cover-video">
         <CoverVideo src={require(`../media/pfg.mp4`)} />
+      </Box>
+      <Box id='about'>
+        <About />
       </Box>
       <Box id="projects">
         <Projects />

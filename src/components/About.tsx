@@ -1,24 +1,72 @@
 // src/components/About.tsx
-import React from 'react';
-import { Box, Heading, Text, useColorModeValue } from '@chakra-ui/react';
+
+import React, { useState } from 'react';
+import { Box, Heading, useColorModeValue, Button, VStack, useMediaQuery, Grid, Image, Flex } from '@chakra-ui/react';
+import AboutModal from './AboutModal';
+
+// Import an image for the About section
+import aboutImage from '../media/serviceImages/about.png';
 
 const About: React.FC = () => {
   const brandColour = useColorModeValue('lightBrand.800', 'darkBrand.800');
+  const buttonBorderColor = useColorModeValue('black', 'white');
+  const buttonTextColor = useColorModeValue('black', 'white');
+  const buttonHoverBg = useColorModeValue('gray.200', 'whiteAlpha.300');
+  const [isModalOpen, setModalOpen] = useState(false);
+  const [isSmallScreen] = useMediaQuery('(max-width: 600px)');
+
+  const openModal = () => setModalOpen(true);
+  const closeModal = () => setModalOpen(false);
+
   return (
     <Box bg={brandColour}>
       <Box p={5} mx="auto" maxW="1200px">
-        <Heading as="h1" size="xl" mb={4} textAlign="center">
-          About Us
-        </Heading>
-        <Text fontSize="lg" mb={3}>
-          Our team of qualified surveyors cover projects throughout London and the surrounding area.
-        </Text>
-        <Text fontSize="lg" mb={3}>
-          We pride ourselves in providing our clients with tailored engineering survey solutions using leading-edge survey technology.
-        </Text>
-        <Text fontSize="lg" mb={3}>
-          Our “Right First Time” approach which is underpinned by robust quality assurance processes will ensure a high standard of deliverables and value for money. With over 30 years combined experience in the construction industry, we are confident of meeting the engineering survey needs of your project, regardless of scale or complexity.
-        </Text>
+        <Grid
+          templateColumns={{ base: '1fr', md: '1fr 1fr' }}
+          gap={6}
+          alignItems="center"
+        >
+          <Flex
+            justifyContent="center"
+            alignItems="center"
+            height={{ base: 'auto', md: '100%' }}
+            width={{ base: '100%', md: 'auto' }}
+          >
+            <Image
+              src={aboutImage}
+              alt="About us"
+              borderRadius="sm"
+              objectFit="cover"
+              w={{ base: '100%', md: '100%' }}
+              h={{ base: 'auto', md: '100%' }}
+            />
+          </Flex>
+          <Box px={10} textAlign="center">
+            <Heading as="h1" size="xl" mb={4}>
+              We are a site engineering and surveying company based in London
+            </Heading>
+            <VStack spacing={4} align="center">
+              <Button
+                size={isSmallScreen ? 'md' : 'lg'}
+                onClick={openModal}
+                variant="outline"
+                borderColor={buttonBorderColor}
+                color={buttonTextColor}
+                _hover={{
+                  bg: buttonHoverBg,
+                }}
+                _active={{
+                  bg: buttonHoverBg,
+                  transform: 'scale(0.95)',
+                }}
+                transition="all 0.2s ease-in-out"
+              >
+                About
+              </Button>
+            </VStack>
+            <AboutModal isOpen={isModalOpen} onClose={closeModal} />
+          </Box>
+        </Grid>
       </Box>
     </Box>
   );
