@@ -1,7 +1,7 @@
 // src/components/Navbar.tsx
 
 import { useState } from 'react';
-import { Box, Flex, IconButton, Image, Link as ChakraLink, useColorModeValue, useBreakpointValue, Stack, Collapse } from '@chakra-ui/react';
+import { Box, Flex, IconButton, Image, useColorModeValue, useBreakpointValue, Stack, Collapse, Text } from '@chakra-ui/react';
 import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
 import { ColorModeSwitcher } from "../ColorModeSwitcher";
 import { Link } from 'react-scroll';
@@ -15,6 +15,13 @@ const Navbar: React.FC = () => {
   const offset = useBreakpointValue({ base: baseOffset, md: -56 });
 
   const toggleMenu = () => setIsOpen(!isOpen);
+
+  const linkStyles = {
+    px: 2,
+    cursor: 'pointer',
+    _hover: { textDecoration: 'underline', color: 'gray.300' },
+    _active: { color: 'gray.500' }
+  };
 
   return (
     <Box 
@@ -39,19 +46,19 @@ const Navbar: React.FC = () => {
         </Box>
         <Flex display={{ base: "none", md: "flex" }}>
           <Link to="cover-video" smooth={true} duration={500} offset={offset}>
-            <ChakraLink px={2}>Home</ChakraLink>
+            <Text as="span" {...linkStyles}>Home</Text>
           </Link>
           <Link to="projects" smooth={true} duration={500} offset={offset}>
-            <ChakraLink px={2}>Projects</ChakraLink>
+            <Text as="span" {...linkStyles}>Projects</Text>
           </Link>
           <Link to="services" smooth={true} duration={500} offset={offset}>
-            <ChakraLink px={2}>Services</ChakraLink>
+            <Text as="span" {...linkStyles}>Services</Text>
           </Link>
           <Link to="contact" smooth={true} duration={500} offset={offset}>
-            <ChakraLink px={2}>Contact</ChakraLink>
+            <Text as="span" {...linkStyles}>Contact</Text>
           </Link>
           <Link to="clients" smooth={true} duration={500} offset={offset}>
-            <ChakraLink px={2}>Clients</ChakraLink>
+            <Text as="span" {...linkStyles}>Clients</Text>
           </Link>
         </Flex>
         <IconButton
@@ -67,19 +74,19 @@ const Navbar: React.FC = () => {
         <Box pb={4} display={{ md: 'none' }}>
           <Stack as="nav" spacing={4}>
             <Link to="cover-video" smooth={true} duration={500} offset={offset} onClick={toggleMenu}>
-              <ChakraLink>Home</ChakraLink>
+              <Text as="span" {...linkStyles}>Home</Text>
             </Link>
             <Link to="projects" smooth={true} duration={500} offset={offset} onClick={toggleMenu}>
-              <ChakraLink>Projects</ChakraLink>
+              <Text as="span" {...linkStyles}>Projects</Text>
             </Link>
             <Link to="services" smooth={true} duration={500} offset={offset} onClick={toggleMenu}>
-              <ChakraLink>Services</ChakraLink>
+              <Text as="span" {...linkStyles}>Services</Text>
             </Link>
             <Link to="contact" smooth={true} duration={500} offset={offset} onClick={toggleMenu}>
-              <ChakraLink>Contact</ChakraLink>
+              <Text as="span" {...linkStyles}>Contact</Text>
             </Link>
             <Link to="clients" smooth={true} duration={500} offset={offset} onClick={toggleMenu}>
-              <ChakraLink>Clients</ChakraLink>
+              <Text as="span" {...linkStyles}>Clients</Text>
             </Link>
           </Stack>
         </Box>
