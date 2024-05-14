@@ -94,15 +94,28 @@ const ContactForm: React.FC = () => {
           <VStack spacing={4}>
             <FormControl isInvalid={Boolean(errors.name)}>
               <FormLabel htmlFor="name">Name</FormLabel>
-              <Input id="name" type="text" {...register("name", { required: "This is required" })} />
+              <Input id="name" type="text" {...register("name", { required: "This is required", maxLength: 80 })} />
             </FormControl>
             <FormControl isInvalid={Boolean(errors.email)}>
               <FormLabel htmlFor="email">Email</FormLabel>
-              <Input id="email" type="email" {...register("email", { required: "This is required" })} />
+              <Input 
+                id="email" 
+                type="email" 
+                {...register("email", { 
+                  required: "This is required", 
+                  pattern: {
+                    value: /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/,
+                    message: "Invalid email address"
+                  }
+                })} 
+              />
             </FormControl>
             <FormControl isInvalid={Boolean(errors.message)}>
               <FormLabel htmlFor="message">Message</FormLabel>
-              <Textarea id="message" {...register("message", { required: "This is required" })} />
+              <Textarea 
+                id="message" 
+                {...register("message", { required: "This is required", maxLength: 2000 })} 
+              />
             </FormControl>
             <Button 
               mt={4} 
