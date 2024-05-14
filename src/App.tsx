@@ -9,13 +9,13 @@ const config: ThemeConfig = {
 
 const colors = {
   lightBrand: {
-    900: '#bcd4de',
-    800: '#A5CCD1',
-    700: '#A0B9BF',
-    600: '#9DACB2',
-    500: '#949BA0',
+    // 900: '#bcd4de',
+    // 800: '#A5CCD1',
+    // 700: '#A0B9BF',
+    // 600: '#9DACB2',
+    // 500: '#949BA0',
     400: '#005E7C',
-    300: '#e2e8f0',
+    // 300: '#e2e8f0',
   },
   darkBrand: {
     900: '#252525',
