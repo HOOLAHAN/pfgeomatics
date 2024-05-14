@@ -71,9 +71,7 @@ const ContactForm: React.FC = () => {
     <Box bg={brandColour} m="auto" p={{ base: 3, md: 5 }}>
       <Heading size="lg" textAlign="center" mb={6}>Contact Us</Heading>
       <Text fontSize="lg" textAlign="center">
-        For enquiries reach out to us via email or find us on LinkedIn for more updates.
-      </Text>
-      <VStack mt={8} align="center">
+        For enquiries reach out to us via email or find us on{' '}
         <Link href="https://www.linkedin.com/company/pf-geomatics/" isExternal>
           <Button
             leftIcon={<Icon as={FaLinkedin} />}
@@ -83,20 +81,22 @@ const ContactForm: React.FC = () => {
             _hover={{ bg: buttonHoverBg }}
             _active={{ bg: buttonHoverBg, transform: 'scale(0.95)' }}
             transition="all 0.2s ease-in-out"
-            size="lg"
+            size="m"
+            p={2}
           >
             LinkedIn
           </Button>
         </Link>
-      </VStack>
-      <Box maxW={{ base: "90%", md: "800px" }} p={5} shadow="md" borderWidth="1px" m="auto" borderRadius={5} mt={3}>
+        {' '}for more updates.
+      </Text>
+      <Box maxW={{ base: "90%", md: "800px" }} p={5} shadow="md" borderWidth="1px" borderColor={buttonBorderColor} m="auto" borderRadius={5} mt={3}>
         <form onSubmit={handleSubmit(onSubmit)}>
           <VStack spacing={4}>
-            <FormControl isInvalid={Boolean(errors.name)}>
+            <FormControl isInvalid={Boolean(errors.name) } borderColor={buttonBorderColor} >
               <FormLabel htmlFor="name">Name</FormLabel>
               <Input id="name" type="text" {...register("name", { required: "This is required", maxLength: 80 })} />
             </FormControl>
-            <FormControl isInvalid={Boolean(errors.email)}>
+            <FormControl isInvalid={Boolean(errors.email)} borderColor={buttonBorderColor} >
               <FormLabel htmlFor="email">Email</FormLabel>
               <Input 
                 id="email" 
@@ -110,7 +110,7 @@ const ContactForm: React.FC = () => {
                 })} 
               />
             </FormControl>
-            <FormControl isInvalid={Boolean(errors.message)}>
+            <FormControl isInvalid={Boolean(errors.message)} borderColor={buttonBorderColor} >
               <FormLabel htmlFor="message">Message</FormLabel>
               <Textarea 
                 id="message" 
