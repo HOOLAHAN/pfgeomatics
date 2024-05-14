@@ -8,7 +8,7 @@ import { Link } from 'react-scroll';
 
 const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const brandColour = useColorModeValue('lightBrand.400', 'darkBrand.800');
+  const brandColour = useColorModeValue('lightBrand.400', 'darkBrand.1000');
 
   // Use Chakra UI's useBreakpointValue to handle responsive offsets
   const baseOffset = isOpen ? -256 : -56;
