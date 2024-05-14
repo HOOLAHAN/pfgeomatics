@@ -32,7 +32,6 @@ const Services: React.FC = () => {
               _hover={{
                 transform: 'scale(1.05)',
                 zIndex: '10',
-                boxShadow: '0 0 8px rgba(0,0,0,0.6)'
               }}
             >
               <Image

@@ -32,36 +32,33 @@ const Projects: React.FC = () => {
     <Box bg={brandColour}>
       <Box p={5} maxW="1200px" mx="auto">
         <Heading as="h2" size="xl" mb={6} textAlign="center">Projects</Heading>
-        <ChakraCarousel gap={5}>
+        <ChakraCarousel gap={40} >
           {projectsData.map((project: Project) => (
             <Box key={project.name} onClick={() => handleProjectClick(project)} cursor="pointer"
               position="relative" overflow="hidden"
               _hover={{
                 transform: 'scale(1.05)',
                 zIndex: '10',
-                boxShadow: '0 0 8px rgba(0,0,0,0.6)'
               }}
             >
               {project.image && (
-              <Box width="400px" height="200px" position="relative">
-                <Image 
-                  src={require(`../media/projectImages/${project.image}`)}
-                  alt={project.name}
-                  width="100%"
-                  height="100%"
-                  objectFit="cover"
-                  transition="all 0.3s ease-in-out"
-                  _hover={{
-                    filter: 'brightness(0.8)'
-                  }}
-                />
-                <Icon as={ViewIcon} color="white" boxSize="4" position="absolute" top="1" right="8"
-                  transition="opacity 0.3s ease"
-                  _groupHover={{ opacity: '1' }}
-                />
-              </Box>
+                <ImageContainer>
+                  <Image 
+                    src={require(`../media/projectImages/${project.image}`)}
+                    alt={project.name}
+                    objectFit="cover"
+                    transition="all 0.3s ease-in-out"
+                    _hover={{
+                      filter: 'brightness(0.8)'
+                    }}
+                  />
+                  <Icon as={ViewIcon} color="white" boxSize="4" position="absolute" top="1" right="3"
+                    transition="opacity 0.3s ease"
+                    _groupHover={{ opacity: '1' }}
+                  />
+                </ImageContainer>
               )}
-              <Text textAlign="center">{project.name}</Text>
+              <Text textAlign="center" mt={2}>{project.name}</Text>
             </Box>
           ))}
         </ChakraCarousel>
@@ -72,5 +69,11 @@ const Projects: React.FC = () => {
     </Box>
   );
 };
+
+const ImageContainer: React.FC<{ children: React.ReactNode }> = ({ children }) => (
+  <Box width="100%" height="200px" position="relative" overflow="hidden" borderRadius="sm">
+    {children}
+  </Box>
+);
 
 export default Projects;
