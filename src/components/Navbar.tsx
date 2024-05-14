@@ -11,7 +11,7 @@ const Navbar: React.FC = () => {
   const brandColour = useColorModeValue('lightBrand.400', 'darkBrand.1000');
 
   // Use Chakra UI's useBreakpointValue to handle responsive offsets
-  const baseOffset = isOpen ? -256 : -56;
+  const baseOffset = isOpen ? -296 : -56;
   const offset = useBreakpointValue({ base: baseOffset, md: -56 });
 
   const toggleMenu = () => setIsOpen(!isOpen);
@@ -48,6 +48,9 @@ const Navbar: React.FC = () => {
           <Link to="cover-video" smooth={true} duration={500} offset={offset}>
             <Text as="span" {...linkStyles}>Home</Text>
           </Link>
+          <Link to="about" smooth={true} duration={500} offset={offset}>
+            <Text as="span" {...linkStyles}>About</Text>
+          </Link>
           <Link to="projects" smooth={true} duration={500} offset={offset}>
             <Text as="span" {...linkStyles}>Projects</Text>
           </Link>
@@ -76,13 +79,16 @@ const Navbar: React.FC = () => {
             <Link to="cover-video" smooth={true} duration={500} offset={offset} onClick={toggleMenu}>
               <Text as="span" {...linkStyles}>Home</Text>
             </Link>
+            <Link to="about" smooth={true} duration={500} offset={offset} onClick={toggleMenu}>
+              <Text as="span" {...linkStyles}>About</Text>
+            </Link>
             <Link to="projects" smooth={true} duration={500} offset={offset} onClick={toggleMenu}>
               <Text as="span" {...linkStyles}>Projects</Text>
             </Link>
             <Link to="services" smooth={true} duration={500} offset={offset} onClick={toggleMenu}>
               <Text as="span" {...linkStyles}>Services</Text>
             </Link>
-            <Link to="contact" smooth={true} duration={500} offset={offset} onClick={toggleMenu}>
+            <Link to="contact-form" smooth={true} duration={500} offset={offset} onClick={toggleMenu}>
               <Text as="span" {...linkStyles}>Contact</Text>
             </Link>
             <Link to="clients" smooth={true} duration={500} offset={offset} onClick={toggleMenu}>
