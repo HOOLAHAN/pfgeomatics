@@ -54,7 +54,7 @@ const Navbar: React.FC = () => {
           <Link to="services" smooth={true} duration={500} offset={offset}>
             <Text as="span" {...linkStyles}>Services</Text>
           </Link>
-          <Link to="contact" smooth={true} duration={500} offset={offset}>
+          <Link to="contact-form" smooth={true} duration={500} offset={offset}>
             <Text as="span" {...linkStyles}>Contact</Text>
           </Link>
           <Link to="clients" smooth={true} duration={500} offset={offset}>
