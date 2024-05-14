@@ -36,7 +36,7 @@ const ContactForm: React.FC = () => {
 
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
     try {
-      const response = await fetch('/api/send-email', {
+      const response = await fetch(process.env.REACT_APP_SEND_EMAIL_ENDPOINT!, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
