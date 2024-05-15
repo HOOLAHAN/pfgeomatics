@@ -51,6 +51,8 @@ const Projects: React.FC = () => {
                     src={require(`../media/projectImages/${project.image}`)}
                     alt={project.name}
                     objectFit="cover"
+                    objectPosition="center"
+                    w="100%"
                     transition="all 0.3s ease-in-out"
                     _hover={{
                       filter: 'brightness(0.8)'
