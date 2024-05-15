@@ -30,7 +30,7 @@ const AboutModal: React.FC<AboutModalProps> = ({ isOpen, onClose }) => {
   return (
     <Modal isOpen={isOpen} onClose={onClose} size="xl">
       <ModalOverlay />
-      <ModalContent>
+      <ModalContent m={3}>
         <ModalHeader>About Us</ModalHeader>
         <ModalCloseButton />
         <ModalBody>
