@@ -8,7 +8,6 @@ import {
   useMemo,
   useRef
 } from "react";
-
 import {
   useMediaQuery,
   useTheme,
@@ -18,7 +17,6 @@ import {
   Flex,
   Box
 } from "@chakra-ui/react";
-
 import { ChevronRightIcon, ChevronLeftIcon } from "@chakra-ui/icons";
 import { motion, useAnimation, useMotionValue } from "framer-motion";
 import { useBoundingRect } from "../hooks";
@@ -199,6 +197,7 @@ const Slider = ({
           color="gray.200"
           variant="link"
           minW={0}
+          aria-label="Previous"
         >
           <ChevronLeftIcon boxSize={9} />
         </Button>
@@ -225,6 +224,7 @@ const Slider = ({
           variant="link"
           zIndex={2}
           minW={0}
+          aria-label="Next"
         >
           <ChevronRightIcon boxSize={9} />
         </Button>
@@ -252,7 +252,6 @@ const Track = ({
   const handleDragStart = () => setDragStartPosition(positions[activeItem]);
 
   const handleDragEnd = (_, info) => {
-    console.log(info);
     const distance = info.offset.x;
     const velocity = info.velocity.x * multiplier;
     const direction = velocity < 0 || distance < 0 ? 1 : -1;
