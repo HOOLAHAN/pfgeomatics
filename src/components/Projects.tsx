@@ -32,10 +32,14 @@ const Projects: React.FC = () => {
     <Box bg={brandColour}>
       <Box p={5} maxW="1200px" mx="auto">
         <Heading as="h2" size="xl" mb={6} textAlign="center">Projects</Heading>
-        <ChakraCarousel gap={40} >
+        <ChakraCarousel gap={40}>
           {projectsData.map((project: Project) => (
-            <Box key={project.name} onClick={() => handleProjectClick(project)} cursor="pointer"
-              position="relative" overflow="hidden"
+            <Box
+              key={project.name}
+              onClick={() => handleProjectClick(project)}
+              cursor="pointer"
+              position="relative"
+              overflow="hidden"
               _hover={{
                 transform: 'scale(1.05)',
                 zIndex: '10',

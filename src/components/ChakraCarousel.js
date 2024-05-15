@@ -157,14 +157,15 @@ const Slider = ({
   };
 
   return (
-    <>
+    <Box position="relative" w="100%">
       <Box
         ref={ref}
-        w={{ base: "100%", md: `calc(100% + ${gap}px)` }}
-        ml={{ base: 0, md: `-${gap / 2}px` }}
-        px={`${gap / 2}px`}
+        maxW="1200px"
+        w="100%"
+        mx="auto"
         position="relative"
         overflow="hidden"
+        px={`${gap / 2}px`}
         _before={{
           bgGradient: "linear(to-r, base.d400, transparent)",
           position: "absolute",
@@ -189,19 +190,57 @@ const Slider = ({
         {children}
       </Box>
 
-      <Flex w={`${itemWidth}px`} mt={`${gap / 2}px`} mx="auto">
-        <Button
-          onClick={handleDecrementClick}
-          onFocus={handleFocus}
-          mr={`${gap / 3}px`}
-          color="gray.200"
-          variant="link"
-          minW={0}
-          aria-label="Previous"
-        >
-          <ChevronLeftIcon boxSize={9} />
-        </Button>
+      <Button
+        onClick={handleDecrementClick}
+        onFocus={handleFocus}
+        position="absolute"
+        left="-50px"
+        top="38%"
+        transform="translateY(-50%)"
+        color="gray.600"
+        bg="white"
+        borderRadius="50%"
+        width="40px"
+        height="40px"
+        _hover={{
+          bg: "gray.300",
+        }}
+        _active={{
+          bg: "gray.400",
+        }}
+        boxShadow="md"
+        border="1px solid gray.300"
+        aria-label="Previous"
+      >
+        <ChevronLeftIcon boxSize={6} />
+      </Button>
 
+      <Button
+        onClick={handleIncrementClick}
+        onFocus={handleFocus}
+        position="absolute"
+        right="-50px"
+        top="38%"
+        transform="translateY(-50%)"
+        color="gray.600"
+        bg="white"
+        borderRadius="50%"
+        width="40px"
+        height="40px"
+        _hover={{
+          bg: "gray.300",
+        }}
+        _active={{
+          bg: "gray.400",
+        }}
+        boxShadow="md"
+        border="1px solid gray.300"
+        aria-label="Next"
+      >
+        <ChevronRightIcon boxSize={6} />
+      </Button>
+
+      <Flex w="100%" mt={`${gap / 2}px`} mx="auto">
         <Progress
           value={percentage(activeItem, positions.length - constraint)}
           alignSelf="center"
@@ -215,21 +254,8 @@ const Slider = ({
             }
           }}
         />
-
-        <Button
-          onClick={handleIncrementClick}
-          onFocus={handleFocus}
-          ml={`${gap / 3}px`}
-          color="gray.200"
-          variant="link"
-          zIndex={2}
-          minW={0}
-          aria-label="Next"
-        >
-          <ChevronRightIcon boxSize={9} />
-        </Button>
       </Flex>
-    </>
+    </Box>
   );
 };
 
