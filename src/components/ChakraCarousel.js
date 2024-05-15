@@ -48,33 +48,27 @@ const ChakraCarousel = ({ children, gap }) => {
 
   const { breakpoints } = useTheme();
 
-  const [isBetweenBaseAndMd] = useMediaQuery(
-    `(min-width: ${breakpoints.base}) and (max-width: ${breakpoints.md})`
-  );
-
+  const [isLessThanMd] = useMediaQuery(`(max-width: ${breakpoints.md})`);
   const [isBetweenMdAndXl] = useMediaQuery(
     `(min-width: ${breakpoints.md}) and (max-width: ${breakpoints.xl})`
   );
-
   const [isGreaterThanXL] = useMediaQuery(`(min-width: ${breakpoints.xl})`);
 
   useEffect(() => {
-    if (isBetweenBaseAndMd) {
+    if (isLessThanMd) {
       setItemWidth(sliderWidth - gap);
       setMultiplier(0.65);
       setConstraint(1);
-    }
-    if (isBetweenMdAndXl) {
+    } else if (isBetweenMdAndXl) {
       setItemWidth(sliderWidth / 2 - gap);
       setMultiplier(0.5);
       setConstraint(2);
-    }
-    if (isGreaterThanXL) {
+    } else if (isGreaterThanXL) {
       setItemWidth(sliderWidth / 3 - gap);
       setMultiplier(0.35);
       setConstraint(3);
     }
-  }, [isBetweenBaseAndMd, isBetweenMdAndXl, isGreaterThanXL, sliderWidth, gap]);
+  }, [isLessThanMd, isBetweenMdAndXl, isGreaterThanXL, sliderWidth, gap]);
 
   const sliderProps = {
     setTrackIsActive,
@@ -156,6 +150,9 @@ const Slider = ({
       setActiveItem((prev) => prev + 1);
   };
 
+  const { breakpoints } = useTheme();
+  const [isLessThanMd] = useMediaQuery(`(max-width: ${breakpoints.md})`);
+
   return (
     <Box position="relative" w="100%">
       <Box
@@ -194,14 +191,14 @@ const Slider = ({
         onClick={handleDecrementClick}
         onFocus={handleFocus}
         position="absolute"
-        left="-50px"
+        left={isLessThanMd ? "-20px" : "-50px"}
         top="38%"
         transform="translateY(-50%)"
         color="gray.600"
         bg="white"
         borderRadius="50%"
-        width="40px"
-        height="40px"
+        width={isLessThanMd ? "40px" : "40px"}
+        height={isLessThanMd ? "40px" : "40px"}
         _hover={{
           bg: "gray.300",
         }}
@@ -212,21 +209,21 @@ const Slider = ({
         border="1px solid gray.300"
         aria-label="Previous"
       >
-        <ChevronLeftIcon boxSize={6} />
+        <ChevronLeftIcon boxSize={isLessThanMd ? 4 : 6} />
       </Button>
 
       <Button
         onClick={handleIncrementClick}
         onFocus={handleFocus}
         position="absolute"
-        right="-50px"
+        right={isLessThanMd ? "-20px" : "-50px"}
         top="38%"
         transform="translateY(-50%)"
         color="gray.600"
         bg="white"
         borderRadius="50%"
-        width="40px"
-        height="40px"
+        width={isLessThanMd ? "40px" : "40px"}
+        height={isLessThanMd ? "40px" : "40px"}
         _hover={{
           bg: "gray.300",
         }}
@@ -237,7 +234,7 @@ const Slider = ({
         border="1px solid gray.300"
         aria-label="Next"
       >
-        <ChevronRightIcon boxSize={6} />
+        <ChevronRightIcon boxSize={isLessThanMd ? 4 : 6} />
       </Button>
 
       <Flex w="100%" mt={`${gap / 2}px`} mx="auto">
