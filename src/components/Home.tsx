@@ -24,11 +24,11 @@ const Home: React.FC = () => {
       <Box id="services">
         <Services />
       </Box>
-      <Box id="contact-form">
-        <ContactForm />
-      </Box>
       <Box id="clients">
         <Clients />
+      </Box>
+      <Box id="contact-form">
+        <ContactForm />
       </Box>
       <Footer />
     </Box>
