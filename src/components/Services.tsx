@@ -1,9 +1,18 @@
 // src/components/Services.tsx
 
 import React, { useState } from 'react';
-import { Box, Heading, SimpleGrid, Image, Modal, ModalOverlay, ModalContent, ModalHeader, ModalBody, ModalCloseButton, useDisclosure, Text, useColorModeValue, Icon, List, ListItem } from '@chakra-ui/react';
+import {
+  Box,
+  Heading,
+  SimpleGrid,
+  Image,
+  useDisclosure,
+  useColorModeValue,
+  Icon,
+} from '@chakra-ui/react';
 import { servicesData } from '../data/servicesData';
 import { ViewIcon } from '@chakra-ui/icons';
+import ServiceModal from './ServiceModal';
 
 interface Service {
   title: string;
@@ -24,11 +33,17 @@ const Services: React.FC = () => {
   return (
     <Box bg={brandColour}>
       <Box p={5} maxW="1200px" mx="auto">
-        <Heading as="h2" size="xl" mb={6} textAlign="center">Our Services</Heading>
+        <Heading as="h2" size="xl" mb={6} textAlign="center">
+          Our Services
+        </Heading>
         <SimpleGrid columns={{ sm: 1, md: 2, lg: 3 }} spacing={10}>
           {servicesData.map((service: Service) => (
-            <Box key={service.title} position="relative" cursor="pointer" onClick={() => handleServiceClick(service)}
-              overflow="hidden" 
+            <Box
+              key={service.title}
+              position="relative"
+              cursor="pointer"
+              onClick={() => handleServiceClick(service)}
+              overflow="hidden"
               _hover={{
                 transform: 'scale(1.05)',
                 zIndex: '10',
@@ -43,12 +58,18 @@ const Services: React.FC = () => {
                 height="100%"
                 transition="all 0.3s ease-in-out"
                 _hover={{
-                  filter: 'brightness(0.8)'
+                  filter: 'brightness(0.8)',
                 }}
               />
-              <Icon as={ViewIcon} color="white" boxSize="4" position="absolute" top="1" right="3"
-                  transition="opacity 0.3s ease"
-                  _groupHover={{ opacity: '1' }}
+              <Icon
+                as={ViewIcon}
+                color="white"
+                boxSize="4"
+                position="absolute"
+                top="1"
+                right="3"
+                transition="opacity 0.3s ease"
+                _groupHover={{ opacity: '1' }}
               />
               <Heading
                 position="absolute"
@@ -66,29 +87,7 @@ const Services: React.FC = () => {
         </SimpleGrid>
       </Box>
 
-      {selectedService && (
-        <Modal isOpen={isOpen} onClose={onClose}>
-          <ModalOverlay />
-          <ModalContent m={3}>
-            <ModalHeader>{selectedService.title}</ModalHeader>
-            <ModalCloseButton />
-            <ModalBody>
-            <Image
-                borderRadius="sm"
-                src={require(`../media/serviceImages/${selectedService.image}`)}
-                alt={`${selectedService.title} image`}
-                objectFit="cover"
-              />
-              <Text fontWeight="bold">Services:</Text>
-              <List spacing={2} styleType="disc" paddingLeft={4}>
-                {selectedService.service.map((item, index) => (
-                  <ListItem key={index}>{item}</ListItem>
-                ))}
-              </List>
-            </ModalBody>
-          </ModalContent>
-        </Modal>
-      )}
+      <ServiceModal isOpen={isOpen} onClose={onClose} selectedService={selectedService} />
     </Box>
   );
 };
