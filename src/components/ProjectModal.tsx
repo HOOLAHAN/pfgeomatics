@@ -40,7 +40,7 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, isOpen, onClose })
   return (
     <Modal isOpen={isOpen} onClose={onClose} size="xl">
       <ModalOverlay />
-      <ModalContent>
+      <ModalContent m={3}>
         <ModalHeader>{project.name}</ModalHeader>
         <ModalCloseButton />
         <ModalBody>
