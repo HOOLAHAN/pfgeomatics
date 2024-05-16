@@ -2,7 +2,11 @@ import React from 'react';
 import { Box, Text, VStack, useMediaQuery } from '@chakra-ui/react';
 
 const CoverVideo: React.FC<{ src: string }> = ({ src }) => {
-  const [isSmallScreen] = useMediaQuery('(max-width: 600px)');
+  const [isSmallScreenWidth] = useMediaQuery('(max-width: 600px)');
+  const [isSmallScreenHeight] = useMediaQuery('(max-height: 500px)');
+  
+  const fontSizeForTitle = isSmallScreenWidth || isSmallScreenHeight ? '2xl' : '6xl';
+  const fontSizeForSubtitle = isSmallScreenWidth || isSmallScreenHeight ? '2xl' : '3xl';
 
   return (
     <Box position="relative" width="100%" height="40vh" overflow="hidden" m={0} mt={-1}>
@@ -26,8 +30,8 @@ const CoverVideo: React.FC<{ src: string }> = ({ src }) => {
         borderRadius="md"
         zIndex="10"
       >
-        <Text fontSize={isSmallScreen ? '2xl' : '6xl'} fontWeight="bold">PF Geomatics</Text>
-        <Text fontSize={isSmallScreen ? 'l' : '3xl'}>Site Engineering Surveyors</Text>
+        <Text fontSize={fontSizeForTitle} fontWeight="bold">PF Geomatics</Text>
+        <Text fontSize={fontSizeForSubtitle}>Site Engineering Surveyors</Text>
       </VStack>
     </Box>
   );
