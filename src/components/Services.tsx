@@ -69,7 +69,7 @@ const Services: React.FC = () => {
       {selectedService && (
         <Modal isOpen={isOpen} onClose={onClose}>
           <ModalOverlay />
-          <ModalContent>
+          <ModalContent m={3}>
             <ModalHeader>{selectedService.title}</ModalHeader>
             <ModalCloseButton />
             <ModalBody>
