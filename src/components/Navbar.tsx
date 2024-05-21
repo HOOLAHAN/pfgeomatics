@@ -1,7 +1,7 @@
 // src/components/Navbar.tsx
 
 import { useState } from 'react';
-import { Box, Flex, IconButton, Image, useColorModeValue, useBreakpointValue, Stack, Collapse, Text } from '@chakra-ui/react';
+import { Box, Flex, IconButton, useColorModeValue, useBreakpointValue, Stack, Collapse, Text } from '@chakra-ui/react';
 import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
 import { ColorModeSwitcher } from "../ColorModeSwitcher";
 import { Link } from 'react-scroll';
@@ -38,12 +38,6 @@ const Navbar: React.FC = () => {
     >
       <Flex align="center" justify="space-between" position="relative">
         <ColorModeSwitcher />
-        <Box position="absolute" left="50%" transform="translateX(-50%)">
-          <Image
-            src="/logo.webp" 
-            maxH={{ base: "40px", md: "40px" }}  
-          />
-        </Box>
         <Flex display={{ base: "none", md: "flex" }}>
           <Link to="cover-video" smooth={true} duration={500} offset={offset}>
             <Text as="span" {...linkStyles}>Home</Text>

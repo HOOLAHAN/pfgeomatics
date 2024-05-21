@@ -1,12 +1,9 @@
+// src/components/CoverVideo.tsx
+
 import React from 'react';
-import { Box, Text, VStack, useMediaQuery } from '@chakra-ui/react';
+import { Box, VStack, Image } from '@chakra-ui/react';
 
 const CoverVideo: React.FC<{ src: string }> = ({ src }) => {
-  const [isSmallScreenWidth] = useMediaQuery('(max-width: 600px)');
-  const [isSmallScreenHeight] = useMediaQuery('(max-height: 500px)');
-  
-  const fontSizeForTitle = isSmallScreenWidth || isSmallScreenHeight ? '2xl' : '6xl';
-  const fontSizeForSubtitle = isSmallScreenWidth || isSmallScreenHeight ? '2xl' : '3xl';
 
   return (
     <Box position="relative" width="100%" height="40vh" overflow="hidden" m={0} mt={-1}>
@@ -30,8 +27,17 @@ const CoverVideo: React.FC<{ src: string }> = ({ src }) => {
         borderRadius="md"
         zIndex="10"
       >
-        <Text fontSize={fontSizeForTitle} fontWeight="bold">PF Geomatics</Text>
-        <Text fontSize={fontSizeForSubtitle}>Site Engineering Surveyors</Text>
+        <Box
+          backgroundColor="rgba(0, 0, 0, 0.2)"
+          padding="10px"
+          borderRadius="md"
+        >
+          <Image
+            src="/PFG_LOGO_W2.png"
+            alt="PF Geomatics Logo"
+            maxH={{ base: '100px', md: '150px' }}
+          />
+        </Box>
       </VStack>
     </Box>
   );
