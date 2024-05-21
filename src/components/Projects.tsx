@@ -6,6 +6,7 @@ import { ViewIcon } from '@chakra-ui/icons';
 import { projectsData } from '../data/projectsData';
 import ProjectModal from './ProjectModal';
 import ChakraCarousel from './ChakraCarousel';
+import checkImageExists from '../utils/checkImageExists';
 
 interface Project {
   name: string;
@@ -13,7 +14,7 @@ interface Project {
   client: string;
   dateStarted: string;
   dateEnded: string;
-  image: string;
+  imageFolder: string;
   description: string;
   linkedIn: string;
 }
@@ -45,10 +46,10 @@ const Projects: React.FC = () => {
                 zIndex: '10',
               }}
             >
-              {project.image && (
+              {project.imageFolder && (
                 <ImageContainer>
                   <Image 
-                    src={require(`../media/projectImages/${project.image}`)}
+                    src={checkImageExists(project.imageFolder)}
                     alt={project.name}
                     objectFit="cover"
                     objectPosition="center"
