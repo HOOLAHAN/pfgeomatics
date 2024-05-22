@@ -1,5 +1,3 @@
-// src/components/MapComponent.tsx
-
 import React, { useEffect, useState } from 'react';
 import ReactMapGL, { Marker, Popup, ViewStateChangeEvent } from 'react-map-gl';
 import { Box } from '@chakra-ui/react';
@@ -7,6 +5,7 @@ import { fetchCoordinates } from '../utils/fetchCoordinates';
 import { projectsData } from '../data/projectsData';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import '../css/MapComponent.css';
+import { LngLatBounds } from 'mapbox-gl';
 
 interface Project {
   name: string;
@@ -22,6 +21,11 @@ interface Project {
   longitude?: number;
 }
 
+type ProjectWithCoordinates = Project & {
+  latitude: number;
+  longitude: number;
+};
+
 const MapComponent: React.FC = () => {
   const [viewport, setViewport] = useState({
     latitude: 51.5074, // Default to London
@@ -30,8 +34,8 @@ const MapComponent: React.FC = () => {
     width: '100vw',
     height: '100vh'
   });
-  const [projects, setProjects] = useState<Project[]>(projectsData);
-  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const [projects, setProjects] = useState<ProjectWithCoordinates[]>([]);
+  const [selectedProject, setSelectedProject] = useState<ProjectWithCoordinates | null>(null);
 
   useEffect(() => {
     const fetchAndSetCoordinates = async () => {
@@ -39,7 +43,7 @@ const MapComponent: React.FC = () => {
         const postcodes = projectsData.map(p => p.postcode);
         const coordinates = await fetchCoordinates(postcodes);
 
-        const updatedProjects = projectsData.map((project) => {
+        const updatedProjects: ProjectWithCoordinates[] = projectsData.map((project) => {
           const coordinate = coordinates.find(c => c.postcode === project.postcode);
           if (coordinate) {
             return {
@@ -49,11 +53,35 @@ const MapComponent: React.FC = () => {
             };
           } else {
             console.warn(`No coordinates found for postcode: ${project.postcode}`);
-            return project;
+            return {
+              ...project,
+              latitude: 0,
+              longitude: 0
+            };
           }
         });
 
         setProjects(updatedProjects);
+
+        // Calculate bounds
+        const bounds = new LngLatBounds();
+        updatedProjects.forEach(project => {
+          if (project.latitude && project.longitude) {
+            bounds.extend([project.longitude, project.latitude]);
+          }
+        });
+
+        // Fit the map to the bounds initially
+        const { _ne: ne, _sw: sw } = bounds;
+        const center = [(ne.lng + sw.lng) / 2, (ne.lat + sw.lat) / 2];
+        const zoom = Math.min(14, Math.log2(360 / (ne.lng - sw.lng)) - 1);
+
+        setViewport(prevViewport => ({
+          ...prevViewport,
+          latitude: center[1],
+          longitude: center[0],
+          zoom
+        }));
       } catch (error) {
         console.error('Error fetching coordinates:', error);
       }
@@ -63,7 +91,7 @@ const MapComponent: React.FC = () => {
   }, []);
 
   return (
-    <Box width="100%" height="40vh" maxW="1200px" mx="auto" position="relative">
+    <Box width="100%" height="40vh" maxW="1200px" mx="auto" position="relative" p={5} overflow="hidden">
       <ReactMapGL
         {...viewport}
         mapStyle="mapbox://styles/mapbox/streets-v11"
