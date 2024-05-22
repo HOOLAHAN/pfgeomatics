@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import ReactMapGL, { Marker, ViewStateChangeEvent } from 'react-map-gl';
-import { Box, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, ModalFooter, Button, useDisclosure } from '@chakra-ui/react';
+import { Box, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, ModalFooter, Button, useDisclosure, useColorModeValue } from '@chakra-ui/react';
 import { fetchCoordinates } from '../utils/fetchCoordinates';
 import { projectsData } from '../data/projectsData';
 import 'mapbox-gl/dist/mapbox-gl.css';
@@ -27,6 +27,10 @@ type ProjectWithCoordinates = Project & {
 };
 
 const MapComponent: React.FC = () => {
+  const buttonBorderColor = useColorModeValue('black', 'white');
+  const buttonTextColor = useColorModeValue('black', 'white');
+  const buttonHoverBg = useColorModeValue('gray.200', 'whiteAlpha.300');
+
   const [viewport, setViewport] = useState({
     latitude: 51.5074, // Default to London
     longitude: -0.1278,
@@ -138,9 +142,9 @@ const MapComponent: React.FC = () => {
       </ReactMapGL>
 
       {selectedProject && (
-        <Modal isOpen={isOpen} onClose={onClose}>
+        <Modal isOpen={isOpen} onClose={onClose} size="sm">
           <ModalOverlay />
-          <ModalContent>
+          <ModalContent m={3}>
             <ModalHeader>{selectedProject.name}</ModalHeader>
             <ModalCloseButton />
             <ModalBody>
@@ -148,9 +152,18 @@ const MapComponent: React.FC = () => {
               <p><strong>Duration:</strong> {selectedProject.dateStarted} - {selectedProject.dateEnded}</p>
             </ModalBody>
             <ModalFooter>
-              <Button colorScheme="blue" onClick={onClose}>
-                Close
-              </Button>
+            <Button
+              size="sm"
+              variant="outline"
+              borderColor={buttonBorderColor}
+              color={buttonTextColor}
+              _hover={{ bg: buttonHoverBg }}
+              _active={{ bg: buttonHoverBg, transform: 'scale(0.95)' }}
+              transition="all 0.2s ease-in-out"
+              onClick={onClose}
+          >
+            Close
+          </Button>
             </ModalFooter>
           </ModalContent>
         </Modal>
