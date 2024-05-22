@@ -14,7 +14,7 @@ import {
   HStack,
   Icon,
   Image,
-  Link
+  Link, useColorModeValue
 } from '@chakra-ui/react';
 
 import { FaLinkedin } from 'react-icons/fa';
@@ -38,6 +38,9 @@ interface ProjectModalProps {
 }
 
 const ProjectModal: React.FC<ProjectModalProps> = ({ project, isOpen, onClose }) => {
+  const buttonBorderColor = useColorModeValue('black', 'white');
+  const buttonTextColor = useColorModeValue('black', 'white');
+  const buttonHoverBg = useColorModeValue('gray.200', 'whiteAlpha.300');
   const imageUrl = checkImageExists(project.imageFolder);
 
   return (
@@ -68,7 +71,18 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, isOpen, onClose })
           </VStack>
         </ModalBody>
         <ModalFooter>
-          <Button colorScheme="blue" mr={3} onClick={onClose}>Close</Button>
+        <Button
+            size="sm"
+            variant="outline"
+            borderColor={buttonBorderColor}
+            color={buttonTextColor}
+            _hover={{ bg: buttonHoverBg }}
+            _active={{ bg: buttonHoverBg, transform: 'scale(0.95)' }}
+            transition="all 0.2s ease-in-out"
+            onClick={onClose}
+          >
+            Close
+          </Button>
         </ModalFooter>
       </ModalContent>
     </Modal>

@@ -60,7 +60,7 @@ const AboutModal: React.FC<AboutModalProps> = ({ isOpen, onClose }) => {
         </ModalBody>
         <ModalFooter>
           <Button
-            size="md"
+            size="sm"
             variant="outline"
             borderColor={buttonBorderColor}
             color={buttonTextColor}
