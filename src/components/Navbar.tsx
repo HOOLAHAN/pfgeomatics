@@ -11,7 +11,7 @@ const Navbar: React.FC = () => {
   const brandColour = useColorModeValue('lightBrand.400', 'darkBrand.1000');
 
   // Use Chakra UI's useBreakpointValue to handle responsive offsets
-  const baseOffset = isOpen ? -296 : -56;
+  const baseOffset = isOpen ? -336 : -56;
   const offset = useBreakpointValue({ base: baseOffset, md: -56 });
 
   const toggleMenu = () => setIsOpen(!isOpen);
