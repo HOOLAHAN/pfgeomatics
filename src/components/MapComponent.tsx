@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import ReactMapGL, { Marker, Popup, ViewStateChangeEvent } from 'react-map-gl';
-import { Box } from '@chakra-ui/react';
+import ReactMapGL, { Marker, ViewStateChangeEvent } from 'react-map-gl';
+import { Box, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, ModalFooter, Button, useDisclosure } from '@chakra-ui/react';
 import { fetchCoordinates } from '../utils/fetchCoordinates';
 import { projectsData } from '../data/projectsData';
 import 'mapbox-gl/dist/mapbox-gl.css';
@@ -36,6 +36,9 @@ const MapComponent: React.FC = () => {
   });
   const [projects, setProjects] = useState<ProjectWithCoordinates[]>([]);
   const [selectedProject, setSelectedProject] = useState<ProjectWithCoordinates | null>(null);
+  const [initialLoad, setInitialLoad] = useState(true);
+
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   useEffect(() => {
     const fetchAndSetCoordinates = async () => {
@@ -63,35 +66,45 @@ const MapComponent: React.FC = () => {
 
         setProjects(updatedProjects);
 
-        // Calculate bounds
-        const bounds = new LngLatBounds();
-        updatedProjects.forEach(project => {
-          if (project.latitude && project.longitude) {
-            bounds.extend([project.longitude, project.latitude]);
+        if (initialLoad) {
+          // Calculate bounds
+          const bounds = new LngLatBounds();
+          updatedProjects.forEach(project => {
+            if (project.latitude && project.longitude) {
+              bounds.extend([project.longitude, project.latitude]);
+            }
+          });
+
+          if (!bounds.isEmpty()) {
+            // Fit the map to the bounds initially
+            const { _ne: ne, _sw: sw } = bounds;
+            const center = [(ne.lng + sw.lng) / 2, (ne.lat + sw.lat) / 2];
+            const zoom = Math.min(14, Math.log2(360 / (ne.lng - sw.lng)) - 1);
+
+            setViewport(prevViewport => ({
+              ...prevViewport,
+              latitude: center[1],
+              longitude: center[0],
+              zoom
+            }));
+            setInitialLoad(false);
           }
-        });
-
-        // Fit the map to the bounds initially
-        const { _ne: ne, _sw: sw } = bounds;
-        const center = [(ne.lng + sw.lng) / 2, (ne.lat + sw.lat) / 2];
-        const zoom = Math.min(14, Math.log2(360 / (ne.lng - sw.lng)) - 1);
-
-        setViewport(prevViewport => ({
-          ...prevViewport,
-          latitude: center[1],
-          longitude: center[0],
-          zoom
-        }));
+        }
       } catch (error) {
         console.error('Error fetching coordinates:', error);
       }
     };
 
     fetchAndSetCoordinates();
-  }, []);
+  }, [initialLoad]);
+
+  const handleMarkerClick = (project: ProjectWithCoordinates) => {
+    setSelectedProject(project);
+    onOpen();
+  };
 
   return (
-    <Box width="100%" height="40vh" maxW="1200px" mx="auto" position="relative" p={5} overflow="hidden">
+    <Box width="100%" height="40vh" maxW="1200px" mx="auto" position="relative" p={5} borderRadius="lg" overflow="hidden">
       <ReactMapGL
         {...viewport}
         mapStyle="mapbox://styles/mapbox/streets-v11"
@@ -103,8 +116,8 @@ const MapComponent: React.FC = () => {
         }
         mapboxAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
       >
-        {projects.map((project, index) =>
-          project.latitude !== undefined && project.longitude !== undefined ? (
+        {projects.map((project, index) => (
+          project.latitude !== 0 && project.longitude !== 0 ? (
             <Marker
               key={index}
               latitude={project.latitude}
@@ -114,28 +127,34 @@ const MapComponent: React.FC = () => {
                 className="marker-btn"
                 onClick={(e) => {
                   e.preventDefault();
-                  setSelectedProject(project);
+                  handleMarkerClick(project);
                 }}
               >
                 <img src="/A1.png" alt="Project Pin" />
               </button>
             </Marker>
           ) : null
-        )}
-
-        {selectedProject && (
-          <Popup
-            latitude={selectedProject.latitude!}
-            longitude={selectedProject.longitude!}
-            onClose={() => setSelectedProject(null)}
-          >
-            <div>
-              <h2>{selectedProject.name}</h2>
-              <p>{selectedProject.description}</p>
-            </div>
-          </Popup>
-        )}
+        ))}
       </ReactMapGL>
+
+      {selectedProject && (
+        <Modal isOpen={isOpen} onClose={onClose}>
+          <ModalOverlay />
+          <ModalContent>
+            <ModalHeader>{selectedProject.name}</ModalHeader>
+            <ModalCloseButton />
+            <ModalBody>
+              <p><strong>Client:</strong> {selectedProject.client}</p>
+              <p><strong>Duration:</strong> {selectedProject.dateStarted} - {selectedProject.dateEnded}</p>
+            </ModalBody>
+            <ModalFooter>
+              <Button colorScheme="blue" onClick={onClose}>
+                Close
+              </Button>
+            </ModalFooter>
+          </ModalContent>
+        </Modal>
+      )}
     </Box>
   );
 };
