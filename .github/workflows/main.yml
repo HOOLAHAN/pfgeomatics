@@ -33,6 +33,7 @@ jobs:
       - name: Build Project
         env:
           REACT_APP_SEND_EMAIL_ENDPOINT: ${{ secrets.REACT_APP_SEND_EMAIL_ENDPOINT }}
+          REACT_APP_MAPBOX_TOKEN: ${{ secrets.REACT_APP_MAPBOX_TOKEN }}
         run: npm run build
 
       - name: Configure AWS Credentials
