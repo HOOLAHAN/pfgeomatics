@@ -5,6 +5,7 @@ import CoverVideo from './CoverVideo';
 import About from './About';
 import Clients from './Clients';
 import Projects from './Projects';
+import MapComponent from './MapComponent';
 import Services from './Services';
 import ContactForm from './ContactForm';
 import Footer from './Footer';
@@ -20,6 +21,9 @@ const Home: React.FC = () => {
       </Box>
       <Box id="projects">
         <Projects />
+      </Box>
+      <Box  id="map">
+        <MapComponent />
       </Box>
       <Box id="services">
         <Services />

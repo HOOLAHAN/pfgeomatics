@@ -48,6 +48,9 @@ const Navbar: React.FC = () => {
           <Link to="projects" smooth={true} duration={500} offset={offset}>
             <Text as="span" {...linkStyles}>Projects</Text>
           </Link>
+          <Link to="map" smooth={true} duration={500} offset={offset}>
+            <Text as="span" {...linkStyles}>Map</Text>
+          </Link>
           <Link to="services" smooth={true} duration={500} offset={offset}>
             <Text as="span" {...linkStyles}>Services</Text>
           </Link>
@@ -78,6 +81,9 @@ const Navbar: React.FC = () => {
             </Link>
             <Link to="projects" smooth={true} duration={500} offset={offset} onClick={toggleMenu}>
               <Text as="span" {...linkStyles}>Projects</Text>
+            </Link>
+            <Link to="map" smooth={true} duration={500} offset={offset} onClick={toggleMenu}>
+              <Text as="span" {...linkStyles}>Map</Text>
             </Link>
             <Link to="services" smooth={true} duration={500} offset={offset} onClick={toggleMenu}>
               <Text as="span" {...linkStyles}>Services</Text>
