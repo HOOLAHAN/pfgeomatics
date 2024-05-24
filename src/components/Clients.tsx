@@ -9,6 +9,7 @@ import severfieldLogo from '../media/clients/severfield-logo.png';
 import build8Logo from '../media/clients/8build-logo.png';
 import kilnbridgeLogo from '../media/clients/kilnbridge-logo.png';
 import regalLondonLogo from '../media/clients/regal-london-logo.png';
+import mjrobinsonLogo from '../media/clients/MJ-Robinson-Structures.png'
 
 // Define an interface for each client logo
 interface ClientLogo {
@@ -23,6 +24,7 @@ const clientLogos: ClientLogo[] = [
   { name: '8build', src: build8Logo },
   { name: 'Kilnbridge', src: kilnbridgeLogo },
   { name: 'Regal London', src: regalLondonLogo },
+  { name: 'MJ Robinson Structures', src: mjrobinsonLogo },
 ];
 
 const Clients: React.FC = () => {
