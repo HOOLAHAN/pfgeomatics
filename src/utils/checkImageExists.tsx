@@ -1,15 +1,30 @@
 // src/utils/checkImageExists.ts
 
-const checkImageExists = (folder: string): string => {
+const checkImageExists = (folder: string): string[] => {
   const extensions = ['jpg', 'jpeg', 'png'];
-  for (const ext of extensions) {
-    try {
-      const imagePath = require(`../media/projectImages/${folder}/1.${ext}`);
-      return imagePath;
-    } catch (err) {
+  const images = [];
+  for (let i = 1; ; i++) {
+    let found = false;
+    for (const ext of extensions) {
+      try {
+        const imagePath = require(`../media/projectImages/${folder}/${i}.${ext}`);
+        images.push(imagePath);
+        found = true;
+        break;
+      } catch (err) {
+        // Continue to next extension
+      }
+    }
+    if (!found) {
+      break;
     }
   }
-  return '';
+  return images;
+};
+
+export const getFirstImage = (folder: string): string => {
+  const images = checkImageExists(folder);
+  return images.length > 0 ? images[0] : '';
 };
 
 export default checkImageExists;

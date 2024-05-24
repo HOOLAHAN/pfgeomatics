@@ -1,5 +1,5 @@
 // src/components/ProjectModal.tsx
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Modal,
   ModalOverlay,
@@ -13,9 +13,11 @@ import {
   VStack,
   HStack,
   Icon,
-  Image,
-  Link, useColorModeValue
+  Link,
+  useColorModeValue
 } from '@chakra-ui/react';
+import { Carousel } from 'react-responsive-carousel';
+import 'react-responsive-carousel/lib/styles/carousel.min.css';
 
 import { FaLinkedin } from 'react-icons/fa';
 import checkImageExists from '../utils/checkImageExists';
@@ -41,7 +43,13 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, isOpen, onClose })
   const buttonBorderColor = useColorModeValue('black', 'white');
   const buttonTextColor = useColorModeValue('black', 'white');
   const buttonHoverBg = useColorModeValue('gray.200', 'whiteAlpha.300');
-  const imageUrl = checkImageExists(project.imageFolder);
+
+  const [images, setImages] = useState<string[]>([]);
+
+  useEffect(() => {
+    const imageUrls = checkImageExists(project.imageFolder);
+    setImages(imageUrls);
+  }, [project.imageFolder]);
 
   return (
     <Modal isOpen={isOpen} onClose={onClose} size="xl">
@@ -51,8 +59,14 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, isOpen, onClose })
         <ModalCloseButton />
         <ModalBody>
           <VStack align="stretch" spacing={3}>
-            {imageUrl && (
-              <Image src={imageUrl} alt={project.name} boxSize="full" objectFit="cover" />
+            {images.length > 0 && (
+              <Carousel>
+                {images.map((src, index) => (
+                  <div key={index}>
+                    <img src={src} alt={`Slide ${index + 1} of ${project.name}`} />
+                  </div>
+                ))}
+              </Carousel>
             )}
             <Text><strong>Location:</strong> {project.location}</Text>
             <Text><strong>Client:</strong> {project.client}</Text>
@@ -71,7 +85,7 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, isOpen, onClose })
           </VStack>
         </ModalBody>
         <ModalFooter>
-        <Button
+          <Button
             size="sm"
             variant="outline"
             borderColor={buttonBorderColor}
