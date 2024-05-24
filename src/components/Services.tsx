@@ -71,17 +71,28 @@ const Services: React.FC = () => {
                 transition="opacity 0.3s ease"
                 _groupHover={{ opacity: '1' }}
               />
-              <Heading
+              <Box
                 position="absolute"
                 top="50%"
                 left="50%"
                 transform="translate(-50%, -50%)"
-                color="white"
-                size="lg"
-                textShadow="1px 1px 3px rgba(0,0,0,0.7)"
+                textAlign="center"
+                px={2}
+                backgroundColor="rgba(0, 0, 0, 0.2)"
+                padding="5px"
+                borderRadius="md"
               >
-                {service.title}
-              </Heading>
+                <Heading
+                  color="white"
+                  fontSize="2xl"
+                  fontWeight="bold"
+                  textShadow="1px 1px 3px rgba(0,0,0,0.7)"
+                  whiteSpace="normal"
+                  overflowWrap="break-word"
+                >
+                  {service.title}
+                </Heading>
+              </Box>
             </Box>
           ))}
         </SimpleGrid>

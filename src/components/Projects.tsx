@@ -1,7 +1,7 @@
 // src/components/Projects.tsx
 
 import React, { useState } from 'react';
-import { Box, Image, Text, Heading, useDisclosure, useColorModeValue, Icon } from '@chakra-ui/react';
+import { Box, Image, Heading, useDisclosure, useColorModeValue, Icon } from '@chakra-ui/react';
 import { ViewIcon } from '@chakra-ui/icons';
 import { projectsData } from '../data/projectsData';
 import ProjectModal from './ProjectModal';
@@ -65,7 +65,28 @@ const Projects: React.FC = () => {
                   />
                 </ImageContainer>
               )}
-              <Text textAlign="center" mt={2}>{project.name}</Text>
+              <Box
+                position="absolute"
+                top="50%"
+                left="50%"
+                transform="translate(-50%, -50%)"
+                textAlign="center"
+                px={2}
+                backgroundColor="rgba(0, 0, 0, 0.2)"
+                padding="5px"
+                borderRadius="md"
+              >
+                <Heading
+                  color="white"
+                  fontSize="2xl"
+                  fontWeight="bold"
+                  textShadow="1px 1px 3px rgba(0,0,0,0.7)"
+                  whiteSpace="normal"
+                  overflowWrap="break-word"
+                >
+                  {project.name}
+                </Heading>
+              </Box>
             </Box>
           ))}
         </ChakraCarousel>
