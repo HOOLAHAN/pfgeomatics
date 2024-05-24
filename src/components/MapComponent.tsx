@@ -42,8 +42,8 @@ const MapComponent: React.FC = () => {
     latitude: 51.5074, // Default to London
     longitude: -0.1278,
     zoom: 10,
-    width: '100vw',
-    height: '100vh'
+    width: '100%',
+    height: '100%'
   });
   const [projects, setProjects] = useState<ProjectWithCoordinates[]>([]);
   const [selectedProject, setSelectedProject] = useState<ProjectWithCoordinates | null>(null);
@@ -130,7 +130,7 @@ const MapComponent: React.FC = () => {
   };
 
   return (
-    <Box width="100%" height={height} maxW="1200px" mx="auto" position="relative" borderRadius="lg" overflow="hidden" ref={mapContainerRef}>
+    <Box width="calc(100% - 10px)" height={height} maxW="calc(1200px - 10px)" mx="auto" position="relative" p={0} borderRadius="lg" overflow="hidden" ref={mapContainerRef} m={5}>
       <ReactMapGL
         ref={mapRef}
         {...viewport}
