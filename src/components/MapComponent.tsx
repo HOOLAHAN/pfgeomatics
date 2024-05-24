@@ -108,7 +108,7 @@ const MapComponent: React.FC = () => {
   };
 
   return (
-    <Box width="100%" height="40vh" maxW="1200px" mx="auto" position="relative" p={5} borderRadius="lg" overflow="hidden">
+    <Box width="100%" height="65vh" maxW="1200px" mx="auto" position="relative" p={5} borderRadius="lg" overflow="hidden">
       <ReactMapGL
         {...viewport}
         mapStyle="mapbox://styles/mapbox/streets-v11"
