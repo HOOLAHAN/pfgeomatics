@@ -32,7 +32,7 @@ const MapComponent: React.FC = () => {
   const buttonBorderColor = useColorModeValue('black', 'white');
   const buttonTextColor = useColorModeValue('black', 'white');
   const buttonHoverBg = useColorModeValue('gray.200', 'whiteAlpha.300');
-  const height = useBreakpointValue({ base: '40vh', md: '75vh' });
+  const height = useBreakpointValue({ base: '45vh', md: '75vh' });
   const brandColour = useColorModeValue('lightBrand.400', 'darkBrand.1000');
 
   const mapContainerRef = useRef<HTMLDivElement>(null);
@@ -118,7 +118,7 @@ const MapComponent: React.FC = () => {
     if (!bounds.isEmpty()) {
       const { _ne: ne, _sw: sw } = bounds;
       const center = [(ne.lng + sw.lng) / 2, (ne.lat + sw.lat) / 2];
-      const zoom = Math.min(14, Math.log2(360 / (ne.lng - sw.lng)) - 1) - 0.1; // Slightly zoom out
+      const zoom = Math.min(14, Math.log2(360 / (ne.lng - sw.lng)) - 1); // Slightly zoom out
 
       setViewport(prevViewport => ({
         ...prevViewport,
@@ -130,44 +130,46 @@ const MapComponent: React.FC = () => {
   };
 
   return (
-    <Box width="calc(100% - 10px)" height={height} maxW="calc(1200px - 10px)" mx="auto" position="relative" p={0} borderRadius="lg" overflow="hidden" ref={mapContainerRef} m={5}>
-      <ReactMapGL
-        ref={mapRef}
-        {...viewport}
-        mapStyle="mapbox://styles/mapbox/streets-v11"
-        onMove={(evt: ViewStateChangeEvent) => 
-          setViewport((prevViewport) => ({
-            ...prevViewport,
-            ...evt.viewState
-          }))
-        }
-        mapboxAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
-      >
-        {projects.map((project, index) => (
-          project.latitude !== 0 && project.longitude !== 0 ? (
-            <Marker
-              key={index}
-              latitude={project.latitude}
-              longitude={project.longitude}
-            >
-              <button
-                className="marker-btn"
-                onClick={(e) => {
-                  e.preventDefault();
-                  handleMarkerClick(project);
-                }}
+    <Box width="100%" maxW="1200px" mx="auto" position="relative" p={5} borderRadius="lg" overflow="hidden" ref={mapContainerRef} >
+      <Box width="calc(100% - 10px)" height={height} m="5px" position="relative" borderRadius="lg" overflow="hidden">
+        <ReactMapGL
+          ref={mapRef}
+          {...viewport}
+          mapStyle="mapbox://styles/mapbox/streets-v11"
+          onMove={(evt: ViewStateChangeEvent) => 
+            setViewport((prevViewport) => ({
+              ...prevViewport,
+              ...evt.viewState
+            }))
+          }
+          mapboxAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
+        >
+          {projects.map((project, index) => (
+            project.latitude !== 0 && project.longitude !== 0 ? (
+              <Marker
+                key={index}
+                latitude={project.latitude}
+                longitude={project.longitude}
               >
-                <FontAwesomeIcon icon={faMapMarkerAlt} size="2x" color={brandColour} />
-              </button>
-            </Marker>
-          ) : null
-        ))}
-      </ReactMapGL>
+                <button
+                  className="marker-btn"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleMarkerClick(project);
+                  }}
+                >
+                  <FontAwesomeIcon icon={faMapMarkerAlt} size="2x" color={brandColour} />
+                </button>
+              </Marker>
+            ) : null
+          ))}
+        </ReactMapGL>
+      </Box>
 
       <Button
         position="absolute"
-        top="10px"
-        right="10px"
+        top="40px"
+        right="40px"
         onClick={() => fitBounds(projects)}
         bg="white"
         color="black"
