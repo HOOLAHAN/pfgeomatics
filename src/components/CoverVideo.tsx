@@ -1,12 +1,13 @@
 // src/components/CoverVideo.tsx
 
 import React from 'react';
-import { Box, VStack, Image } from '@chakra-ui/react';
+import { Box, VStack, Image, useBreakpointValue } from '@chakra-ui/react';
 
 const CoverVideo: React.FC<{ src: string }> = ({ src }) => {
+  const height = useBreakpointValue({ base: '45vh', md: '75vh' });
 
   return (
-    <Box position="relative" width="100%" height="40vh" overflow="hidden" m={0} mt={-1}>
+    <Box position="relative" width="100%" height={height} overflow="hidden" m={0} mt={-1}>
       <video
         src={src}
         style={{ width: '100%', height: '100%', objectFit: 'cover' }}
