@@ -60,10 +60,10 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, isOpen, onClose })
         <ModalBody>
           <VStack align="stretch" spacing={3}>
             {images.length > 0 && (
-              <Carousel>
+              <Carousel showThumbs={false} infiniteLoop={true} autoPlay={true}>
                 {images.map((src, index) => (
-                  <div key={index}>
-                    <img src={src} alt={`Slide ${index + 1} of ${project.name}`} />
+                  <div key={index} style={{ position: 'relative', paddingBottom: '56.25%', height: 0 }}>
+                    <img src={src} alt={`Slide ${index + 1} of ${project.name}`} style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', objectFit: 'cover' }} />
                   </div>
                 ))}
               </Carousel>
