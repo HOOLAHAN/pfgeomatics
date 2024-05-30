@@ -120,5 +120,16 @@ export const projectsData = [
     imageFolder: "WarwickHouseStreet",
     description: "We collaborated with Alpine Group, a steel fabricator subcontractor, on an office refurbishment project. Our team conducted an accurate survey of the existing structure, including the slab, beams, columns, and bathroom pods. We provided an As-Built survey in the form of an AutoCAD drawing, which designers used to size their components to fit the existing structure seamlessly.",
     linkedIn: "",
-  }
+  },
+  {
+    name: "Guildford MSCP",
+    location: "Guildford Train Station, Guildford",
+    postcode: "GU1 4UT",
+    client: "Capital Steel Strutures Ltd",
+    dateStarted: "2024",
+    dateEnded: "2024",
+    imageFolder: "GuildfordMSCP",
+    description: "On behalf of Capital Steel Structures, we conducted comprehensive surveys of the columns to ensure they were level, correctly positioned, and plumb. Following these checks, we provided an As-Built survey for the main contractor's approval. This critical step ensures that everything meets the required standards before the grouting of the baseplates, facilitating a smooth handover.",
+    linkedIn: "",
+  },
 ];
