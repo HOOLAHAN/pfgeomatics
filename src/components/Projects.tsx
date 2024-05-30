@@ -35,7 +35,7 @@ const Projects: React.FC = () => {
         <Heading as="h2" size="xl" mb={6} textAlign="center">Projects</Heading>
         <ChakraCarousel gap={40}>
           {projectsData.map((project: Project) => {
-            const firstImage = getFirstImage(project.imageFolder);
+            const firstImage = getFirstImage('projectImages', project.imageFolder);
 
             return (
               <Box

@@ -63,7 +63,7 @@ const MapComponent: React.FC = () => {
         const updatedProjects: ProjectWithCoordinates[] = await Promise.all(
           projectsData.map(async (project) => {
             const coordinate = coordinates.find(c => c.postcode === project.postcode);
-            const imageUrls = await checkImageExists(project.imageFolder);
+            const imageUrls = checkImageExists('projectImages', project.imageFolder);
             const thumbnail = imageUrls.length > 0 ? imageUrls[0] : undefined;
 
             return {

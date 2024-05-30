@@ -47,7 +47,7 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, isOpen, onClose })
   const [images, setImages] = useState<string[]>([]);
 
   useEffect(() => {
-    const imageUrls = checkImageExists(project.imageFolder);
+    const imageUrls = checkImageExists('projectImages', project.imageFolder);
     setImages(imageUrls);
   }, [project.imageFolder]);
 
@@ -90,32 +90,30 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, isOpen, onClose })
             {project.linkedIn && (
               <HStack spacing={1}>
                 <Icon as={FaLinkedin} w={5} h={5} color="blue.500" />
-                {project.linkedIn && (
                   <Link href={project.linkedIn} isExternal color="blue.500">
                     View on LinkedIn
                   </Link>
-                )}
-              </HStack>
-            )}
-          </VStack>
-        </ModalBody>
-        <ModalFooter>
-          <Button
-            size="sm"
-            variant="outline"
-            borderColor={buttonBorderColor}
-            color={buttonTextColor}
-            _hover={{ bg: buttonHoverBg }}
-            _active={{ bg: buttonHoverBg, transform: 'scale(0.95)' }}
-            transition="all 0.2s ease-in-out"
-            onClick={onClose}
-          >
-            Close
-          </Button>
-        </ModalFooter>
-      </ModalContent>
-    </Modal>
-  );
-};
+                </HStack>
+              )}
+            </VStack>
+          </ModalBody>
+          <ModalFooter>
+            <Button
+              size="sm"
+              variant="outline"
+              borderColor={buttonBorderColor}
+              color={buttonTextColor}
+              _hover={{ bg: buttonHoverBg }}
+              _active={{ bg: buttonHoverBg, transform: 'scale(0.95)' }}
+              transition="all 0.2s ease-in-out"
+              onClick={onClose}
+            >
+              Close
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
+    );
+  };
 
-export default ProjectModal;
+  export default ProjectModal;
