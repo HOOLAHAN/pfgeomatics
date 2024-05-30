@@ -16,7 +16,7 @@ import ServiceModal from './ServiceModal';
 
 interface Service {
   title: string;
-  image: string;
+  imageFolder: string;
   service: string[];
 }
 
@@ -51,7 +51,7 @@ const Services: React.FC = () => {
             >
               <Image
                 borderRadius="sm"
-                src={require(`../media/serviceImages/${service.image}`)}
+                src={require(`../media/serviceImages/${service.imageFolder}/1.png`)}
                 alt={`${service.title} image`}
                 objectFit="cover"
                 width="100%"

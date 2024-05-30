@@ -2,7 +2,7 @@
 export const servicesData = [
   {
     title: "Surveying",
-    image: "surveying.png",
+    imageFolder: "surveying",
     service: [
         "Land Surveying",
         "Railway Track Monitoring",
@@ -18,7 +18,7 @@ export const servicesData = [
   },
   {
     title: "Setting Out",
-    image: "setting-out.png",
+    imageFolder: "settingOut",
     service: [
         "Structural Steelwork",
         "HDB`s/Steelwork As-builts 2D-3D",
@@ -32,7 +32,7 @@ export const servicesData = [
   },
   {
     title: "Other Skills and Services",
-    image: "other-skills-and-services.png",
+    imageFolder: "other",
     service: [
         "Pre-Pour Rebar Checks",
         "AutoCAD",

@@ -37,7 +37,7 @@ const AboutModal: React.FC<AboutModalProps> = ({ isOpen, onClose }) => {
           <VStack>
             <Box overflow="hidden">
               <Image
-                src={require(`../media/serviceImages/about.png`)}
+                src={require(`../media/serviceImages/about/1.png`)}
                 alt="About Us"
                 width="100%"
                 height="100%"

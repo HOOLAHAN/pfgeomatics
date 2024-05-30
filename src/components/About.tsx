@@ -5,7 +5,7 @@ import { Box, Heading, useColorModeValue, Button, VStack, useMediaQuery, Grid, I
 import AboutModal from './AboutModal';
 
 // Import an image for the About section
-import aboutImage from '../media/serviceImages/about.png';
+import aboutImage from '../media/serviceImages/about/1.png';
 
 const About: React.FC = () => {
   const brandColour = useColorModeValue('lightBrand.800', 'darkBrand.800');
