@@ -1,7 +1,9 @@
 // src/components/Clients.tsx
 
-import React from 'react';
-import { Box, Image, Heading, VStack, Text, useColorModeValue, SimpleGrid } from '@chakra-ui/react';
+import React, { useState } from 'react';
+import { Box, Image, Heading, VStack, Text, useColorModeValue, SimpleGrid, Modal, ModalOverlay, ModalContent, ModalCloseButton, ModalBody, useDisclosure, Link, Center } from '@chakra-ui/react';
+import { ExternalLinkIcon } from '@chakra-ui/icons';
+import { clientData } from '../data/clientData';
 
 // Import images
 import lindnerPraterLogo from '../media/clients/lindner-prater-logo.png';
@@ -9,7 +11,9 @@ import severfieldLogo from '../media/clients/severfield-logo.png';
 import build8Logo from '../media/clients/8build-logo.png';
 import kilnbridgeLogo from '../media/clients/kilnbridge-logo.png';
 import regalLondonLogo from '../media/clients/regal-london-logo.png';
-import mjrobinsonLogo from '../media/clients/MJ-Robinson-Structures.png'
+import mjrobinsonLogo from '../media/clients/MJ-Robinson-Structures.png';
+import capitalSteelStructuresLogo from '../media/clients/capital-steel-structures-logo.jpeg';
+import alpineGroupLogo from '../media/clients/alpine-group-logo.png';
 
 // Define an interface for each client logo
 interface ClientLogo {
@@ -19,16 +23,26 @@ interface ClientLogo {
 
 // Client logos array using imported images
 const clientLogos: ClientLogo[] = [
-  { name: 'Lindner PRATER', src: lindnerPraterLogo },
-  { name: 'Severfield', src: severfieldLogo },
-  { name: '8build', src: build8Logo },
+  { name: 'Lindner Prater', src: lindnerPraterLogo },
+  { name: 'Severfield UK', src: severfieldLogo },
+  { name: '8 Build', src: build8Logo },
   { name: 'Kilnbridge', src: kilnbridgeLogo },
   { name: 'Regal London', src: regalLondonLogo },
-  { name: 'MJ Robinson Structures', src: mjrobinsonLogo },
+  { name: 'MJ Robinson', src: mjrobinsonLogo },
+  { name: 'Capital Steel Structures', src: capitalSteelStructuresLogo },
+  { name: 'Alpine Group', src: alpineGroupLogo },
 ];
 
 const Clients: React.FC = () => {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [selectedClient, setSelectedClient] = useState<any>(null);
   const boxBg = useColorModeValue('transparent', 'rgba(255, 255, 255, 0.3)');
+
+  const handleLogoClick = (clientName: string) => {
+    const clientInfo = clientData.find(client => client.name === clientName);
+    setSelectedClient(clientInfo);
+    onOpen();
+  };
 
   return (
     <Box pt={7} maxW="1200px" mx="auto">
@@ -45,6 +59,9 @@ const Clients: React.FC = () => {
               display="flex" 
               justifyContent="center" 
               alignItems="center"
+              onClick={() => handleLogoClick(logo.name)}
+              _hover={{ cursor: 'pointer', transform: 'scale(1.1)' }}
+              transition="transform 0.2s"
             >
               <Image 
                 src={logo.src} 
@@ -56,6 +73,33 @@ const Clients: React.FC = () => {
           ))}
         </SimpleGrid>
       </VStack>
+
+      <Modal isOpen={isOpen} onClose={onClose} size="lg">
+        <ModalOverlay />
+        <ModalContent>
+          <ModalCloseButton />
+          <ModalBody>
+            {selectedClient && (
+              <>
+                <Center>
+                  <Image 
+                    src={clientLogos.find(logo => logo.name === selectedClient.name)?.src} 
+                    alt={`${selectedClient.name} logo`} 
+                    objectFit="contain" 
+                    maxH="60px" 
+                    mb={2}
+                  />
+                </Center>
+                <Text mt={2}><strong>About:</strong> {selectedClient.about}</Text>
+                <Text mt={2}><strong>Our Services:</strong> {selectedClient.pfgService}</Text>
+              </>
+            )}
+            <Link href={selectedClient.website} isExternal color="blue.500" textDecoration="underline" >
+                {selectedClient.website} <ExternalLinkIcon mx="2px" />
+              </Link>
+          </ModalBody>
+        </ModalContent>
+      </Modal>
     </Box>
   );
 };

@@ -38,7 +38,7 @@ export const clientData = [
   {
     name: "Alpine Group",
     website: "https://alpinegroupuk.com/",
-    logo: "",
+    logo: "alpine-group-logo.svg",
     about: "AlpineGroup specialise in the design, manufacture and installation of beautiful feature staircases, balustrades and railings for luxury residential, commercial and landmark addresses across the UK.",
     pfgService: "We carry out detailed surveys of the locations on site surrounding these bespoke luxury stairways which often span over multiple floors and take up a large footprint. Surveying every floor level, stair entry point, structural component and feature to send to the design team for them to design perfectly to suit."
   },
@@ -52,8 +52,8 @@ export const clientData = [
   {
     name: "Capital Steel Structures",
     website: "https://www.capitalsteelstructures.co.uk/",
-    logo: "",
-    about: "",
-    pfgService: ""
+    logo: "capital-steel-structures-logo.jpeg",
+    about: "Capital Steel Structures specialises in the erection of high-quality structural steelwork. With a dedicated workforce and a commitment to safety and excellence, they are a trusted subcontractor for Europe's top steel suppliers. Their comprehensive services include advanced lifting solutions and on-site welding, making them a leader in the industry.",
+    pfgService: "We perform detailed surveys of both existing and new structures to ensure the accurate design of structural steelwork. Our team precisely sets out locations for structural components, prepares detailed as-built surveys, and collaborates closely with site and design teams to identify and resolve any clashes, ensuring successful project completion."
   },
 ];
