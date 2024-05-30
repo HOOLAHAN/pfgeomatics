@@ -90,13 +90,18 @@ const Clients: React.FC = () => {
                     mb={2}
                   />
                 </Center>
+                {selectedClient.website && (
+                  <Text>
+                    <strong>Website:</strong> 
+                    <Link href={selectedClient.website} isExternal color="blue.500" textDecoration="underline" ml={2}>
+                      {selectedClient.website} <ExternalLinkIcon mx="2px" />
+                    </Link>
+                  </Text>
+                )}
                 <Text mt={2}><strong>About:</strong> {selectedClient.about}</Text>
                 <Text mt={2}><strong>Our Services:</strong> {selectedClient.pfgService}</Text>
               </>
             )}
-            <Link href={selectedClient.website} isExternal color="blue.500" textDecoration="underline" >
-                {selectedClient.website} <ExternalLinkIcon mx="2px" />
-              </Link>
           </ModalBody>
         </ModalContent>
       </Modal>
