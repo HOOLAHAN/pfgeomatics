@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import ReactMapGL, { Marker, ViewStateChangeEvent } from 'react-map-gl';
-import { Box, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, ModalFooter, Button, useDisclosure, useColorModeValue, useBreakpointValue } from '@chakra-ui/react';
+import { Box, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, ModalFooter, Button, useDisclosure, useColorModeValue, useBreakpointValue, Image, HStack, VStack } from '@chakra-ui/react';
 import { fetchCoordinates } from '../utils/fetchCoordinates';
 import { projectsData } from '../data/projectsData';
 import 'mapbox-gl/dist/mapbox-gl.css';
@@ -8,6 +8,8 @@ import '../css/MapComponent.css';
 import { LngLatBounds } from 'mapbox-gl';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMapMarkerAlt, faSearchMinus } from '@fortawesome/free-solid-svg-icons';
+import ProjectModal from './ProjectModal';
+import checkImageExists from '../utils/checkImageExists';
 
 interface Project {
   name: string;
@@ -21,6 +23,7 @@ interface Project {
   linkedIn: string;
   latitude?: number;
   longitude?: number;
+  thumbnail?: string;
 }
 
 type ProjectWithCoordinates = Project & {
@@ -49,6 +52,7 @@ const MapComponent: React.FC = () => {
   const [projects, setProjects] = useState<ProjectWithCoordinates[]>([]);
   const [selectedProject, setSelectedProject] = useState<ProjectWithCoordinates | null>(null);
   const [initialLoad, setInitialLoad] = useState(true);
+  const [isProjectModalOpen, setProjectModalOpen] = useState(false);
 
   const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -58,23 +62,20 @@ const MapComponent: React.FC = () => {
         const postcodes = projectsData.map(p => p.postcode);
         const coordinates = await fetchCoordinates(postcodes);
 
-        const updatedProjects: ProjectWithCoordinates[] = projectsData.map((project) => {
-          const coordinate = coordinates.find(c => c.postcode === project.postcode);
-          if (coordinate) {
+        const updatedProjects: ProjectWithCoordinates[] = await Promise.all(
+          projectsData.map(async (project) => {
+            const coordinate = coordinates.find(c => c.postcode === project.postcode);
+            const imageUrls = await checkImageExists(project.imageFolder);
+            const thumbnail = imageUrls.length > 0 ? imageUrls[0] : undefined;
+
             return {
               ...project,
-              latitude: coordinate.latitude,
-              longitude: coordinate.longitude
+              latitude: coordinate ? coordinate.latitude : 0,
+              longitude: coordinate ? coordinate.longitude : 0,
+              thumbnail
             };
-          } else {
-            console.warn(`No coordinates found for postcode: ${project.postcode}`);
-            return {
-              ...project,
-              latitude: 0,
-              longitude: 0
-            };
-          }
-        });
+          })
+        );
 
         setProjects(updatedProjects);
 
@@ -106,6 +107,11 @@ const MapComponent: React.FC = () => {
   const handleMarkerClick = (project: ProjectWithCoordinates) => {
     setSelectedProject(project);
     onOpen();
+  };
+
+  const handleMoreInfoClick = () => {
+    onClose();
+    setProjectModalOpen(true);
   };
 
   const fitBounds = (projects: ProjectWithCoordinates[]) => {
@@ -180,16 +186,43 @@ const MapComponent: React.FC = () => {
       </Button>
 
       {selectedProject && (
-        <Modal isOpen={isOpen} onClose={onClose} size="sm">
+        <Modal isOpen={isOpen} onClose={onClose} size="sm" isCentered>
           <ModalOverlay />
           <ModalContent m={3}>
             <ModalHeader>{selectedProject.name}</ModalHeader>
             <ModalCloseButton />
             <ModalBody>
-              <p><strong>Client:</strong> {selectedProject.client}</p>
-              <p><strong>Duration:</strong> {selectedProject.dateStarted} - {selectedProject.dateEnded}</p>
+              <HStack align="start" spacing={4}>
+                <VStack align="start" spacing={2}>
+                  <p><strong>Client:</strong> {selectedProject.client}</p>
+                  <p><strong>Duration:</strong> {selectedProject.dateStarted} - {selectedProject.dateEnded}</p>
+                </VStack>
+                {selectedProject.thumbnail && (
+                  <Image
+                    src={selectedProject.thumbnail}
+                    alt={`${selectedProject.name} thumbnail`}
+                    boxSize="150px"
+                    objectFit="cover"
+                    mb={4}
+                    htmlWidth="150px"
+                    htmlHeight="150px"
+                  />
+                )}
+              </HStack>
             </ModalBody>
-            <ModalFooter>
+            <ModalFooter display="flex" justifyContent="space-between">
+              <Button
+                size="sm"
+                variant="outline"
+                borderColor={buttonBorderColor}
+                color={buttonTextColor}
+                _hover={{ bg: buttonHoverBg }}
+                _active={{ bg: buttonHoverBg, transform: 'scale(0.95)' }}
+                transition="all 0.2s ease-in-out"
+                onClick={handleMoreInfoClick}
+              >
+                More Info
+              </Button>
               <Button
                 size="sm"
                 variant="outline"
@@ -205,6 +238,14 @@ const MapComponent: React.FC = () => {
             </ModalFooter>
           </ModalContent>
         </Modal>
+      )}
+
+      {selectedProject && (
+        <ProjectModal
+          project={selectedProject}
+          isOpen={isProjectModalOpen}
+          onClose={() => setProjectModalOpen(false)}
+        />
       )}
     </Box>
   );
