@@ -34,6 +34,7 @@ const MapComponent: React.FC = () => {
   const buttonHoverBg = useColorModeValue('gray.200', 'whiteAlpha.300');
   const height = useBreakpointValue({ base: '45vh', md: '75vh' });
   const brandColour = useColorModeValue('lightBrand.400', 'darkBrand.1000');
+  const mapStyle = useColorModeValue('mapbox://styles/mapbox/streets-v11', 'mapbox://styles/mapbox/dark-v10');
 
   const mapContainerRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<any>(null); // To hold the map instance
@@ -135,7 +136,7 @@ const MapComponent: React.FC = () => {
         <ReactMapGL
           ref={mapRef}
           {...viewport}
-          mapStyle="mapbox://styles/mapbox/streets-v11"
+          mapStyle={mapStyle}
           onMove={(evt: ViewStateChangeEvent) => 
             setViewport((prevViewport) => ({
               ...prevViewport,
