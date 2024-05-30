@@ -42,7 +42,7 @@ const ServiceModal: React.FC<ServiceModalProps> = ({ isOpen, onClose, selectedSe
             alt={`${selectedService.title} image`}
             objectFit="cover"
           />
-          <Text fontWeight="bold">Services:</Text>
+          <Text fontWeight="bold" py={2}>Services:</Text>
           <List spacing={2} styleType="disc" paddingLeft={4}>
             {selectedService.service.map((item, index) => (
               <ListItem key={index}>{item}</ListItem>
