@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import ReactMapGL, { Marker, ViewStateChangeEvent } from 'react-map-gl';
-import { Box, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, ModalFooter, Button, useDisclosure, useColorModeValue, useBreakpointValue, Image, HStack, VStack } from '@chakra-ui/react';
+import { Box, Button, useDisclosure, useColorModeValue, useBreakpointValue } from '@chakra-ui/react';
 import { fetchCoordinates } from '../utils/fetchCoordinates';
 import { projectsData } from '../data/projectsData';
 import 'mapbox-gl/dist/mapbox-gl.css';
@@ -10,8 +10,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMapMarkerAlt, faSearchMinus } from '@fortawesome/free-solid-svg-icons';
 import ProjectModal from './ProjectModal';
 import checkImageExists from '../utils/checkImageExists';
+import MapModal from './MapModal';
 
-interface Project {
+export interface Project {
   name: string;
   location: string;
   postcode: string;
@@ -26,15 +27,12 @@ interface Project {
   thumbnail?: string;
 }
 
-type ProjectWithCoordinates = Project & {
+export type ProjectWithCoordinates = Project & {
   latitude: number;
   longitude: number;
 };
 
 const MapComponent: React.FC = () => {
-  const buttonBorderColor = useColorModeValue('black', 'white');
-  const buttonTextColor = useColorModeValue('black', 'white');
-  const buttonHoverBg = useColorModeValue('gray.200', 'whiteAlpha.300');
   const height = useBreakpointValue({ base: '45vh', md: '75vh' });
   const brandColour = useColorModeValue('lightBrand.400', 'darkBrand.1000');
   const mapStyle = useColorModeValue('mapbox://styles/mapbox/streets-v11', 'mapbox://styles/mapbox/dark-v10');
@@ -185,60 +183,12 @@ const MapComponent: React.FC = () => {
         <FontAwesomeIcon icon={faSearchMinus} />
       </Button>
 
-      {selectedProject && (
-        <Modal isOpen={isOpen} onClose={onClose} size="sm" isCentered>
-          <ModalOverlay />
-          <ModalContent m={3}>
-            <ModalHeader>{selectedProject.name}</ModalHeader>
-            <ModalCloseButton />
-            <ModalBody>
-              <HStack align="start" spacing={4}>
-                <VStack align="start" spacing={2}>
-                  <p><strong>Client:</strong> {selectedProject.client}</p>
-                  <p><strong>Duration:</strong> {selectedProject.dateStarted} - {selectedProject.dateEnded}</p>
-                </VStack>
-                {selectedProject.thumbnail && (
-                  <Image
-                    src={selectedProject.thumbnail}
-                    alt={`${selectedProject.name} thumbnail`}
-                    boxSize="150px"
-                    objectFit="cover"
-                    mb={4}
-                    htmlWidth="150px"
-                    htmlHeight="150px"
-                  />
-                )}
-              </HStack>
-            </ModalBody>
-            <ModalFooter display="flex" justifyContent="space-between">
-              <Button
-                size="sm"
-                variant="outline"
-                borderColor={buttonBorderColor}
-                color={buttonTextColor}
-                _hover={{ bg: buttonHoverBg }}
-                _active={{ bg: buttonHoverBg, transform: 'scale(0.95)' }}
-                transition="all 0.2s ease-in-out"
-                onClick={handleMoreInfoClick}
-              >
-                More Info
-              </Button>
-              <Button
-                size="sm"
-                variant="outline"
-                borderColor={buttonBorderColor}
-                color={buttonTextColor}
-                _hover={{ bg: buttonHoverBg }}
-                _active={{ bg: buttonHoverBg, transform: 'scale(0.95)' }}
-                transition="all 0.2s ease-in-out"
-                onClick={onClose}
-              >
-                Close
-              </Button>
-            </ModalFooter>
-          </ModalContent>
-        </Modal>
-      )}
+      <MapModal
+        project={selectedProject}
+        isOpen={isOpen}
+        onClose={onClose}
+        onMoreInfoClick={handleMoreInfoClick}
+      />
 
       {selectedProject && (
         <ProjectModal
