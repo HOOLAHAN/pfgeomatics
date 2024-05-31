@@ -31,7 +31,7 @@ export const projectsData = [
     dateEnded: "2023",
     imageFolder: "GoogleHeadquarters",
     description: "We played a pivotal role in the construction of the new £1 billion Google Headquarters in Kings Cross, London. Serving as the lead engineers for the steel frame contractor, our managing director led the project for multiple years during the main construction phase. Supported by a dedicated team of engineers, we oversaw every aspect of the steel frame installation, ensuring precise positioning and alignment of every structural element. As the project progressed, our involvement extended beyond the steel framework to include positioning over 30 precast concrete architectural stairs, seamlessly integrating them into the expansive roof garden and walkways surrounding the building's envelope. Our meticulous attention to detail and commitment to excellence contributed to the successful completion of this iconic project, cementing our reputation as industry leaders in engineering innovation and execution.",
-    linkedIn: "",
+    linkedIn: "https://www.linkedin.com/feed/update/urn:li:activity:6674751223184277504/",
   },
   {
     name: "HS2",
