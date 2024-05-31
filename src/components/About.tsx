@@ -37,8 +37,7 @@ const About: React.FC = () => {
               alt="About us"
               borderRadius="sm"
               objectFit="cover"
-              w={{ base: '100%', md: '100%' }}
-              h={{ base: 'auto', md: '100%' }}
+              boxSize={{ base: '300px', md: '500px' }} 
             />
           </Flex>
           <Box px={10} textAlign="center">

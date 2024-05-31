@@ -40,7 +40,7 @@ const AboutModal: React.FC<AboutModalProps> = ({ isOpen, onClose }) => {
                 src={require(`../media/serviceImages/about/1.png`)}
                 alt="About Us"
                 width="100%"
-                height="100%"
+                maxH="400px"
                 objectFit="cover"
                 px={2}
               />
