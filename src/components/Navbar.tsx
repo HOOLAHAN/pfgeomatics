@@ -1,7 +1,7 @@
 // src/components/Navbar.tsx
 
 import { useState } from 'react';
-import { Box, Flex, IconButton, useColorModeValue, useBreakpointValue, Stack, Collapse, Text } from '@chakra-ui/react';
+import { Box, Flex, IconButton, useColorModeValue, useBreakpointValue, Center, Collapse, Text, SimpleGrid } from '@chakra-ui/react';
 import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
 import { ColorModeSwitcher } from "../ColorModeSwitcher";
 import { Link } from 'react-scroll';
@@ -11,7 +11,7 @@ const Navbar: React.FC = () => {
   const brandColour = useColorModeValue('lightBrand.400', 'darkBrand.1000');
 
   // Use Chakra UI's useBreakpointValue to handle responsive offsets
-  const baseOffset = isOpen ? -336 : -56;
+  const baseOffset = isOpen ? -224 : -56;
   const offset = useBreakpointValue({ base: baseOffset, md: -56 });
 
   const toggleMenu = () => setIsOpen(!isOpen);
@@ -71,30 +71,30 @@ const Navbar: React.FC = () => {
         />
       </Flex>
       <Collapse in={isOpen} animateOpacity>
-        <Box pb={4} display={{ md: 'none' }}>
-          <Stack as="nav" spacing={4}>
+        <Box mt={2} pb={4} display={{ md: 'none' }}>
+          <SimpleGrid columns={2} spacing={4}>
             <Link to="cover-video" smooth={true} duration={500} offset={offset} onClick={toggleMenu}>
-              <Text as="span" {...linkStyles}>Home</Text>
+              <Center><Text as="span" {...linkStyles}>Home</Text></Center>
             </Link>
             <Link to="about" smooth={true} duration={500} offset={offset} onClick={toggleMenu}>
-              <Text as="span" {...linkStyles}>About</Text>
+              <Center><Text as="span" {...linkStyles}>About</Text></Center>
             </Link>
             <Link to="projects" smooth={true} duration={500} offset={offset} onClick={toggleMenu}>
-              <Text as="span" {...linkStyles}>Projects</Text>
+              <Center><Text as="span" {...linkStyles}>Projects</Text></Center>
             </Link>
             <Link to="map" smooth={true} duration={500} offset={offset} onClick={toggleMenu}>
-              <Text as="span" {...linkStyles}>Map</Text>
+              <Center><Text as="span" {...linkStyles}>Map</Text></Center>
             </Link>
             <Link to="services" smooth={true} duration={500} offset={offset} onClick={toggleMenu}>
-              <Text as="span" {...linkStyles}>Services</Text>
-            </Link>
-            <Link to="contact-form" smooth={true} duration={500} offset={offset} onClick={toggleMenu}>
-              <Text as="span" {...linkStyles}>Contact</Text>
+              <Center><Text as="span" {...linkStyles}>Services</Text></Center>
             </Link>
             <Link to="clients" smooth={true} duration={500} offset={offset} onClick={toggleMenu}>
-              <Text as="span" {...linkStyles}>Clients</Text>
+              <Center><Text as="span" {...linkStyles}>Clients</Text></Center>
             </Link>
-          </Stack>
+            <Link to="contact-form" smooth={true} duration={500} offset={offset} onClick={toggleMenu}>
+              <Center><Text as="span" {...linkStyles}>Contact</Text></Center>
+            </Link>
+          </SimpleGrid>
         </Box>
       </Collapse>
     </Box>
