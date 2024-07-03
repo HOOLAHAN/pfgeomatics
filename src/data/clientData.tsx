@@ -56,4 +56,11 @@ export const clientData = [
     about: "Capital Steel Structures specialises in the erection of high-quality structural steelwork. With a dedicated workforce and a commitment to safety and excellence, they are a trusted subcontractor for Europe's top steel suppliers. Their comprehensive services include advanced lifting solutions and on-site welding, making them a leader in the industry.",
     pfgService: "We perform detailed surveys of both existing and new structures to ensure the accurate design of structural steelwork. Our team precisely sets out locations for structural components, prepares detailed as-built surveys, and collaborates closely with site and design teams to identify and resolve any clashes, ensuring successful project completion."
   },
+  {
+    name: "Criterion Capital",
+    website: "",
+    logo: "criterion-capital.png",
+    about: "Criterion Capital is a leading property investment and development company specialising in the acquisition, development, and management of commercial and residential properties in prime locations across London and the UK.",
+    pfgService: "For Criterion Capital, we provide detailed surveys and precision setting out for their development projects. Our services include establishing site control, setting out gridlines, surveying existing structures, and providing as-built drawings. We collaborate closely with their site and design teams to ensure accurate implementation of project specifications and to address any potential issues, ensuring smooth and efficient project execution."
+  },
 ];

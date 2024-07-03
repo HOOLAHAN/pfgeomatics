@@ -14,6 +14,7 @@ import regalLondonLogo from '../media/clients/regal-london-logo.png';
 import mjrobinsonLogo from '../media/clients/MJ-Robinson-Structures.png';
 import capitalSteelStructuresLogo from '../media/clients/capital-steel-structures-logo.jpeg';
 import alpineGroupLogo from '../media/clients/alpine-group-logo.png';
+import criterionCapitalLogo from '../media/clients/criterion-capital.png'
 
 // Define an interface for each client logo
 interface ClientLogo {
@@ -31,6 +32,7 @@ const clientLogos: ClientLogo[] = [
   { name: 'MJ Robinson', src: mjrobinsonLogo },
   { name: 'Capital Steel Structures', src: capitalSteelStructuresLogo },
   { name: 'Alpine Group', src: alpineGroupLogo },
+  { name: 'Criterion Capital', src: criterionCapitalLogo },
 ];
 
 const Clients: React.FC = () => {
