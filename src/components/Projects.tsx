@@ -1,7 +1,7 @@
 // src/components/Projects.tsx
 
 import React, { useState } from 'react';
-import { Box, Image, Heading, useDisclosure, useColorModeValue, Icon } from '@chakra-ui/react';
+import { Box, Image, Heading, useDisclosure, useColorModeValue, Icon, Spinner, Center } from '@chakra-ui/react';
 import { ViewIcon } from '@chakra-ui/icons';
 import { projectsData } from '../data/projectsData';
 import ProjectModal from './ProjectModal';
@@ -21,12 +21,17 @@ interface Project {
 
 const Projects: React.FC = () => {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const [loading, setLoading] = useState(true);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const brandColour = useColorModeValue('lightBrand.700', 'darkBrand.700');
 
   const handleProjectClick = (project: Project) => {
     setSelectedProject(project);
     onOpen();
+  };
+
+  const handleImageLoad = () => {
+    setLoading(false);
   };
 
   return (
@@ -51,6 +56,7 @@ const Projects: React.FC = () => {
               >
                 {firstImage && (
                   <ImageContainer>
+                    {loading && <Center><Spinner size="md" /></Center>}
                     <Image 
                       src={firstImage}
                       alt={project.name}
@@ -58,6 +64,8 @@ const Projects: React.FC = () => {
                       objectPosition="center"
                       w="100%"
                       transition="all 0.3s ease-in-out"
+                      onLoad={handleImageLoad}
+                      display={loading ? 'none' : 'block'}
                       _hover={{
                         filter: 'brightness(0.8)'
                       }}

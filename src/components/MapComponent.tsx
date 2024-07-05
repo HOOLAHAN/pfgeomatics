@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import ReactMapGL, { Marker, ViewStateChangeEvent } from 'react-map-gl';
-import { Box, Button, useDisclosure, useColorModeValue, useBreakpointValue } from '@chakra-ui/react';
+import { Box, Button, useDisclosure, useColorModeValue, useBreakpointValue, Spinner, Center } from '@chakra-ui/react';
 import { fetchCoordinates } from '../utils/fetchCoordinates';
 import { projectsData } from '../data/projectsData';
 import 'mapbox-gl/dist/mapbox-gl.css';
@@ -51,6 +51,7 @@ const MapComponent: React.FC = () => {
   const [selectedProject, setSelectedProject] = useState<ProjectWithCoordinates | null>(null);
   const [initialLoad, setInitialLoad] = useState(true);
   const [isProjectModalOpen, setProjectModalOpen] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -81,8 +82,10 @@ const MapComponent: React.FC = () => {
           fitBounds(updatedProjects);
           setInitialLoad(false);
         }
+        setLoading(false); // Set loading to false after data has been fetched and set
       } catch (error) {
         console.error('Error fetching coordinates:', error);
+        setLoading(false); // Set loading to false even if there's an error
       }
     };
 
@@ -135,7 +138,16 @@ const MapComponent: React.FC = () => {
   };
 
   return (
-    <Box width="100%" maxW="1200px" mx="auto" position="relative" p={5} borderRadius="lg" overflow="hidden" ref={mapContainerRef} >
+    <Box width="100%" maxW="1200px" mx="auto" position="relative" p={5} borderRadius="lg" overflow="hidden" ref={mapContainerRef}>
+      {loading && (
+        <Center><Spinner
+          size="xl"
+          position="absolute"
+          top="50%"
+          transform="translate(-50%, -50%)"
+          zIndex="10"
+        /></Center>
+      )}
       <Box width="calc(100% - 10px)" height={height} m="5px" position="relative" borderRadius="lg" overflow="hidden">
         <ReactMapGL
           ref={mapRef}

@@ -9,6 +9,8 @@ import {
   useDisclosure,
   useColorModeValue,
   Icon,
+  Spinner,
+  Center
 } from '@chakra-ui/react';
 import { servicesData } from '../data/servicesData';
 import { ViewIcon } from '@chakra-ui/icons';
@@ -24,10 +26,15 @@ const Services: React.FC = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [selectedService, setSelectedService] = useState<Service | null>(null);
   const brandColour = useColorModeValue('lightBrand.600', 'darkBrand.600');
+  const [loadingImages, setLoadingImages] = useState<{ [key: string]: boolean }>({});
 
   const handleServiceClick = (service: Service) => {
     setSelectedService(service);
     onOpen();
+  };
+
+  const handleImageLoad = (title: string) => {
+    setLoadingImages(prevState => ({ ...prevState, [title]: false }));
   };
 
   return (
@@ -49,6 +56,15 @@ const Services: React.FC = () => {
                 zIndex: '10',
               }}
             >
+              {loadingImages[service.title] && (
+                <Center><Spinner
+                  size="xl"
+                  position="absolute"
+                  top="50%"
+                  transform="translate(-50%, -50%)"
+                  zIndex="10"
+                /></Center>
+              )}
               <Image
                 borderRadius="sm"
                 src={require(`../media/serviceImages/${service.imageFolder}/1.png`)}
@@ -57,6 +73,8 @@ const Services: React.FC = () => {
                 width="100%"
                 height="100%"
                 transition="all 0.3s ease-in-out"
+                onLoad={() => handleImageLoad(service.title)}
+                display={loadingImages[service.title] ? 'none' : 'block'}
                 _hover={{
                   filter: 'brightness(0.8)',
                 }}

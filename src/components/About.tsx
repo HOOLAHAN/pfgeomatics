@@ -1,7 +1,7 @@
 // src/components/About.tsx
 
 import React, { useState } from 'react';
-import { Box, Heading, useColorModeValue, Button, VStack, useMediaQuery, Grid, Image, Flex } from '@chakra-ui/react';
+import { Box, Heading, useColorModeValue, Button, VStack, useMediaQuery, Grid, Image, Flex, Spinner, Center } from '@chakra-ui/react';
 import AboutModal from './AboutModal';
 
 // Import an image for the About section
@@ -14,9 +14,14 @@ const About: React.FC = () => {
   const buttonHoverBg = useColorModeValue('gray.200', 'whiteAlpha.300');
   const [isModalOpen, setModalOpen] = useState(false);
   const [isSmallScreen] = useMediaQuery('(max-width: 600px)');
+  const [loading, setLoading] = useState(true);
 
   const openModal = () => setModalOpen(true);
   const closeModal = () => setModalOpen(false);
+  
+  const handleImageLoad = () => {
+    setLoading(false);
+  };
 
   return (
     <Box bg={brandColour}>
@@ -31,14 +36,26 @@ const About: React.FC = () => {
             alignItems="center"
             height={{ base: 'auto', md: '100%' }}
             width={{ base: '100%', md: 'auto' }}
+            position="relative"
           >
-            <Image
+            {loading && (
+              <Spinner
+                size="xl"
+                position="absolute"
+                top="50%"
+                transform="translate(-50%, -50%)"
+                zIndex="10"
+              />
+            )}
+            <Center><Image
               src={aboutImage}
               alt="About us"
               borderRadius="sm"
               objectFit="cover"
-              boxSize={{ base: '300px', md: '500px' }} 
-            />
+              boxSize={{ base: '300px', md: '500px' }}
+              onLoad={handleImageLoad}
+              display={loading ? 'none' : 'block'}
+            /></Center>
           </Flex>
           <Box px={10} textAlign="center">
             <Heading as="h1" size="xl" mb={4}>

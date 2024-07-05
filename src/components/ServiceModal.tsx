@@ -10,6 +10,8 @@ import {
   List,
   ListItem,
   VStack,
+  Spinner,
+  Center,
 } from '@chakra-ui/react';
 import { Carousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
@@ -29,11 +31,13 @@ interface ServiceModalProps {
 
 const ServiceModal: React.FC<ServiceModalProps> = ({ isOpen, onClose, selectedService }) => {
   const [images, setImages] = useState<string[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (selectedService) {
       const imageUrls = checkImageExists('serviceImages', selectedService.imageFolder);
       setImages(imageUrls);
+      setLoading(false); // Set loading to false after images are fetched
     }
   }, [selectedService]);
 
@@ -47,6 +51,15 @@ const ServiceModal: React.FC<ServiceModalProps> = ({ isOpen, onClose, selectedSe
         <ModalCloseButton />
         <ModalBody>
           <VStack align="stretch" spacing={3}>
+            {loading && (
+              <Center><Spinner
+                size="xl"
+                position="absolute"
+                top="50%"
+                transform="translate(-50%, -50%)"
+                zIndex="10"
+              /></Center>
+            )}
             {images.length > 0 && (
               <Carousel
                 showThumbs={true}
@@ -66,6 +79,7 @@ const ServiceModal: React.FC<ServiceModalProps> = ({ isOpen, onClose, selectedSe
                         objectFit: 'cover',
                         maxHeight: '500px'
                       }}
+                      onLoad={() => setLoading(false)} // Set loading to false once image has loaded
                     />
                   </div>
                 ))}

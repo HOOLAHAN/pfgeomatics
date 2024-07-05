@@ -1,4 +1,5 @@
 // src/components/ProjectModal.tsx
+
 import React, { useState, useEffect } from 'react';
 import {
   Modal,
@@ -14,7 +15,9 @@ import {
   HStack,
   Icon,
   Link,
-  useColorModeValue
+  useColorModeValue,
+  Spinner,
+  Center
 } from '@chakra-ui/react';
 import { Carousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
@@ -45,10 +48,12 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, isOpen, onClose })
   const buttonHoverBg = useColorModeValue('gray.200', 'whiteAlpha.300');
 
   const [images, setImages] = useState<string[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const imageUrls = checkImageExists('projectImages', project.imageFolder);
     setImages(imageUrls);
+    setLoading(false);
   }, [project.imageFolder]);
 
   return (
@@ -59,7 +64,8 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, isOpen, onClose })
         <ModalCloseButton />
         <ModalBody>
           <VStack align="stretch" spacing={3}>
-            {images.length > 0 && (
+            {loading && <Center><Spinner size="md" /></Center>}
+            {!loading && images.length > 0 && (
               <Carousel
                 showThumbs={true}
                 infiniteLoop={true}
@@ -90,30 +96,30 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, isOpen, onClose })
             {project.linkedIn && (
               <HStack spacing={1}>
                 <Icon as={FaLinkedin} w={5} h={5} color="blue.500" />
-                  <Link href={project.linkedIn} isExternal color="blue.500">
-                    View on LinkedIn
-                  </Link>
-                </HStack>
-              )}
-            </VStack>
-          </ModalBody>
-          <ModalFooter>
-            <Button
-              size="sm"
-              variant="outline"
-              borderColor={buttonBorderColor}
-              color={buttonTextColor}
-              _hover={{ bg: buttonHoverBg }}
-              _active={{ bg: buttonHoverBg, transform: 'scale(0.95)' }}
-              transition="all 0.2s ease-in-out"
-              onClick={onClose}
-            >
-              Close
-            </Button>
-          </ModalFooter>
-        </ModalContent>
-      </Modal>
-    );
-  };
+                <Link href={project.linkedIn} isExternal color="blue.500">
+                  View on LinkedIn
+                </Link>
+              </HStack>
+            )}
+          </VStack>
+        </ModalBody>
+        <ModalFooter>
+          <Button
+            size="sm"
+            variant="outline"
+            borderColor={buttonBorderColor}
+            color={buttonTextColor}
+            _hover={{ bg: buttonHoverBg }}
+            _active={{ bg: buttonHoverBg, transform: 'scale(0.95)' }}
+            transition="all 0.2s ease-in-out"
+            onClick={onClose}
+          >
+            Close
+          </Button>
+        </ModalFooter>
+      </ModalContent>
+    </Modal>
+  );
+};
 
-  export default ProjectModal;
+export default ProjectModal;
