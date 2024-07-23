@@ -11,7 +11,7 @@ const BrochureDownload: React.FC = () => {
   const buttonHoverBg = useColorModeValue('whiteAlpha.300', 'whiteAlpha.300');
 
   return (
-    <Box bg={brandColour} p={5} textAlign="center" borderRadius="md" shadow="md">
+    <Box bg={brandColour} p={5} textAlign="center" shadow="md">
       <Heading as="h3" size="lg" mb={4} color="white">
         Download Our Brochure
       </Heading>
@@ -29,7 +29,7 @@ const BrochureDownload: React.FC = () => {
         _hover={{ bg: buttonHoverBg }}
         _active={{ bg: buttonHoverBg, transform: 'scale(0.95)' }}
         transition="all 0.2s ease-in-out"
-        size="lg"
+        size="md"
       >
         Open Brochure
       </Button>
