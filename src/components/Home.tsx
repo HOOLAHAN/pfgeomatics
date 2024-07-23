@@ -9,6 +9,7 @@ import MapComponent from './MapComponent';
 import Services from './Services';
 import ContactForm from './ContactForm';
 import Footer from './Footer';
+import BrochureDownload from './BrochureDownload';
 
 const Home: React.FC = () => {
   return (
@@ -30,6 +31,9 @@ const Home: React.FC = () => {
       </Box>
       <Box id="clients">
         <Clients />
+      </Box>
+      <Box id="brochure-download" my={10}>
+        <BrochureDownload />
       </Box>
       <Box id="contact-form">
         <ContactForm />
