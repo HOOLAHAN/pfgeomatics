@@ -6,6 +6,9 @@ import { DownloadIcon } from '@chakra-ui/icons';
 
 const BrochureDownload: React.FC = () => {
   const brandColour = useColorModeValue('lightBrand.400', 'darkBrand.1000');
+  const buttonBorderColor = useColorModeValue('white', 'white');
+  const buttonTextColor = useColorModeValue('white', 'white');
+  const buttonHoverBg = useColorModeValue('whiteAlpha.300', 'whiteAlpha.300');
 
   return (
     <Box bg={brandColour} p={5} textAlign="center" borderRadius="md" shadow="md">
@@ -19,8 +22,14 @@ const BrochureDownload: React.FC = () => {
         as="a"
         href="/PF_Geomatics_Brochure.pdf"
         target="_blank"
-        colorScheme="teal"
         leftIcon={<DownloadIcon />}
+        variant="outline"
+        borderColor={buttonBorderColor}
+        color={buttonTextColor}
+        _hover={{ bg: buttonHoverBg }}
+        _active={{ bg: buttonHoverBg, transform: 'scale(0.95)' }}
+        transition="all 0.2s ease-in-out"
+        size="lg"
       >
         Open Brochure
       </Button>
