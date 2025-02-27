@@ -1,7 +1,7 @@
 // src/components/CoverVideo.tsx
 
 import React, { useState } from 'react';
-import { Box, VStack, Image, useBreakpointValue, Spinner, Center } from '@chakra-ui/react';
+import { Box, VStack, useBreakpointValue, Spinner, Center } from '@chakra-ui/react';
 
 const CoverVideo: React.FC<{ src: string }> = ({ src }) => {
   const height = useBreakpointValue({ base: '45vh', md: '75vh' });
@@ -48,17 +48,6 @@ const CoverVideo: React.FC<{ src: string }> = ({ src }) => {
         borderRadius="md"
         zIndex="10"
       >
-        <Box
-          backgroundColor="rgba(0, 0, 0, 0.2)"
-          padding="10px"
-          borderRadius="md"
-        >
-          <Image
-            src="/PFG_LOGO_W2.png"
-            alt="PF Geomatics Logo"
-            maxH={{ base: '100px', md: '150px' }}
-          />
-        </Box>
       </VStack>
     </Box>
   );

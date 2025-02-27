@@ -58,6 +58,11 @@ const About: React.FC = () => {
             /></Center>
           </Flex>
           <Box px={10} textAlign="center">
+          <Center><Image
+            src="/PFG_LOGO_W2.png"
+            alt="PF Geomatics Logo"
+            maxH={{ base: '100px', md: '150px' }}
+            /></Center>
             <Heading as="h1" size="xl" mb={4}>
               We are a site engineering and surveying company based in London
             </Heading>
