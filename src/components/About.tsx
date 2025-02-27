@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { 
-  Box, Heading, useColorModeValue, Button, VStack, useMediaQuery, 
+  Box, useColorModeValue, Button, VStack, useMediaQuery, 
   Grid, Image, Flex, Spinner, Center 
 } from '@chakra-ui/react';
 import AboutModal from './AboutModal';
@@ -51,11 +51,9 @@ const About: React.FC = () => {
                 src={logoSrc}
                 alt="PF Geomatics Logo"
                 maxH={{ base: '100px', md: '150px' }}
+                mb={4}
               />
             </Center>
-            <Heading as="h1" size="xl" mb={4}>
-              We are a site engineering and surveying company based in London
-            </Heading>
             <VStack spacing={4} align="center">
               <Button
                 size={isSmallScreen ? 'md' : 'lg'}
