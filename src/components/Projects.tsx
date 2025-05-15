@@ -50,7 +50,7 @@ const Projects: React.FC = () => {
 
         <Carousel
           id="project-carousel"
-          interval={8000}
+          interval={6000}
           direction={Direction.RIGHT}
           repetitions={1}
           items={carouselItems}

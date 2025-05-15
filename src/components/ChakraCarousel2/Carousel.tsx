@@ -8,7 +8,7 @@ import {
   useMultiStyleConfig,
 } from '@chakra-ui/react';
 import React, { useCallback, useEffect, useState } from 'react';
-import { SwipeEventData, useSwipeable } from 'react-swipeable';
+import { useSwipeable } from 'react-swipeable';
 
 export enum Direction {
   LEFT,
@@ -62,6 +62,8 @@ export interface CarouselItemProps extends Partial<CarouselItem> {
   slides: number;
 }
 
+const CARD_WIDTH = 300;
+
 export const Carousel = ({
   id,
   interval,
@@ -77,60 +79,56 @@ export const Carousel = ({
   arrowStyles = { ...arrowStyles, ...carouselStyles.arrows };
   const arrowColor = useColorModeValue('black', 'white');
 
-  useEffect(() => {
-    setItems(inputItems || []);
-    setCurrentSlides(Array.from({ length: repetitions }, (_, index) => index));
-  }, [inputItems, repetitions]);
+useEffect(() => {
+  const extendedItems = [...(inputItems || []), ...(inputItems || [])];
+  setItems(extendedItems);
+  setCurrentSlides(Array.from({ length: repetitions }, (_, index) => index));
+}, [inputItems, repetitions]);
 
   const prevSlide = useCallback(() => {
-    const slides: number[] = currentSlides.map((value) => {
-      return value === 0 ? items.length - 1 : value - 1;
-    });
-    setCurrentSlides(slides);
-  }, [currentSlides, items.length]);
+    setCurrentSlides((prev) =>
+      prev.map((val) => (val - 1 + items.length) % items.length)
+    );
+  }, [items.length]);
 
   const nextSlide = useCallback(() => {
-    const slides: number[] = currentSlides.map((value) => {
-      return value === items.length - 1 ? 0 : value + 1;
-    });
-    setCurrentSlides(slides);
-  }, [currentSlides, items.length]);
+    setCurrentSlides((prev) =>
+      prev.map((val) => (val + 1) % items.length)
+    );
+  }, [items.length]);
 
   const handlers = useSwipeable({
-    onSwipedLeft: (eventData: SwipeEventData) => nextSlide(),
-    onSwipedRight: (eventData: SwipeEventData) => prevSlide(),
+    onSwipedLeft: () => nextSlide(),
+    onSwipedRight: () => prevSlide(),
   });
 
   useEffect(() => {
-    const automatedSlide = setInterval(() => {
-      if (direction === Direction.LEFT) {
-        prevSlide();
-      } else if (direction === Direction.RIGHT) {
-        nextSlide();
-      }
+    const autoSlide = setInterval(() => {
+      direction === Direction.LEFT ? prevSlide() : nextSlide();
     }, interval);
-
-    return () => clearInterval(automatedSlide);
-  }, [currentSlides, direction, interval, nextSlide, prevSlide]);
+    return () => clearInterval(autoSlide);
+  }, [direction, interval, nextSlide, prevSlide]);
 
   const carouselStyle = (index: number) => {
     return {
       transition: 'all 1s ease-in-out',
-      ml: `-${currentSlides[index]! * 300}px`,
+      ml: `-${currentSlides[index]! * CARD_WIDTH}px`,
     };
   };
 
   const getArrowStyles = (arrowDirection: Direction) => {
     let { borderRadius } = arrowStyles;
-    if (arrowDirection === Direction.LEFT)
-      borderRadius = `${borderRadius} 0 0 ${borderRadius}`;
-    else if (arrowDirection === Direction.RIGHT)
-      borderRadius = `0 ${borderRadius} ${borderRadius} 0`;
-    return { ...arrowStyles, borderRadius };
+    return {
+      ...arrowStyles,
+      borderRadius:
+        arrowDirection === Direction.LEFT
+          ? `${borderRadius} 0 0 ${borderRadius}`
+          : `0 ${borderRadius} ${borderRadius} 0`,
+    };
   };
 
   return (
-    <Flex w="full" p={4} alignItems="center" justifyContent="center" { ...handlers }>
+    <Flex w="full" p={4} alignItems="center" justifyContent="center" {...handlers}>
       <Text
         pos="relative"
         userSelect="none"
@@ -141,8 +139,8 @@ export const Carousel = ({
       >
         &#10094;
       </Text>
-      {[...Array(repetitions)].map((repetition, index) => (
-        <Flex key={`${id}-${repetition}`} overflow="hidden">
+      {[...Array(repetitions)].map((_, index) => (
+        <Flex key={`${id}-${index}`} overflow="hidden">
           <Flex pos="relative" w="full" {...carouselStyle(index)}>
             {items.map((item, innerIndex) => {
               const req: CarouselItemProps = {
@@ -152,8 +150,7 @@ export const Carousel = ({
                 ...item,
               };
               return React.cloneElement(children, {
-                key: `${id}-${repetition}-${item.title}`,
-
+                key: `${id}-${index}-${item.title}`,
                 ...req,
               });
             })}
