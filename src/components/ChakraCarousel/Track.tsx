@@ -1,9 +1,8 @@
 // src/components/ChakraCarousel/Track.tsx
 
 import React, { useEffect, useRef, useState } from "react";
-import { VStack, Flex } from "@chakra-ui/react";
-import { motion, useMotionValue, useAnimation } from "framer-motion";
-import { PanInfo } from "framer-motion";
+import { VStack, Flex, Box } from "@chakra-ui/react";
+import { motion, useMotionValue, useAnimation, PanInfo } from "framer-motion";
 
 const MotionFlex = motion(Flex);
 
@@ -18,10 +17,10 @@ interface TrackProps {
   itemWidth: number;
   positions: number[];
   gap: number;
+  itemsPerView: number;
   children: React.ReactNode;
 }
 
-// Move this outside the component
 const transitionProps = {
   stiffness: 400,
   type: "spring",
@@ -33,11 +32,14 @@ const Track: React.FC<TrackProps> = ({
   setTrackIsActive,
   trackIsActive,
   setActiveItem,
+  sliderWidth,
   activeItem,
   constraint,
   multiplier,
   itemWidth,
   positions,
+  gap,
+  itemsPerView,
   children
 }) => {
   const [dragStartPosition, setDragStartPosition] = useState(0);
@@ -91,7 +93,16 @@ const Track: React.FC<TrackProps> = ({
         minWidth="min-content"
         flexWrap="nowrap"
       >
-        {children}
+        {React.Children.map(children, (child, index) => (
+          <Box
+            key={index}
+            flex={`0 0 ${itemWidth}px`}
+            maxWidth={`${itemWidth}px`}
+            pr={index !== React.Children.count(children) - 1 ? `${gap}px` : "0px"}
+          >
+            {child}
+          </Box>
+        ))}
       </MotionFlex>
     </VStack>
   );

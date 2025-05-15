@@ -28,7 +28,7 @@ interface Project {
   linkedIn: string;
 }
 
-const Projects: React.FC = () => {
+const Projects: React.FC<{ itemWidth?: number }> = ({ itemWidth = 300 }) => {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [imageLoadingMap, setImageLoadingMap] = useState<Record<string, boolean>>(
     Object.fromEntries(projectsData.map(p => [p.name, true]))
@@ -69,8 +69,9 @@ const Projects: React.FC = () => {
                 overflow="hidden"
                 transition="all 0.3s ease"
                 _hover={{ transform: 'scale(1.03)', boxShadow: 'lg' }}
+                width={`${itemWidth}px`}
               >
-                <Box width="100%" height="250px" position="relative">
+                <Box width="100%" height="300px" position="relative">
                   {isImageLoading && (
                     <Center height="100%">
                       <Spinner size="lg" />
