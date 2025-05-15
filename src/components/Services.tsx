@@ -4,15 +4,13 @@ import React, { useState } from 'react';
 import {
   Box,
   Heading,
-  SimpleGrid,
   Image,
   useDisclosure,
-  Icon,
   Spinner,
-  Center
+  Center,
+  SimpleGrid,
 } from '@chakra-ui/react';
 import { servicesData } from '../data/servicesData';
-import { ViewIcon } from '@chakra-ui/icons';
 import ServiceModal from './ServiceModal';
 
 interface Service {
@@ -24,7 +22,6 @@ interface Service {
 const Services: React.FC = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [selectedService, setSelectedService] = useState<Service | null>(null);
-  // const brandColour = 'brand.400';
   const [loadingImages, setLoadingImages] = useState<{ [key: string]: boolean }>({});
 
   const handleServiceClick = (service: Service) => {
@@ -33,82 +30,48 @@ const Services: React.FC = () => {
   };
 
   const handleImageLoad = (title: string) => {
-    setLoadingImages(prevState => ({ ...prevState, [title]: false }));
+    setLoadingImages(prev => ({ ...prev, [title]: false }));
   };
 
   return (
-    <Box 
-    // bg={brandColour}
-    >
-      <Box p={5} maxW="1200px" mx="auto">
-        <Heading as="h2" size="xl" mb={6} textAlign="center">
+    <Box py={10}>
+      <Box px={5} maxW="1200px" mx="auto">
+        <Heading as="h2" size="xl" mb={6} textAlign="center" color="brand.700">
           Our Services
         </Heading>
-        <SimpleGrid columns={{ sm: 1, md: 2, lg: 3 }} spacing={10}>
-          {servicesData.map((service: Service) => (
+
+        <SimpleGrid columns={{ base: 1, sm: 2, md: 3 }} spacing={6} justifyContent="center">
+          {servicesData.map((service) => (
             <Box
               key={service.title}
-              position="relative"
+              minW="300px"
+              maxW="300px"
+              mx="auto"
               cursor="pointer"
               onClick={() => handleServiceClick(service)}
+              borderRadius="md"
               overflow="hidden"
-              _hover={{
-                transform: 'scale(1.05)',
-                zIndex: '10',
-              }}
-            >
+              transition="all 0.3s ease"
+              _hover={{ transform: 'scale(1.03)', boxShadow: 'lg' }}
+              >
               {loadingImages[service.title] && (
-                <Center><Spinner
-                  size="xl"
-                  position="absolute"
-                  top="50%"
-                  transform="translate(-50%, -50%)"
-                  zIndex="10"
-                /></Center>
+                <Center h="200px">
+                  <Spinner size="lg" />
+                </Center>
               )}
               <Image
-                borderRadius="sm"
                 src={require(`../media/serviceImages/${service.imageFolder}/1.png`)}
                 alt={`${service.title} image`}
                 objectFit="cover"
-                width="100%"
-                height="100%"
-                transition="all 0.3s ease-in-out"
-                onLoad={() => handleImageLoad(service.title)}
-                display={loadingImages[service.title] ? 'none' : 'block'}
-                _hover={{
-                  filter: 'brightness(0.8)',
-                }}
-              />
-              <Icon
-                as={ViewIcon}
-                color="white"
-                boxSize="4"
-                position="absolute"
-                top="1"
-                right="3"
-                transition="opacity 0.3s ease"
-                _groupHover={{ opacity: '1' }}
-              />
-              <Box
-                position="absolute"
-                top="50%"
-                left="50%"
-                transform="translate(-50%, -50%)"
-                textAlign="center"
-                px={2}
-                backgroundColor="rgba(0, 0, 0, 0.2)"
-                padding="5px"
+                w="100%"
+                h="200px"
+                boxShadow="md"
                 borderRadius="md"
-              >
-                <Heading
-                  color="white"
-                  fontSize="2xl"
-                  fontWeight="bold"
-                  textShadow="1px 1px 3px rgba(0,0,0,0.7)"
-                  whiteSpace="normal"
-                  overflowWrap="break-word"
-                >
+                display={loadingImages[service.title] ? 'none' : 'block'}
+                onLoad={() => handleImageLoad(service.title)}
+              />
+              <Box p="4" textAlign="center">
+                <Heading size="md" mb="1">
                   {service.title}
                 </Heading>
               </Box>
@@ -117,7 +80,11 @@ const Services: React.FC = () => {
         </SimpleGrid>
       </Box>
 
-      <ServiceModal isOpen={isOpen} onClose={onClose} selectedService={selectedService} />
+      <ServiceModal
+        isOpen={isOpen}
+        onClose={onClose}
+        selectedService={selectedService}
+      />
     </Box>
   );
 };
