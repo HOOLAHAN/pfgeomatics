@@ -1,10 +1,19 @@
+// src/components/MapComponent.tsx
+
 import React, { useEffect, useState, useRef } from 'react';
 import ReactMapGL, { Marker, ViewStateChangeEvent } from 'react-map-gl';
-import { Box, Button, useDisclosure, useColorModeValue, useBreakpointValue, Spinner, Center } from '@chakra-ui/react';
+import {
+  Box,
+  Button,
+  useDisclosure,
+  useColorModeValue,
+  useBreakpointValue,
+  Spinner,
+  Center
+} from '@chakra-ui/react';
 import { fetchCoordinates } from '../utils/fetchCoordinates';
 import { projectsData } from '../data/projectsData';
 import 'mapbox-gl/dist/mapbox-gl.css';
-import '../css/MapComponent.css';
 import { LngLatBounds } from 'mapbox-gl';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMapMarkerAlt, faSearchMinus } from '@fortawesome/free-solid-svg-icons';
@@ -34,19 +43,20 @@ export type ProjectWithCoordinates = Project & {
 
 const MapComponent: React.FC = () => {
   const height = useBreakpointValue({ base: '45vh', md: '75vh' });
-  const brandColour = 'brand.400';
+  const brandColour = useColorModeValue('#2B6CB0', '#63B3ED');
   const mapStyle = useColorModeValue('mapbox://styles/mapbox/streets-v11', 'mapbox://styles/mapbox/dark-v10');
 
   const mapContainerRef = useRef<HTMLDivElement>(null);
-  const mapRef = useRef<any>(null); // To hold the map instance
+  const mapRef = useRef<any>(null);
 
   const [viewport, setViewport] = useState({
-    latitude: 51.5074, // Default to London
+    latitude: 51.5074,
     longitude: -0.1278,
     zoom: 10,
     width: '100%',
-    height: '100%'
+    height: '100%',
   });
+
   const [projects, setProjects] = useState<ProjectWithCoordinates[]>([]);
   const [selectedProject, setSelectedProject] = useState<ProjectWithCoordinates | null>(null);
   const [initialLoad, setInitialLoad] = useState(true);
@@ -82,21 +92,20 @@ const MapComponent: React.FC = () => {
           fitBounds(updatedProjects);
           setInitialLoad(false);
         }
-        setLoading(false); // Set loading to false after data has been fetched and set
+        setLoading(false);
       } catch (error) {
         console.error('Error fetching coordinates:', error);
-        setLoading(false); // Set loading to false even if there's an error
+        setLoading(false);
       }
     };
 
     fetchAndSetCoordinates();
   }, [initialLoad]);
 
-  // Ensure the map resizes correctly after the initial render
   useEffect(() => {
     if (mapContainerRef.current) {
-      setViewport(prevViewport => ({
-        ...prevViewport,
+      setViewport(prev => ({
+        ...prev,
         height: `${mapContainerRef.current!.clientHeight}px`
       }));
       if (mapRef.current) {
@@ -126,10 +135,10 @@ const MapComponent: React.FC = () => {
     if (!bounds.isEmpty()) {
       const { _ne: ne, _sw: sw } = bounds;
       const center = [(ne.lng + sw.lng) / 2, (ne.lat + sw.lat) / 2];
-      const zoom = Math.min(14, Math.log2(360 / (ne.lng - sw.lng)) - 1); // Slightly zoom out
+      const zoom = Math.min(14, Math.log2(360 / (ne.lng - sw.lng)) - 1);
 
-      setViewport(prevViewport => ({
-        ...prevViewport,
+      setViewport(prev => ({
+        ...prev,
         latitude: center[1],
         longitude: center[0],
         zoom
@@ -138,24 +147,30 @@ const MapComponent: React.FC = () => {
   };
 
   return (
-    <Box width="100%" maxW="1200px" mx="auto" position="relative" p={5} borderRadius="lg" overflow="hidden" ref={mapContainerRef}>
+    <Box
+      width="100%"
+      maxW="1200px"
+      mx="auto"
+      position="relative"
+      borderRadius="lg"
+      overflow="hidden"
+      boxShadow="xl"
+      ref={mapContainerRef}
+      bg="white"
+    >
       {loading && (
-        <Center><Spinner
-          size="xl"
-          position="absolute"
-          top="50%"
-          transform="translate(-50%, -50%)"
-          zIndex="10"
-        /></Center>
+        <Center>
+          <Spinner size="xl" position="absolute" top="50%" transform="translate(-50%, -50%)" zIndex="10" />
+        </Center>
       )}
-      <Box width="calc(100% - 10px)" height={height} m="5px" position="relative" borderRadius="lg" overflow="hidden">
+      <Box width="calc(100% - 10px)" height={height} m="5px" borderRadius="lg" overflow="hidden" boxShadow="lg">
         <ReactMapGL
           ref={mapRef}
           {...viewport}
           mapStyle={mapStyle}
-          onMove={(evt: ViewStateChangeEvent) => 
-            setViewport((prevViewport) => ({
-              ...prevViewport,
+          onMove={(evt: ViewStateChangeEvent) =>
+            setViewport(prev => ({
+              ...prev,
               ...evt.viewState
             }))
           }
@@ -168,15 +183,20 @@ const MapComponent: React.FC = () => {
                 latitude={project.latitude}
                 longitude={project.longitude}
               >
-                <button
-                  className="marker-btn"
+                <Button
                   onClick={(e) => {
                     e.preventDefault();
                     handleMarkerClick(project);
                   }}
+                  bg="white"
+                  p={1}
+                  rounded="full"
+                  shadow="md"
+                  _hover={{ bg: 'brand.100' }}
+                  _active={{ transform: 'scale(0.95)' }}
                 >
-                  <FontAwesomeIcon icon={faMapMarkerAlt} size="2x" color={brandColour} />
-                </button>
+                  <FontAwesomeIcon icon={faMapMarkerAlt} size="lg" color={brandColour} />
+                </Button>
               </Marker>
             ) : null
           ))}
@@ -185,12 +205,17 @@ const MapComponent: React.FC = () => {
 
       <Button
         position="absolute"
-        top="40px"
-        right="40px"
+        top="20px"
+        right="20px"
         onClick={() => fitBounds(projects)}
-        bg="white"
-        color="black"
-        _hover={{ bg: "gray.100" }}
+        bg="brand.100"
+        color="brand.700"
+        _hover={{ bg: "brand.200" }}
+        _active={{ transform: 'scale(0.95)' }}
+        rounded="full"
+        shadow="lg"
+        zIndex={2}
+        size="sm"
       >
         <FontAwesomeIcon icon={faSearchMinus} />
       </Button>

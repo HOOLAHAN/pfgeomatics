@@ -5,7 +5,6 @@ import {
   Box,
   Heading,
   useDisclosure,
-  useToken,
 } from '@chakra-ui/react';
 import { projectsData } from '../data/projectsData';
 import ProjectModal from './ProjectModal';

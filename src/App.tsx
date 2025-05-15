@@ -14,6 +14,7 @@ const colors = {
     50: "#f8f7f3",  // soft background
     100: "#d9d6ce", // warm neutral
     200: "#aaaaa0", // muted green-gray (logo tone)
+    300: "#dbdcd6",
     400: "#7c7a6e", // mid tone
     600: "#545145", // charcoal olive (logo base)
     800: "#3b3933", // deep neutral

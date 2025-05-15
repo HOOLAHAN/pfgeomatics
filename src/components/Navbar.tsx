@@ -27,7 +27,7 @@ const navLinks = [
 
 const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const brandColour = 'brand.200';
+  const brandColour = 'brand.300';
   const offset = useBreakpointValue({ base: -224, md: -56 });
 
   const toggleMenu = () => setIsOpen(!isOpen);
