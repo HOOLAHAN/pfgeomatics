@@ -4,7 +4,7 @@ import { Button, Text, VStack, Link, Icon, Heading, HStack, Box, useColorModeVal
 import { FaLinkedin, FaEnvelope } from 'react-icons/fa';
 
 const Contact: React.FC = () => {
-  const brandColour = useColorModeValue('lightBrand.500', 'darkBrand.500');
+  const brandColour = 'brand.400';
   const buttonBorderColor = useColorModeValue('black', 'white');
   const buttonTextColor = useColorModeValue('black', 'white');
   const buttonHoverBg = useColorModeValue('gray.200', 'whiteAlpha.300');

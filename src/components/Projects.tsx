@@ -1,7 +1,7 @@
 // src/components/Projects.tsx
 
 import React, { useState } from 'react';
-import { Box, Image, Heading, useDisclosure, useColorModeValue, Icon, Spinner, Center } from '@chakra-ui/react';
+import { Box, Image, Heading, useDisclosure, Icon, Spinner, Center } from '@chakra-ui/react';
 import { ViewIcon } from '@chakra-ui/icons';
 import { projectsData } from '../data/projectsData';
 import ProjectModal from './ProjectModal';
@@ -23,7 +23,7 @@ const Projects: React.FC = () => {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [loading, setLoading] = useState(true);
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const brandColour = useColorModeValue('lightBrand.700', 'darkBrand.700');
+  const brandColour = 'brand.400';
 
   const handleProjectClick = (project: Project) => {
     setSelectedProject(project);

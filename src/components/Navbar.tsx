@@ -1,104 +1,106 @@
 // src/components/Navbar.tsx
 
 import { useState } from 'react';
-import { Box, Flex, IconButton, useColorModeValue, useBreakpointValue, Center, Collapse, Text, SimpleGrid } from '@chakra-ui/react';
+import {
+  Box,
+  Flex,
+  IconButton,
+  Button,
+  Image,
+  Collapse,
+  useBreakpointValue,
+  HStack,
+  VStack
+} from '@chakra-ui/react';
 import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
-import { ColorModeSwitcher } from "../ColorModeSwitcher";
 import { Link } from 'react-scroll';
+
+const navLinks = [
+  { label: 'Home', to: 'cover-video' },
+  { label: 'About', to: 'about' },
+  { label: 'Projects', to: 'projects' },
+  { label: 'Map', to: 'map' },
+  { label: 'Services', to: 'services' },
+  { label: 'Clients', to: 'clients' },
+  { label: 'Contact', to: 'contact-form' },
+];
 
 const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const brandColour = useColorModeValue('lightBrand.400', 'darkBrand.1000');
-
-  // Use Chakra UI's useBreakpointValue to handle responsive offsets
-  const baseOffset = isOpen ? -224 : -56;
-  const offset = useBreakpointValue({ base: baseOffset, md: -56 });
+  const brandColour = 'brand.100';
+  const offset = useBreakpointValue({ base: -224, md: -56 });
 
   const toggleMenu = () => setIsOpen(!isOpen);
 
-  const linkStyles = {
-    px: 2,
-    cursor: 'pointer',
-    _hover: { textDecoration: 'underline', color: 'gray.300' },
-    _active: { color: 'gray.500' }
+  const buttonStyles = {
+    variant: "ghost",
+    size: "sm",
+    fontWeight: 500,
+    _hover: { bg: "brand.200", color: "gray.800" },
+    _active: { bg: "brand.300" },
   };
 
   return (
-    <Box 
-      px={5} 
-      py={2} 
-      boxShadow="sm" 
-      bg={brandColour} 
-      color="white"
+    <Box
+      bg={brandColour}
+      borderBottom="1px solid"
+      borderColor="gray.200"
+      px={5}
+      py={2}
       position="sticky"
       top={0}
       zIndex={11}
-      width="100%"
-      m={0}
+      w="100%"
     >
-      <Flex align="center" justify="space-between" position="relative">
-        <ColorModeSwitcher />
-        <Flex display={{ base: "none", md: "flex" }}>
-          <Link to="cover-video" smooth={true} duration={500} offset={offset}>
-            <Text as="span" {...linkStyles}>Home</Text>
-          </Link>
-          <Link to="about" smooth={true} duration={500} offset={offset}>
-            <Text as="span" {...linkStyles}>About</Text>
-          </Link>
-          <Link to="projects" smooth={true} duration={500} offset={offset}>
-            <Text as="span" {...linkStyles}>Projects</Text>
-          </Link>
-          <Link to="map" smooth={true} duration={500} offset={offset}>
-            <Text as="span" {...linkStyles}>Map</Text>
-          </Link>
-          <Link to="services" smooth={true} duration={500} offset={offset}>
-            <Text as="span" {...linkStyles}>Services</Text>
-          </Link>
-          <Link to="clients" smooth={true} duration={500} offset={offset}>
-            <Text as="span" {...linkStyles}>Clients</Text>
-          </Link>
-          <Link to="contact-form" smooth={true} duration={500} offset={offset}>
-            <Text as="span" {...linkStyles}>Contact</Text>
-          </Link>
-        </Flex>
+      <Flex align="center" justify="space-between">
+        {/* Logo */}
+        <Image src="/PFG_LOGO_B3.png" alt="PF Geomatics" h="40px" />
+
+        {/* Desktop Nav */}
+        <HStack spacing={4} display={{ base: 'none', md: 'flex' }}>
+          {navLinks.map(({ label, to }) => (
+            <Link key={to} to={to} smooth duration={500} offset={offset || -56}>
+              <Button {...buttonStyles}>{label}</Button>
+            </Link>
+          ))}
+        </HStack>
+
+        {/* Hamburger Icon */}
         <IconButton
-          display={{ base: "flex", md: "none" }}
+          display={{ base: 'flex', md: 'none' }}
           onClick={toggleMenu}
           icon={isOpen ? <CloseIcon /> : <HamburgerIcon />}
           variant="ghost"
           aria-label="Toggle Navigation"
-          color="white"
         />
       </Flex>
+
+      {/* Mobile Menu */}
       <Collapse in={isOpen} animateOpacity>
-        <Box mt={2} pb={4} display={{ md: 'none' }}>
-          <SimpleGrid columns={2} spacing={4}>
-            <Link to="cover-video" smooth={true} duration={500} offset={offset} onClick={toggleMenu}>
-              <Center><Text as="span" {...linkStyles}>Home</Text></Center>
+        <VStack
+          spacing={3}
+          mt={3}
+          align="start"
+          display={{ md: 'none' }}
+        >
+          {navLinks.map(({ label, to }) => (
+            <Link
+              key={to}
+              to={to}
+              smooth
+              duration={500}
+              offset={offset || -224}
+              onClick={toggleMenu}
+            >
+              <Button {...buttonStyles} w="100%">
+                {label}
+              </Button>
             </Link>
-            <Link to="about" smooth={true} duration={500} offset={offset} onClick={toggleMenu}>
-              <Center><Text as="span" {...linkStyles}>About</Text></Center>
-            </Link>
-            <Link to="projects" smooth={true} duration={500} offset={offset} onClick={toggleMenu}>
-              <Center><Text as="span" {...linkStyles}>Projects</Text></Center>
-            </Link>
-            <Link to="map" smooth={true} duration={500} offset={offset} onClick={toggleMenu}>
-              <Center><Text as="span" {...linkStyles}>Map</Text></Center>
-            </Link>
-            <Link to="services" smooth={true} duration={500} offset={offset} onClick={toggleMenu}>
-              <Center><Text as="span" {...linkStyles}>Services</Text></Center>
-            </Link>
-            <Link to="clients" smooth={true} duration={500} offset={offset} onClick={toggleMenu}>
-              <Center><Text as="span" {...linkStyles}>Clients</Text></Center>
-            </Link>
-            <Link to="contact-form" smooth={true} duration={500} offset={offset} onClick={toggleMenu}>
-              <Center><Text as="span" {...linkStyles}>Contact</Text></Center>
-            </Link>
-          </SimpleGrid>
-        </Box>
+          ))}
+        </VStack>
       </Collapse>
     </Box>
   );
-}
+};
 
 export default Navbar;

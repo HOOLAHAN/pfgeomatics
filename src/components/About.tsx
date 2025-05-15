@@ -11,7 +11,7 @@ import AboutModal from './AboutModal';
 import aboutImage from '../media/serviceImages/about/1.png';
 
 const About: React.FC = () => {
-  const brandColour = useColorModeValue('lightBrand.800', 'darkBrand.800');
+  const brandColour = 'lightBrand.400';
   const buttonBorderColor = useColorModeValue('black', 'white');
   const buttonTextColor = useColorModeValue('black', 'white');
   const buttonHoverBg = useColorModeValue('gray.200', 'whiteAlpha.300');

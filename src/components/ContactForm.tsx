@@ -26,7 +26,7 @@ interface FormValues {
 }
 
 const ContactForm: React.FC = () => {
-  const brandColour = useColorModeValue('lightBrand.700', 'darkBrand.700');
+  const brandColour = 'brand.400';
   const buttonBorderColor = useColorModeValue('black', 'white');
   const buttonTextColor = useColorModeValue('black', 'white');
   const buttonHoverBg = useColorModeValue('gray.200', 'whiteAlpha.300');

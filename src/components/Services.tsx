@@ -7,7 +7,6 @@ import {
   SimpleGrid,
   Image,
   useDisclosure,
-  useColorModeValue,
   Icon,
   Spinner,
   Center
@@ -25,7 +24,7 @@ interface Service {
 const Services: React.FC = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [selectedService, setSelectedService] = useState<Service | null>(null);
-  const brandColour = useColorModeValue('lightBrand.600', 'darkBrand.600');
+  const brandColour = 'brand.400';
   const [loadingImages, setLoadingImages] = useState<{ [key: string]: boolean }>({});
 
   const handleServiceClick = (service: Service) => {

@@ -5,7 +5,7 @@ import { Box, Button, Heading, Text, useColorModeValue } from '@chakra-ui/react'
 import { DownloadIcon } from '@chakra-ui/icons';
 
 const BrochureDownload: React.FC = () => {
-  const brandColour = useColorModeValue('lightBrand.400', 'darkBrand.1000');
+  const brandColour = 'brand.400';
   const buttonBorderColor = useColorModeValue('white', 'white');
   const buttonTextColor = useColorModeValue('white', 'white');
   const buttonHoverBg = useColorModeValue('whiteAlpha.300', 'whiteAlpha.300');

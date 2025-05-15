@@ -34,7 +34,7 @@ export type ProjectWithCoordinates = Project & {
 
 const MapComponent: React.FC = () => {
   const height = useBreakpointValue({ base: '45vh', md: '75vh' });
-  const brandColour = useColorModeValue('lightBrand.400', 'darkBrand.1000');
+  const brandColour = 'brand.400';
   const mapStyle = useColorModeValue('mapbox://styles/mapbox/streets-v11', 'mapbox://styles/mapbox/dark-v10');
 
   const mapContainerRef = useRef<HTMLDivElement>(null);

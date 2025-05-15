@@ -2,37 +2,40 @@ import { ChakraProvider, extendTheme, ThemeConfig } from "@chakra-ui/react";
 import Navbar from "./components/Navbar";
 import Home from "./components/Home";
 
+// Lock to light mode
 const config: ThemeConfig = {
   initialColorMode: "light",
   useSystemColorMode: false,
 };
 
+// Logo-inspired earthy color scheme
 const colors = {
-  lightBrand: {
-    // 900: '#bcd4de',
-    // 800: '#A5CCD1',
-    // 700: '#A0B9BF',
-    // 600: '#9DACB2',
-    // 500: '#949BA0',
-    400: '#005E7C',
-    // 300: '#e2e8f0',
+  brand: {
+    50: "#f8f7f3",  // soft background
+    100: "#d9d6ce", // warm neutral
+    200: "#aaaaa0", // muted green-gray (logo tone)
+    400: "#7c7a6e", // mid tone
+    600: "#545145", // charcoal olive (logo base)
+    800: "#3b3933", // deep neutral
   },
-  darkBrand: {
-    1000: '#1a202c',
-    // 900: '#252525',
-    // 800: '#333333',
-    // 700: '#414141',
-    // 600: '#525252',
-    // 500: '#636363',
-    // 400: '#747474',
-    // 300: '#858585',
-  }
+  gray: {
+    50: "#fafafa",
+    100: "#f0f0f0",
+    200: "#d6d6d6",
+    300: "#bcbcbc",
+    400: "#a2a2a2",
+    500: "#888888",
+    600: "#6e6e6e",
+    700: "#545454",
+    800: "#3a3a3a",
+    900: "#202020",
+  },
 };
 
 const fonts = {
-  heading: "Calibri, sans-serif",
-  body: "Calibri, sans-serif",
-  mono: "Menlo, monospace"  
+  heading: "Inter, sans-serif",
+  body: "Inter, sans-serif",
+  mono: "Menlo, monospace",
 };
 
 const theme = extendTheme({ config, colors, fonts });
