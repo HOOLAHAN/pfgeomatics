@@ -1,0 +1,29 @@
+// src/components/ChakraCarousel2/CarouselCard.tsx
+
+import { Box, Image, Heading, Center } from '@chakra-ui/react';
+import { CarouselItemProps } from './Carousel';
+
+const CarouselCard: React.FC<CarouselItemProps> = ({
+  title,
+  image,
+  onClick,
+}) => (
+  <Box
+    minW="300px"
+    maxW="300px"
+    mx="2"
+    cursor="pointer"
+    onClick={onClick}
+    borderRadius="md"
+    overflow="hidden"
+  >
+    {image?.imageUrl && (
+      <Image src={image.imageUrl} alt={title} objectFit="cover" w="100%" h="200px" borderRadius="md" boxShadow="md"/>
+    )}
+    <Box p="4">
+      <Center><Heading size="md" mb="2">{title}</Heading></Center>
+    </Box>
+  </Box>
+);
+
+export default CarouselCard;
