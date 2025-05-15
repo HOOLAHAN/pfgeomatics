@@ -16,6 +16,9 @@ const colors = {
     200: "#aaaaa0", // muted green-gray (logo tone)
     300: "#dbdcd6",
     400: "#7c7a6e", // mid tone
+    // 500: "#6C756B",
+    // 500: "#7C7C7C",
+    500: "#727D71", // olive gray (logo tone)
     600: "#545145", // charcoal olive (logo base)
     800: "#3b3933", // deep neutral
   },

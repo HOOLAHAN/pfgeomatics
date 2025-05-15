@@ -12,7 +12,6 @@ const Footer: React.FC = () => {
 
   return (
     <Box 
-    // bg="brand.100" 
     color="gray.700" mt={10} py={5}>
       <Container maxW="container.xl">
         <Flex direction="column" align="center">
