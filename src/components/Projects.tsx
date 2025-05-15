@@ -9,8 +9,8 @@ import {
 } from '@chakra-ui/react';
 import { projectsData } from '../data/projectsData';
 import ProjectModal from './ProjectModal';
-import { Carousel, Direction } from './ChakraCarousel2';
-import ProjectCard from './ChakraCarousel2/CarouselCard';
+import { Carousel, Direction } from './ChakraCarousel';
+import ProjectCard from './ChakraCarousel/CarouselCard';
 import { getFirstImage } from '../utils/checkImageExists';
 
 interface Project {
