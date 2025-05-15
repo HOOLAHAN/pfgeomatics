@@ -1,4 +1,4 @@
-// src/components/ChakraCarousel2/types/carousel.d.ts
+// src/components/ChakraCarousel/types/carousel.d.ts
 
 import React, { ReactNode } from 'react';
 

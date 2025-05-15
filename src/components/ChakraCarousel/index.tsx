@@ -1,4 +1,4 @@
-// src/components/ChakraCarousel2/index.tsx
+// src/components/ChakraCarousel/index.tsx
 
 export { Carousel, Direction } from './Carousel';
 export type {

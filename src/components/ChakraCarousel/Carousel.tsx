@@ -1,4 +1,4 @@
-// src/components/ChakraCarousel2/Carousel.tsx
+// src/components/ChakraCarousel/Carousel.tsx
 
 import type { SystemStyleObject } from '@chakra-ui/react';
 import {

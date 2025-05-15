@@ -1,4 +1,4 @@
-// src/components/ChakraCarousel2/CarouselCard.tsx
+// src/components/ChakraCarousel/CarouselCard.tsx
 
 import { Box, Image, Heading, Center } from '@chakra-ui/react';
 import { CarouselItemProps } from './Carousel';
