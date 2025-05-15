@@ -1,3 +1,5 @@
+// src/components/MapModal.tsx
+
 import React from 'react';
 import {
   Modal,
@@ -11,7 +13,9 @@ import {
   Image,
   HStack,
   VStack,
+  Text,
   useColorModeValue,
+  useToken,
 } from '@chakra-ui/react';
 import { ProjectWithCoordinates } from './MapComponent';
 
@@ -23,31 +27,34 @@ interface MapModalProps {
 }
 
 const MapModal: React.FC<MapModalProps> = ({ project, isOpen, onClose, onMoreInfoClick }) => {
-  const buttonBorderColor = useColorModeValue('black', 'white');
-  const buttonTextColor = useColorModeValue('black', 'white');
-  const buttonHoverBg = useColorModeValue('gray.200', 'whiteAlpha.300');
+  const [brand600, brand50] = useToken("colors", ["brand.600", "brand.50"]);
+
+  const buttonBorderColor = brand600;
+  const buttonTextColor = brand600;
+  const buttonHoverBg = useColorModeValue(brand50, "whiteAlpha.300");
 
   return (
     <Modal isOpen={isOpen} onClose={onClose} size="sm" isCentered>
       <ModalOverlay />
-      <ModalContent m={3}>
+      <ModalContent m={3} borderRadius="lg" boxShadow="xl">
         <ModalHeader>{project?.name}</ModalHeader>
         <ModalCloseButton />
         <ModalBody>
-          <HStack align="start" spacing={4}>
-            <VStack align="start" spacing={2}>
-              <p><strong>Client:</strong> {project?.client}</p>
-              <p><strong>Duration:</strong> {project?.dateStarted} - {project?.dateEnded}</p>
+          <HStack align="flex-start" spacing={4}>
+            <VStack align="flex-start" spacing={1}>
+              <Text><strong>Client:</strong> {project?.client}</Text>
+              <Text>
+                <strong>Duration:</strong> {project?.dateStarted} – {project?.dateEnded}
+              </Text>
             </VStack>
             {project?.thumbnail && (
               <Image
                 src={project.thumbnail}
                 alt={`${project.name} thumbnail`}
-                boxSize="150px"
+                boxSize="120px"
                 objectFit="cover"
-                mb={4}
-                htmlWidth="150px"
-                htmlHeight="150px"
+                borderRadius="md"
+                shadow="md"
               />
             )}
           </HStack>
