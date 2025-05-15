@@ -43,7 +43,7 @@ const Projects: React.FC = () => {
 
   return (
     <Box bg={brandBg} py={10}>
-      <Box px={5} maxW="1200px" mx="auto">
+      <Box px={0} maxW="1200px" mx="auto">
         <Heading as="h2" size="xl" mb={6} textAlign="center" color="brand.700">
           Featured Projects
         </Heading>

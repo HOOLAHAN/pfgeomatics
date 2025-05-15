@@ -21,7 +21,7 @@ let arrowStyles: SystemStyleObject = {
   p: '16px',
   fontWeight: 'bold',
   fontSize: '18px',
-  transition: '0.6s ease',
+  transition: '0.2s ease',
   borderRadius: '3px',
   _hover: {
     opacity: 0.8,
@@ -116,7 +116,7 @@ export const Carousel = ({
   const carouselStyle = (index: number) => {
     return {
       transition: 'all 1s ease-in-out',
-      ml: `-${currentSlides[index]! * 100}%`,
+      ml: `-${currentSlides[index]! * 300}px`,
     };
   };
 
