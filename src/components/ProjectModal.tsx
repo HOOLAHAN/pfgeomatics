@@ -16,12 +16,11 @@ import {
   Icon,
   Link,
   useColorModeValue,
-  Spinner,
-  Center
+  Box,
+  Image
 } from '@chakra-ui/react';
 import { Carousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
-
 import { FaLinkedin } from 'react-icons/fa';
 import checkImageExists from '../utils/checkImageExists';
 
@@ -57,50 +56,61 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, isOpen, onClose })
   }, [project.imageFolder]);
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} size="xl">
+    <Modal isOpen={isOpen} onClose={onClose} size="xl" isCentered motionPreset="scale">
       <ModalOverlay />
-      <ModalContent m={3}>
-        <ModalHeader>{project.name}</ModalHeader>
+      <ModalContent mx={4} borderRadius="xl" boxShadow="lg">
+        <ModalHeader fontSize="2xl" fontWeight="semibold" textAlign="center">
+          {project.name}
+        </ModalHeader>
         <ModalCloseButton />
         <ModalBody>
-          <VStack align="stretch" spacing={3}>
-            {loading && <Center><Spinner size="md" /></Center>}
+          <VStack align="stretch" spacing={4}>
             {!loading && images.length > 0 && (
               <Carousel
                 showThumbs={true}
                 infiniteLoop={true}
                 autoPlay={true}
-                dynamicHeight={true}
+                interval={6000}
+                showStatus={false}
+                dynamicHeight={false}
                 thumbWidth={100}
               >
                 {images.map((src, index) => (
-                  <div key={index} style={{ height: '100%' }}>
-                    <img
+                  <Box
+                    key={index}
+                    w="100%"
+                    h={{ base: '200px', md: '300px' }}
+                    position="relative"
+                    overflow="hidden"
+                    borderRadius="md"
+                    bg="gray.100"
+                  >
+                    <Image
                       src={src}
                       alt={`Slide ${index + 1} of ${project.name}`}
-                      style={{
-                        width: '100%',
-                        height: 'auto',
-                        objectFit: 'cover',
-                        maxHeight: '500px'
-                      }}
+                      objectFit="cover"
+                      w="100%"
+                      h="100%"
+                      borderRadius="md"
                     />
-                  </div>
+                  </Box>
                 ))}
               </Carousel>
             )}
-            <Text><strong>Location:</strong> {project.location}</Text>
-            <Text><strong>Client:</strong> {project.client}</Text>
-            <Text><strong>From:</strong> {project.dateStarted} - {project.dateEnded}</Text>
-            <Text>{project.description}</Text>
-            {project.linkedIn && (
-              <HStack spacing={1}>
-                <Icon as={FaLinkedin} w={5} h={5} color="blue.500" />
-                <Link href={project.linkedIn} isExternal color="blue.500">
-                  View on LinkedIn
-                </Link>
-              </HStack>
-            )}
+            <VStack align="start" spacing={2}>
+              <Text><strong>📍 Location:</strong> {project.location}</Text>
+              <Text><strong>🏗️ Client:</strong> {project.client}</Text>
+              <Text><strong>🗓️ Duration:</strong> {project.dateStarted} – {project.dateEnded}</Text>
+              <Text><strong>📝 Description:</strong> {project.description}</Text>
+              {project.linkedIn && (
+                <HStack spacing={2}>
+                  <Icon as={FaLinkedin} w={5} h={5} color="blue.500" />
+                  <Link href={project.linkedIn} isExternal color="blue.500" fontWeight="medium">
+                    View on LinkedIn
+                  </Link>
+                </HStack>
+              )}
+            </VStack>
           </VStack>
         </ModalBody>
         <ModalFooter>
@@ -111,7 +121,6 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, isOpen, onClose })
             color={buttonTextColor}
             _hover={{ bg: buttonHoverBg }}
             _active={{ bg: buttonHoverBg, transform: 'scale(0.95)' }}
-            transition="all 0.2s ease-in-out"
             onClick={onClose}
           >
             Close

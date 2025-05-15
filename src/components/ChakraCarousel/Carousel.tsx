@@ -18,7 +18,7 @@ export enum Direction {
 let arrowStyles: SystemStyleObject = {
   cursor: 'pointer',
   mt: '-22px',
-  p: '16px',
+  p: '6px',
   fontWeight: 'bold',
   fontSize: '18px',
   transition: '0.2s ease',
