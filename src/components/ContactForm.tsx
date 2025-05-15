@@ -26,7 +26,7 @@ interface FormValues {
 }
 
 const ContactForm: React.FC = () => {
-  const brandColour = 'brand.400';
+  // const brandColour = 'brand.400';
   const buttonBorderColor = useColorModeValue('black', 'white');
   const buttonTextColor = useColorModeValue('black', 'white');
   const buttonHoverBg = useColorModeValue('gray.200', 'whiteAlpha.300');
@@ -68,7 +68,9 @@ const ContactForm: React.FC = () => {
   };
 
   return (
-    <Box bg={brandColour} m="auto" p={{ base: 3, md: 5 }}>
+    <Box 
+    // bg={brandColour} 
+    m="auto" p={{ base: 3, md: 5 }}>
       <Heading size="lg" textAlign="center" mb={6}>Contact Us</Heading>
       <Text fontSize="lg" textAlign="center">
         For enquiries reach out to us via email or find us on{' '}

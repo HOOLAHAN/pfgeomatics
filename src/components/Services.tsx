@@ -24,7 +24,7 @@ interface Service {
 const Services: React.FC = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [selectedService, setSelectedService] = useState<Service | null>(null);
-  const brandColour = 'brand.400';
+  // const brandColour = 'brand.400';
   const [loadingImages, setLoadingImages] = useState<{ [key: string]: boolean }>({});
 
   const handleServiceClick = (service: Service) => {
@@ -37,7 +37,9 @@ const Services: React.FC = () => {
   };
 
   return (
-    <Box bg={brandColour}>
+    <Box 
+    // bg={brandColour}
+    >
       <Box p={5} maxW="1200px" mx="auto">
         <Heading as="h2" size="xl" mb={6} textAlign="center">
           Our Services

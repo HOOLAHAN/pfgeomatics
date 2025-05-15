@@ -23,13 +23,15 @@ const About: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const handleImageLoad = () => setLoading(false);
 
-  const brandBg = useToken("colors", "brand.100");
+  // const brandBg = useToken("colors", "brand.100");
   const buttonBorderColor = useToken("colors", "brand.600");
   const buttonTextColor = useToken("colors", "brand.600");
   const buttonHoverBg = useToken("colors", "brand.50");
 
   return (
-    <Box bg={brandBg} py={10}>
+    <Box 
+    // bg={brandBg} 
+    py={10}>
       <Box px={5} mx="auto" maxW="1200px">
         <Grid templateColumns={{ base: '1fr', md: '1fr 1fr' }} gap={10} alignItems="center">
           <Flex justify="center" align="center" position="relative">

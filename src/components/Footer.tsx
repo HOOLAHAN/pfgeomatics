@@ -11,7 +11,9 @@ const Footer: React.FC = () => {
   const flexDirection = useBreakpointValue<'column' | 'row'>({ base: 'column', md: 'row' });
 
   return (
-    <Box bg="gray.200" color="gray.700" mt={10} py={5}>
+    <Box 
+    // bg="brand.100" 
+    color="gray.700" mt={10} py={5}>
       <Container maxW="container.xl">
         <Flex direction="column" align="center">
           <Text fontSize="lg" fontWeight="bold">PF Geomatics</Text>

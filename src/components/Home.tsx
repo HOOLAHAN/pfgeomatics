@@ -13,7 +13,13 @@ import BrochureDownload from './BrochureDownload';
 
 const Home: React.FC = () => {
   return (
-    <Box>
+    <Box
+      bgImage="url('/contour_background.svg')"
+      bgSize="cover"
+      bgPosition="center"
+      bgRepeat="no-repeat"
+      minH="100vh"
+    >
       <Box id="cover-video">
         <CoverVideo src={require(`../media/pfg.mp4`)} />
       </Box>
