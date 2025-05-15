@@ -12,6 +12,8 @@ import {
   VStack,
   Spinner,
   Center,
+  Box,
+  useToken,
 } from '@chakra-ui/react';
 import { Carousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
@@ -33,64 +35,83 @@ const ServiceModal: React.FC<ServiceModalProps> = ({ isOpen, onClose, selectedSe
   const [images, setImages] = useState<string[]>([]);
   const [loading, setLoading] = useState(true);
 
+  const modalBg = useToken("colors", "white");
+  const borderRadius = useToken("radii", "md");
+
   useEffect(() => {
     if (selectedService) {
       const imageUrls = checkImageExists('serviceImages', selectedService.imageFolder);
       setImages(imageUrls);
-      setLoading(false); // Set loading to false after images are fetched
+      setLoading(false);
     }
   }, [selectedService]);
 
   if (!selectedService) return null;
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose}>
+    <Modal isOpen={isOpen} onClose={onClose} size="xl">
       <ModalOverlay />
-      <ModalContent m={3}>
+      <ModalContent m={3} bg={modalBg} borderRadius={borderRadius}>
         <ModalHeader>{selectedService.title}</ModalHeader>
         <ModalCloseButton />
         <ModalBody>
-          <VStack align="stretch" spacing={3}>
+          <VStack align="stretch" spacing={4}>
             {loading && (
-              <Center><Spinner
-                size="xl"
-                position="absolute"
-                top="50%"
-                transform="translate(-50%, -50%)"
-                zIndex="10"
-              /></Center>
+              <Center minH="300px">
+                <Spinner size="lg" />
+              </Center>
             )}
-            {images.length > 0 && (
-              <Carousel
-                showThumbs={true}
-                infiniteLoop={true}
-                autoPlay={true}
-                dynamicHeight={true}
-                thumbWidth={100}
+
+            {!loading && images.length > 0 && (
+              <Box
+                overflow="hidden"
+                borderRadius="md"
+                position="relative"
+                minH="300px"
+                maxH="500px"
               >
-                {images.map((src, index) => (
-                  <div key={index} style={{ height: '100%' }}>
-                    <img
-                      src={src}
-                      alt={`Slide ${index + 1} of ${selectedService.title}`}
-                      style={{
-                        width: '100%',
-                        height: 'auto',
-                        objectFit: 'cover',
-                        maxHeight: '500px'
-                      }}
-                      onLoad={() => setLoading(false)} // Set loading to false once image has loaded
-                    />
-                  </div>
-                ))}
-              </Carousel>
+                <Carousel
+                  showThumbs={true}
+                  infiniteLoop={true}
+                  autoPlay={true}
+                  interval={6000}
+                  showStatus={false}
+                  dynamicHeight={false}
+                  thumbWidth={100}
+                >
+                  {images.map((src, index) => (
+                    <Box
+                      as="div"
+                      key={index}
+                      height="100%"
+                      overflow="hidden"
+                      borderRadius="md"
+                    >
+                      <img
+                        src={src}
+                        alt={`Slide ${index + 1} of ${selectedService.title}`}
+                        style={{
+                          width: '100%',
+                          height: '500px',
+                          objectFit: 'cover',
+                          borderRadius: '8px',
+                        }}
+                        onLoad={() => setLoading(false)}
+                      />
+                    </Box>
+                  ))}
+                </Carousel>
+              </Box>
             )}
-            <Text fontWeight="bold" py={2}>Services:</Text>
-            <List spacing={2} styleType="disc" paddingLeft={4}>
-              {selectedService.service.map((item, index) => (
-                <ListItem key={index}>{item}</ListItem>
-              ))}
-            </List>
+
+            <Box>
+              <Text fontWeight="bold" pt={2}>Services:</Text>
+              <List spacing={2} styleType="disc" pl={4}>
+                {selectedService.service.map((item, index) => (
+                  <ListItem key={index}>{item}</ListItem>
+                ))}
+              </List>
+            </Box>
           </VStack>
         </ModalBody>
       </ModalContent>

@@ -23,7 +23,7 @@ const About: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const handleImageLoad = () => setLoading(false);
 
-  // const brandBg = useToken("colors", "brand.100");
+  const brandBg = useToken("colors", "brand.300");
   const buttonBorderColor = useToken("colors", "brand.600");
   const buttonTextColor = useToken("colors", "brand.600");
   const buttonHoverBg = useToken("colors", "brand.50");
@@ -65,6 +65,7 @@ const About: React.FC = () => {
               variant="outline"
               borderColor={buttonBorderColor}
               color={buttonTextColor}
+              bg={brandBg} 
               _hover={{ bg: buttonHoverBg }}
               _active={{ transform: 'scale(0.97)' }}
               transition="all 0.2s ease"

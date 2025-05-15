@@ -1,27 +1,27 @@
 // src/components/BrochureDownload.tsx
 
 import React from 'react';
-import { Box, Button, Heading, Text, useColorModeValue } from '@chakra-ui/react';
+import {
+  Box,
+  Button,
+  Heading,
+  Text,
+  useToken,
+} from '@chakra-ui/react';
 import { DownloadIcon } from '@chakra-ui/icons';
 
 const BrochureDownload: React.FC = () => {
-  // const brandColour = 'brand.400';
-  const buttonBorderColor = useColorModeValue('white', 'white');
-  const buttonTextColor = useColorModeValue('white', 'white');
-  const buttonHoverBg = useColorModeValue('whiteAlpha.300', 'whiteAlpha.300');
+  const brandBg = useToken("colors", "brand.100");
+  const buttonBorderColor = useToken("colors", "brand.600");
+  const buttonTextColor = useToken("colors", "brand.600");
+  const buttonHoverBg = useToken("colors", "brand.50");
 
   return (
-    <Box 
-    // bg={brandColour} 
-    p={5} textAlign="center" shadow="md">
-      <Heading as="h3" size="lg" mb={4} 
-      // color="white"
-      >
+    <Box p={5} textAlign="center" borderRadius="md">
+      <Heading as="h3" size="lg" mb={4} color="brand.700">
         Download Our Brochure
       </Heading>
-      <Text mb={6} 
-      // color="white"
-      >
+      <Text mb={6} color="brand.700">
         Learn more about our services and expertise by downloading our brochure.
       </Text>
       <Button
@@ -29,13 +29,14 @@ const BrochureDownload: React.FC = () => {
         href="/PF_Geomatics_Brochure.pdf"
         target="_blank"
         leftIcon={<DownloadIcon />}
+        size="lg"
         variant="outline"
         borderColor={buttonBorderColor}
         color={buttonTextColor}
+        bg={brandBg}
         _hover={{ bg: buttonHoverBg }}
-        _active={{ bg: buttonHoverBg, transform: 'scale(0.95)' }}
-        transition="all 0.2s ease-in-out"
-        size="md"
+        _active={{ transform: 'scale(0.97)' }}
+        transition="all 0.2s ease"
       >
         Open Brochure
       </Button>
