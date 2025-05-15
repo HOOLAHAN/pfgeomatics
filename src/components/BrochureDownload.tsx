@@ -11,7 +11,7 @@ import {
 import { DownloadIcon } from '@chakra-ui/icons';
 
 const BrochureDownload: React.FC = () => {
-  const brandBg = useToken("colors", "brand.100");
+  const brandBg = useToken("colors", "brand.300");
   const buttonBorderColor = useToken("colors", "brand.600");
   const buttonTextColor = useToken("colors", "brand.600");
   const buttonHoverBg = useToken("colors", "brand.50");
