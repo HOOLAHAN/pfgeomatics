@@ -1,7 +1,16 @@
 // src/components/Projects.tsx
 
 import React, { useState } from 'react';
-import { Box, Image, Heading, useDisclosure, Icon, Spinner, Center } from '@chakra-ui/react';
+import {
+  Box,
+  Image,
+  Heading,
+  useDisclosure,
+  Icon,
+  Spinner,
+  Center,
+  useToken,
+} from '@chakra-ui/react';
 import { ViewIcon } from '@chakra-ui/icons';
 import { projectsData } from '../data/projectsData';
 import ProjectModal from './ProjectModal';
@@ -21,26 +30,33 @@ interface Project {
 
 const Projects: React.FC = () => {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [imageLoadingMap, setImageLoadingMap] = useState<Record<string, boolean>>(
+    Object.fromEntries(projectsData.map(p => [p.name, true]))
+  );
+
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const brandColour = 'brand.400';
+  const brandBg = useToken("colors", "brand.100");
+
+  const handleImageLoad = (projectName: string) => {
+    setImageLoadingMap(prev => ({ ...prev, [projectName]: false }));
+  };
 
   const handleProjectClick = (project: Project) => {
     setSelectedProject(project);
     onOpen();
   };
 
-  const handleImageLoad = () => {
-    setLoading(false);
-  };
-
   return (
-    <Box bg={brandColour}>
-      <Box p={5} maxW="1200px" mx="auto">
-        <Heading as="h2" size="xl" mb={6} textAlign="center">Projects</Heading>
-        <ChakraCarousel gap={40}>
-          {projectsData.map((project: Project) => {
+    <Box bg={brandBg} py={10}>
+      <Box px={5} maxW="1200px" mx="auto">
+        <Heading as="h2" size="xl" mb={6} textAlign="center" color="brand.700">
+          Featured Projects
+        </Heading>
+
+        <ChakraCarousel gap={30}>
+          {projectsData.map((project) => {
             const firstImage = getFirstImage('projectImages', project.imageFolder);
+            const isImageLoading = imageLoadingMap[project.name];
 
             return (
               <Box
@@ -48,60 +64,64 @@ const Projects: React.FC = () => {
                 onClick={() => handleProjectClick(project)}
                 cursor="pointer"
                 position="relative"
+                borderRadius="lg"
+                boxShadow="md"
                 overflow="hidden"
-                _hover={{
-                  transform: 'scale(1.05)',
-                  zIndex: '10',
-                }}
+                transition="all 0.3s ease"
+                _hover={{ transform: 'scale(1.03)', boxShadow: 'lg' }}
               >
-                {firstImage && (
-                  <ImageContainer>
-                    {loading && <Center><Spinner size="md" /></Center>}
-                    <Image 
-                      src={firstImage}
-                      alt={project.name}
-                      objectFit="cover"
-                      objectPosition="center"
-                      w="100%"
-                      transition="all 0.3s ease-in-out"
-                      onLoad={handleImageLoad}
-                      display={loading ? 'none' : 'block'}
-                      _hover={{
-                        filter: 'brightness(0.8)'
-                      }}
-                    />
-                    <Icon as={ViewIcon} color="white" boxSize="4" position="absolute" top="1" right="3"
-                      transition="opacity 0.3s ease"
-                      _groupHover={{ opacity: '1' }}
-                    />
-                  </ImageContainer>
-                )}
-                <Box
-                  position="absolute"
-                  top="50%"
-                  left="50%"
-                  transform="translate(-50%, -50%)"
-                  textAlign="center"
-                  px={2}
-                  backgroundColor="rgba(0, 0, 0, 0.2)"
-                  padding="5px"
-                  borderRadius="md"
-                >
-                  <Heading
+                <Box width="100%" height="250px" position="relative">
+                  {isImageLoading && (
+                    <Center height="100%">
+                      <Spinner size="lg" />
+                    </Center>
+                  )}
+                  <Image
+                    src={firstImage}
+                    alt={project.name}
+                    objectFit="cover"
+                    width="100%"
+                    height="100%"
+                    onLoad={() => handleImageLoad(project.name)}
+                    display={isImageLoading ? 'none' : 'block'}
+                    transition="filter 0.3s ease"
+                    _hover={{ filter: 'brightness(0.85)' }}
+                  />
+                  <Icon
+                    as={ViewIcon}
                     color="white"
-                    fontSize="2xl"
-                    fontWeight="bold"
-                    textShadow="1px 1px 3px rgba(0,0,0,0.7)"
-                    whiteSpace="normal"
-                    overflowWrap="break-word"
+                    boxSize="6"
+                    position="absolute"
+                    top={3}
+                    right={3}
+                    opacity={0.7}
+                  />
+                  <Box
+                    position="absolute"
+                    bottom={0}
+                    width="100%"
+                    bg="rgba(0,0,0,0.5)"
+                    px={4}
+                    py={2}
+                    textAlign="center"
                   >
-                    {project.name}
-                  </Heading>
+                    <Heading
+                      size="md"
+                      color="white"
+                      fontWeight="semibold"
+                      textShadow="1px 1px 3px rgba(0,0,0,0.5)"
+                      whiteSpace="normal"
+                      overflowWrap="break-word"
+                    >
+                      {project.name}
+                    </Heading>
+                  </Box>
                 </Box>
               </Box>
             );
           })}
         </ChakraCarousel>
+
         {selectedProject && (
           <ProjectModal project={selectedProject} isOpen={isOpen} onClose={onClose} />
         )}
@@ -109,11 +129,5 @@ const Projects: React.FC = () => {
     </Box>
   );
 };
-
-const ImageContainer: React.FC<{ children: React.ReactNode }> = ({ children }) => (
-  <Box width="100%" height="200px" position="relative" overflow="hidden" borderRadius="sm">
-    {children}
-  </Box>
-);
 
 export default Projects;
