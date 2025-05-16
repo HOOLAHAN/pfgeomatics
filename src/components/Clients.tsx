@@ -1,9 +1,9 @@
 // src/components/Clients.tsx
 
 import React, { useState } from 'react';
-import { Box, Image, Heading, VStack, Text, SimpleGrid, Modal, ModalOverlay, ModalContent, ModalCloseButton, ModalBody, useDisclosure, Link, Center } from '@chakra-ui/react';
-import { ExternalLinkIcon } from '@chakra-ui/icons';
+import { Box, Image, Heading, VStack, SimpleGrid, useDisclosure } from '@chakra-ui/react';
 import { clientData } from '../data/clientData';
+import ClientModal from './modals/ClientModal';
 
 // Import images
 import lindnerPraterLogo from '../media/clients/lindner-prater-logo.png';
@@ -76,37 +76,12 @@ const Clients: React.FC = () => {
         </SimpleGrid>
       </VStack>
 
-      <Modal isOpen={isOpen} onClose={onClose} size="lg">
-        <ModalOverlay />
-        <ModalContent>
-          <ModalCloseButton />
-          <ModalBody>
-            {selectedClient && (
-              <>
-                <Center>
-                  <Image 
-                    src={clientLogos.find(logo => logo.name === selectedClient.name)?.src} 
-                    alt={`${selectedClient.name} logo`} 
-                    objectFit="contain" 
-                    maxH="60px" 
-                    mb={2}
-                  />
-                </Center>
-                {selectedClient.website && (
-                  <Text>
-                    <strong>Website:</strong> 
-                    <Link href={selectedClient.website} isExternal color="blue.500" textDecoration="underline" ml={2}>
-                      {selectedClient.website} <ExternalLinkIcon mx="2px" />
-                    </Link>
-                  </Text>
-                )}
-                <Text mt={2}><strong>About:</strong> {selectedClient.about}</Text>
-                <Text mt={2}><strong>Our Services:</strong> {selectedClient.pfgService}</Text>
-              </>
-            )}
-          </ModalBody>
-        </ModalContent>
-      </Modal>
+      <ClientModal
+        isOpen={isOpen}
+        onClose={onClose}
+        selectedClient={selectedClient}
+        clientLogos={clientLogos}
+      />
     </Box>
   );
 };
