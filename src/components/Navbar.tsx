@@ -15,9 +15,9 @@ import { Link } from 'react-scroll';
 const navLinks = [
   { label: 'Home', to: 'cover-video' },
   { label: 'About', to: 'about' },
+  { label: 'Services', to: 'services' },
   { label: 'Projects', to: 'projects' },
   { label: 'Map', to: 'map' },
-  { label: 'Services', to: 'services' },
   { label: 'Clients', to: 'clients' },
   { label: 'Contact', to: 'contact-form' },
 ];
@@ -61,8 +61,6 @@ const Navbar: React.FC = () => {
   return (
     <Box
       bg={brandBg}
-      borderBottom="1px solid"
-      borderColor="gray.200"
       px={5}
       py={2}
       position="sticky"

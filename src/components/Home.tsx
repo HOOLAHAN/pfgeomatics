@@ -26,23 +26,23 @@ const Home: React.FC = () => {
       <Box id='about'>
         <About />
       </Box>
+      <Box id="services">
+        <Services />
+      </Box>
       <Box id="projects">
         <Projects />
       </Box>
       <Box  id="map">
         <MapComponent />
       </Box>
-      <Box id="services">
-        <Services />
-      </Box>
       <Box id="clients">
         <Clients />
       </Box>
+      <Box id="brochure-download" mt={10}>
+        <BrochureDownload />
+      </Box>
       <Box id="contact-form">
         <ContactForm />
-      </Box>
-      <Box id="brochure-download" my={10}>
-        <BrochureDownload />
       </Box>
       <Footer />
     </Box>
