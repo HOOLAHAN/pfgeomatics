@@ -24,7 +24,8 @@ interface FormValues {
 }
 
 const ContactForm: React.FC = () => {
-  const brandBg = useToken("colors", "brand.300");
+  const brandBg = useToken("colors", "brand.400");
+  const buttonBackgroundColor = useToken("colors", "brand.300");
   const buttonBorderColor = useToken("colors", "brand.600");
   const buttonTextColor = useToken("colors", "brand.600");
   const buttonHoverBg = useToken("colors", "brand.50");
@@ -64,8 +65,8 @@ const ContactForm: React.FC = () => {
   };
 
   return (
-    <Box py={10}>
-      <Box px={5} maxW="1200px" mx="auto">
+    <Box py={10} >
+      <Box px={5} maxW="1200px" mx="auto" >
         <Heading size="lg" textAlign="center" mb={6} color="brand.700">
           Contact Us
         </Heading>
@@ -77,7 +78,7 @@ const ContactForm: React.FC = () => {
               variant="outline"
               borderColor={buttonBorderColor}
               color={buttonTextColor}
-              bg={brandBg}
+              bg={buttonBackgroundColor}
               _hover={{ bg: buttonHoverBg }}
               _active={{ bg: buttonHoverBg, transform: 'scale(0.97)' }}
               transition="all 0.2s ease"
@@ -87,7 +88,6 @@ const ContactForm: React.FC = () => {
               LinkedIn
             </Button>
           </Link>
-          .
         </Text>
         <Box
           maxW={{ base: "90%", md: "700px" }}
@@ -108,7 +108,7 @@ const ContactForm: React.FC = () => {
                   type="text"
                   border="1px"
                   borderColor={buttonBorderColor}
-                  bg={brandBg}
+                  bg={buttonBackgroundColor}
                   {...register("name", { required: "This is required", maxLength: 80 })}
                 />
               </FormControl>
@@ -119,7 +119,7 @@ const ContactForm: React.FC = () => {
                     type="email"
                     border="1px"
                     borderColor={buttonBorderColor}
-                    bg={brandBg}
+                    bg={buttonBackgroundColor}
                     {...register("email", {
                       required: "This is required",
                       pattern: {
@@ -135,7 +135,7 @@ const ContactForm: React.FC = () => {
                   id="message"
                   border="1px"
                   borderColor={buttonBorderColor}
-                  bg={brandBg}
+                  bg={buttonBackgroundColor}
                   {...register("message", { required: "This is required", maxLength: 2000 })}
                   rows={6}
                 />
@@ -145,7 +145,7 @@ const ContactForm: React.FC = () => {
                 isLoading={isSubmitting}
                 type="submit"
                 border="1px"
-                bg={brandBg}
+                bg={buttonBackgroundColor}
                 borderColor={buttonBorderColor}
                 leftIcon={<Icon as={FaEnvelope} />}
                 variant="outline"
