@@ -9,6 +9,7 @@ import {
   useBreakpointValue,
   Spinner,
   Center,
+  HStack,
 } from '@chakra-ui/react';
 import { fetchCoordinates } from '../utils/fetchCoordinates';
 import { projectsData } from '../data/projectsData';
@@ -40,9 +41,14 @@ export type ProjectWithCoordinates = Project & {
 };
 
 const MapComponent: React.FC = () => {
-  const height = useBreakpointValue({ base: '45vh', md: '75vh' });
+  const height = useBreakpointValue({ base: '45vh', md: '45vh' });
   const brandColour = useColorModeValue('#2B6CB0', '#63B3ED');
-  const mapStyle = useColorModeValue('mapbox://styles/mapbox/streets-v11', 'mapbox://styles/mapbox/dark-v10');
+  const [isDarkMode, setIsDarkMode] = useState(true);
+
+  const mapStyle = isDarkMode
+    ? 'mapbox://styles/mapbox/dark-v10'      // Default dark
+    : 'mapbox://styles/mapbox/streets-v11';  // Alternate option
+
 
   const mapContainerRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<any>(null);
@@ -139,85 +145,107 @@ const MapComponent: React.FC = () => {
 
   return (
     <Box
-      width="100%"
-      maxW="1200px"
-      mx="auto"
-      position="relative"
-      borderRadius="lg"
-      overflow="hidden"
-      boxShadow="xl"
-      ref={mapContainerRef}
-      bg="white"
+      px={{ base: 3, md: 0 }}
+      py={3}
     >
-      {loading && (
-        <Center>
-          <Spinner size="xl" position="absolute" top="50%" transform="translate(-50%, -50%)" zIndex="10" />
-        </Center>
-      )}
-      <Box width="calc(100% - 10px)" height={height} m="5px" borderRadius="lg" overflow="hidden" boxShadow="lg">
-        <ReactMapGL
-          ref={mapRef}
-          {...viewport}
-          mapStyle={mapStyle}
-          onMove={(evt: ViewStateChangeEvent) =>
-            setViewport(prev => ({
-              ...prev,
-              ...evt.viewState
-            }))
-          }
-          mapboxAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
-        >
-          {projects.map((project, index) => (
-            project.latitude !== 0 && project.longitude !== 0 ? (
-              <Marker
-                key={index}
-                latitude={project.latitude}
-                longitude={project.longitude}
-              >
-                <Button
-                  onClick={(e) => {
-                    e.preventDefault();
-                    handleMarkerClick(project);
-                  }}
-                  bg="white"
-                  p={1}
-                  rounded="full"
-                  shadow="md"
-                  _hover={{ bg: 'brand.100' }}
-                  _active={{ transform: 'scale(0.95)' }}
-                >
-                  <FontAwesomeIcon icon={faMapMarkerAlt} size="lg" color={brandColour} />
-                </Button>
-              </Marker>
-            ) : null
-          ))}
-        </ReactMapGL>
-      </Box>
-
-      <Button
-        position="absolute"
-        top="20px"
-        right="20px"
-        onClick={() => fitBounds(projects)}
-        bg="brand.100"
-        color="brand.700"
-        _hover={{ bg: "brand.200" }}
-        _active={{ transform: 'scale(0.95)' }}
-        rounded="full"
-        shadow="lg"
-        zIndex={2}
-        size="sm"
+      <Box
+        width="100%"
+        maxW="1200px"
+        mx="auto"
+        position="relative"
+        borderRadius="lg"
+        overflow="hidden"
+        boxShadow="xl"
+        ref={mapContainerRef}
+        bg="white"
       >
-        <FontAwesomeIcon icon={faSearchMinus} />
-      </Button>
+        {loading && (
+          <Center>
+            <Spinner size="xl" position="absolute" top="50%" transform="translate(-50%, -50%)" zIndex="10" />
+          </Center>
+        )}
+        <Box width="calc(100% - 10px)" height={height} m="5px" borderRadius="lg" overflow="hidden" boxShadow="lg">
+          <ReactMapGL
+            ref={mapRef}
+            {...viewport}
+            mapStyle={mapStyle}
+            onMove={(evt: ViewStateChangeEvent) =>
+              setViewport(prev => ({
+                ...prev,
+                ...evt.viewState
+              }))
+            }
+            mapboxAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
+          >
+            {projects.map((project, index) => (
+              project.latitude !== 0 && project.longitude !== 0 ? (
+                <Marker
+                  key={index}
+                  latitude={project.latitude}
+                  longitude={project.longitude}
+                >
+                  <Button
+                    onClick={(e) => {
+                      e.preventDefault();
+                      handleMarkerClick(project);
+                    }}
+                    bg="white"
+                    p={1}
+                    rounded="full"
+                    shadow="md"
+                    _hover={{ bg: 'brand.100' }}
+                    _active={{ transform: 'scale(0.95)' }}
+                  >
+                    <FontAwesomeIcon icon={faMapMarkerAlt} size="lg" color={brandColour} />
+                  </Button>
+                </Marker>
+              ) : null
+            ))}
+          </ReactMapGL>
+        </Box>
+        <HStack>
+          <Button
+            position="absolute"
+            top="20px"
+            right="20px"
+            onClick={() => fitBounds(projects)}
+            bg="brand.100"
+            color="brand.700"
+            _hover={{ bg: "brand.200" }}
+            _active={{ transform: 'scale(0.95)' }}
+            rounded="full"
+            shadow="lg"
+            zIndex={2}
+            size="sm"
+          >
+            <FontAwesomeIcon icon={faSearchMinus} />
+          </Button>
 
-      {selectedProject && (
-        <ProjectModal
-          project={selectedProject}
-          isOpen={isProjectModalOpen}
-          onClose={() => setProjectModalOpen(false)}
-        />
-      )}
+          <Button
+            position="absolute"
+            top="20px"
+            right="60px"
+            onClick={() => setIsDarkMode(prev => !prev)}
+            bg="brand.100"
+            color="brand.700"
+            _hover={{ bg: "brand.200" }}
+            _active={{ transform: 'scale(0.95)' }}
+            rounded="full"
+            shadow="lg"
+            zIndex={2}
+            size="sm"
+          >
+            {isDarkMode ? "Light Map" : "Dark Map"}
+          </Button>
+        </HStack>  
+        {selectedProject && (
+          <ProjectModal
+            project={selectedProject}
+            isOpen={isProjectModalOpen}
+            onClose={() => setProjectModalOpen(false)}
+          />
+        )}
+      </Box>
     </Box>
   );
 };
