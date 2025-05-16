@@ -67,6 +67,7 @@ const Navbar: React.FC = () => {
       top={0}
       zIndex={11}
       w="100%"
+      boxShadow={'lg'}
     >
       <Flex align="center" justify="space-between" position="relative">
         {/* Logo */}
