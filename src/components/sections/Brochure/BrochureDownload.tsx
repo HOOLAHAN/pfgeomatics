@@ -15,7 +15,7 @@ const BrochureDownload: React.FC = () => {
   const brandText = useToken("colors", "brand.50");
   const buttonBackgroundColor = useToken("colors", "brand.300");
   const buttonBorderColor = useToken("colors", "brand.600");
-  const buttonTextColor = useToken("colors", "brand.600");
+  const buttonTextColor = useToken("colors", "brand.800");
   const buttonHoverBg = useToken("colors", "brand.50");
 
   return (

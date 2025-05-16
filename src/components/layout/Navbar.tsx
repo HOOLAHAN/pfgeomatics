@@ -107,11 +107,8 @@ const Navbar: React.FC<NavbarProps> = ({ onCycleTheme, currentTheme }) => {
         <HStack spacing={2}>
           {/* Theme Switcher */}
           <Button
-            size="sm"
-            variant="outline"
-            color="white"
-            borderColor="whiteAlpha.600"
-            _hover={{ bg: 'whiteAlpha.300' }}
+            {...buttonStyles}
+            border={'1px'}
             onClick={onCycleTheme}
           >
             {currentTheme}

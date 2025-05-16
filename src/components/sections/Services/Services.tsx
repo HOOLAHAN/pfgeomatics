@@ -36,7 +36,7 @@ const Services: React.FC = () => {
   return (
     <Box py={10}>
       <Box px={5} maxW="1200px" mx="auto">
-        <Heading as="h2" size="xl" mb={6} textAlign="center" color="brand.700">
+        <Heading as="h2" size="xl" mb={6} textAlign="center" color="brand.800">
           Our Services
         </Heading>
 
@@ -71,7 +71,7 @@ const Services: React.FC = () => {
                 onLoad={() => handleImageLoad(service.title)}
               />
               <Box p="4" textAlign="center">
-                <Heading size="md" mb="1">
+                <Heading size="md" mb="1" color="brand.800">
                   {service.title}
                 </Heading>
               </Box>

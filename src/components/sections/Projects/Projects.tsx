@@ -26,7 +26,6 @@ interface Project {
 const Projects: React.FC = () => {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const { isOpen, onOpen, onClose } = useDisclosure();
-  // const brandBg = useToken("colors", "brand.100");
 
   const handleProjectClick = (project: Project) => {
     setSelectedProject(project);
@@ -46,7 +45,7 @@ const Projects: React.FC = () => {
     py={5}
     >
       <Box px={0} maxW="1200px" mx="auto">
-        <Heading as="h2" size="xl" mb={6} textAlign="center" color="brand.700">
+        <Heading as="h2" size="xl" mb={6} textAlign="center" color="brand.800">
           Featured Projects
         </Heading>
 

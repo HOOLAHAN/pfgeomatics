@@ -48,7 +48,7 @@ const Clients: React.FC = () => {
   return (
     <Box pt={7} maxW="1200px" mx="auto">
       <VStack spacing={4} align="center">
-        <Heading>Clients</Heading>
+        <Heading color="brand.800">Clients</Heading>
         <SimpleGrid columns={{ base: 2, sm: 3, md: 4, lg: 5 }} spacing={5} mt={5}>
           {clientLogos.map((logo) => (
             <Box

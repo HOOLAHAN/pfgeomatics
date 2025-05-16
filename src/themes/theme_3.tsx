@@ -15,8 +15,8 @@ export const theme_3 = extendTheme({
       300: '#73bcf7',
       400: '#42a5f5',
       500: '#1f88e0',       // Primary Blue
-      600: '#176bb3',
-      700: '#0f4f86',
+      600: '#0f4f86',
+      700: '#176bb3',
       800: '#083359',
       900: '#02162e',       // Near-black blue
     },

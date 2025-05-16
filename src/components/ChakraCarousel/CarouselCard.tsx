@@ -24,7 +24,7 @@ const CarouselCard: React.FC<CarouselItemProps> = ({
       <Image src={image.imageUrl} alt={title} objectFit="cover" w="100%" h="200px" borderRadius="md" boxShadow="md"/>
     )}
     <Box p="4">
-      <Center><Heading size="md" mb="2">{title}</Heading></Center>
+      <Center><Heading size="md" mb="2" color="brand.800">{title}</Heading></Center>
     </Box>
   </Box>
 );

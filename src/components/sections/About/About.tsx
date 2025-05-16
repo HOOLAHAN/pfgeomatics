@@ -17,7 +17,7 @@ const About: React.FC = () => {
 
   const brandBg = useToken("colors", "brand.300");
   const buttonBorderColor = useToken("colors", "brand.600");
-  const buttonTextColor = useToken("colors", "brand.600");
+  const buttonTextColor = useToken("colors", "brand.800");
   const buttonHoverBg = useToken("colors", "brand.50");
 
   return (
@@ -37,7 +37,7 @@ const About: React.FC = () => {
 
           {/* Text and Button on Right */}
           <VStack spacing={6} textAlign="center">
-            <Heading size="lg" color="brand.600">
+            <Heading size="lg" color="brand.800">
               Who We Are
             </Heading>
             <Button

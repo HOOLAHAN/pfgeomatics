@@ -27,8 +27,8 @@ const ContactForm: React.FC = () => {
   const brandBg = useToken("colors", "brand.600");
   const brandText = useToken("colors", "brand.50");
   const buttonBackgroundColor = useToken("colors", "brand.300");
-  const buttonBorderColor = useToken("colors", "brand.600");
-  const buttonTextColor = useToken("colors", "brand.600");
+  const buttonBorderColor = useToken("colors", "brand.800");
+  const buttonTextColor = useToken("colors", "brand.800");
   const buttonHoverBg = useToken("colors", "brand.50");
 
   const { register, handleSubmit, reset, formState: { errors, isSubmitting } } = useForm<FormValues>();
@@ -68,10 +68,10 @@ const ContactForm: React.FC = () => {
   return (
     <Box py={10} >
       <Box px={5} maxW="1200px" mx="auto" >
-        <Heading size="lg" textAlign="center" mb={6} color={"brand.700"}>
+        <Heading size="lg" textAlign="center" mb={6} color={"brand.800"}>
           Contact Us
         </Heading>
-        <Text fontSize="lg" textAlign="center" color="brand.700" mb={6} maxW="700px" mx="auto">
+        <Text fontSize="lg" textAlign="center" color="brand.800" mb={6} maxW="700px" mx="auto">
           For enquiries, reach out via email or find us on{" "}
           <Link href="https://www.linkedin.com/company/pf-geomatics/" isExternal>
             <Button

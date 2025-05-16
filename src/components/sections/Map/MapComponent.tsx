@@ -216,7 +216,7 @@ const MapComponent: React.FC = () => {
             right="20px"
             onClick={() => fitBounds(projects)}
             bg="brand.300"
-            color="brand.700"
+            color="brand.800"
             _hover={{ bg: "brand.400" }}
             _active={{ transform: 'scale(0.95)' }}
             rounded="full"
@@ -233,7 +233,7 @@ const MapComponent: React.FC = () => {
             right="60px"
             onClick={() => setIsDarkMode(prev => !prev)}
             bg="brand.300"
-            color="brand.700"
+            color="brand.800"
             _hover={{ bg: "brand.400" }}
             _active={{ transform: 'scale(0.95)' }}
             rounded="full"
