@@ -10,7 +10,7 @@ import {
   Heading,
   useToken,
 } from '@chakra-ui/react';
-import AboutModal from './modals/AboutModal';
+import AboutModal from './AboutModal';
 
 const About: React.FC = () => {
   const [isModalOpen, setModalOpen] = useState(false);

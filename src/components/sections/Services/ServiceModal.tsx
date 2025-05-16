@@ -20,7 +20,7 @@ import {
 } from '@chakra-ui/react';
 import { Carousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
-import checkImageExists from '../../utils/checkImageExists';
+import checkImageExists from '../../../utils/checkImageExists';
 
 interface Service {
   title: string;

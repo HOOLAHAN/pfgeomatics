@@ -2,19 +2,19 @@
 
 import React, { useState } from 'react';
 import { Box, Image, Heading, VStack, SimpleGrid, useDisclosure } from '@chakra-ui/react';
-import { clientData } from '../data/clientData';
-import ClientModal from './modals/ClientModal';
+import { clientData } from '../../../data/clientData';
+import ClientModal from './ClientModal';
 
 // Import images
-import lindnerPraterLogo from '../media/clients/lindner-prater-logo.png';
-import severfieldLogo from '../media/clients/severfield-logo.png';
-import build8Logo from '../media/clients/8build-logo.png';
-import kilnbridgeLogo from '../media/clients/kilnbridge-logo.png';
-import regalLondonLogo from '../media/clients/regal-london-logo.png';
-import mjrobinsonLogo from '../media/clients/MJ-Robinson-Structures.png';
-import capitalSteelStructuresLogo from '../media/clients/capital-steel-structures-logo.jpeg';
-import alpineGroupLogo from '../media/clients/alpine-group-logo.png';
-import criterionCapitalLogo from '../media/clients/criterion-capital.png'
+import lindnerPraterLogo from '../../../media/clients/lindner-prater-logo.png';
+import severfieldLogo from '../../../media/clients/severfield-logo.png';
+import build8Logo from '../../../media/clients/8build-logo.png';
+import kilnbridgeLogo from '../../../media/clients/kilnbridge-logo.png';
+import regalLondonLogo from '../../../media/clients/regal-london-logo.png';
+import mjrobinsonLogo from '../../../media/clients/MJ-Robinson-Structures.png';
+import capitalSteelStructuresLogo from '../../../media/clients/capital-steel-structures-logo.jpeg';
+import alpineGroupLogo from '../../../media/clients/alpine-group-logo.png';
+import criterionCapitalLogo from '../../../media/clients/criterion-capital.png'
 
 // Define an interface for each client logo
 interface ClientLogo {

@@ -6,11 +6,11 @@ import {
   Heading,
   useDisclosure,
 } from '@chakra-ui/react';
-import { projectsData } from '../data/projectsData';
-import ProjectModal from './modals/ProjectModal';
-import { Carousel, Direction } from './ChakraCarousel';
-import ProjectCard from './ChakraCarousel/CarouselCard';
-import { getFirstImage } from '../utils/checkImageExists';
+import { projectsData } from '../../../data/projectsData';
+import ProjectModal from './ProjectModal';
+import { Carousel, Direction } from '../../ChakraCarousel';
+import ProjectCard from '../../ChakraCarousel/CarouselCard';
+import { getFirstImage } from '../../../utils/checkImageExists';
 
 interface Project {
   name: string;

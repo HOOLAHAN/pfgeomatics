@@ -10,8 +10,8 @@ import {
   Center,
   SimpleGrid,
 } from '@chakra-ui/react';
-import { servicesData } from '../data/servicesData';
-import ServiceModal from './modals/ServiceModal';
+import { servicesData } from '../../../data/servicesData';
+import ServiceModal from './ServiceModal';
 
 interface Service {
   title: string;
@@ -60,7 +60,7 @@ const Services: React.FC = () => {
                 </Center>
               )}
               <Image
-                src={require(`../media/serviceImages/${service.imageFolder}/1.png`)}
+                src={require(`../../../media/serviceImages/${service.imageFolder}/1.png`)}
                 alt={`${service.title} image`}
                 objectFit="cover"
                 w="100%"

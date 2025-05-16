@@ -2,7 +2,7 @@
 
 import { Box, Text, Link, Flex, Icon, useDisclosure, useBreakpointValue, Container } from '@chakra-ui/react';
 import { FaLinkedin, FaEnvelope } from 'react-icons/fa';
-import PrivacyPolicy from './PrivacyPolicy';
+import PrivacyPolicy from '../legal/PrivacyPolicy';
 
 const Footer: React.FC = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();

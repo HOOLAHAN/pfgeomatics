@@ -1,5 +1,5 @@
 import { ChakraProvider, extendTheme, ThemeConfig } from "@chakra-ui/react";
-import Navbar from "./components/Navbar";
+import Navbar from "./components/layout/Navbar";
 import Home from "./components/Home";
 
 // Lock to light mode

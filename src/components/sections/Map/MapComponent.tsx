@@ -11,14 +11,14 @@ import {
   Center,
   HStack,
 } from '@chakra-ui/react';
-import { fetchCoordinates } from '../utils/fetchCoordinates';
-import { projectsData } from '../data/projectsData';
+import { fetchCoordinates } from '../../../utils/fetchCoordinates';
+import { projectsData } from '../../../data/projectsData';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import { LngLatBounds } from 'mapbox-gl';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMapMarkerAlt, faSearchMinus } from '@fortawesome/free-solid-svg-icons';
-import ProjectModal from './modals/ProjectModal';
-import checkImageExists from '../utils/checkImageExists';
+import ProjectModal from '../Projects/ProjectModal';
+import checkImageExists from '../../../utils/checkImageExists';
 
 export interface Project {
   name: string;
