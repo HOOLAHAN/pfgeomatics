@@ -38,7 +38,7 @@ return (
       <ModalBody>
         <VStack spacing={5} align="start">
           <Image
-            src={require(`../../media/serviceImages/about/2.JPG`)}
+            src={require(`../../media/serviceImages/about/2.png`)}
             alt="Surveyor at work"
             width="100%"
             maxH="300px"
