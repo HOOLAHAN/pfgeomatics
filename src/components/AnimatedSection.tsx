@@ -1,25 +1,35 @@
 // src/components/AnimatedSection.tsx
 
 import { BoxProps, chakra, shouldForwardProp } from '@chakra-ui/react';
-import { isValidMotionProp, motion } from 'framer-motion';
-import { FC, PropsWithChildren } from 'react';
+import { isValidMotionProp, motion, useAnimation, useInView } from 'framer-motion';
+import { FC, PropsWithChildren, useEffect, useRef } from 'react';
 
-// Create a Chakra-aware motion div
+// Create Chakra-aware motion div
 const MotionBox = chakra(motion.div, {
-  shouldForwardProp: (prop) =>
-    isValidMotionProp(prop) || shouldForwardProp(prop),
+  shouldForwardProp: (prop) => isValidMotionProp(prop) || shouldForwardProp(prop),
 });
 
-// Remove Chakra's built-in transition prop from the accepted props
 type MotionBoxProps = Omit<BoxProps, 'transition'>;
 
 const AnimatedSection: FC<PropsWithChildren<MotionBoxProps>> = ({ children, ...props }) => {
+  const controls = useAnimation();
+  const ref = useRef(null);
+  const inView = useInView(ref, { amount: 0.3 });
+
+  useEffect(() => {
+    if (inView) {
+      controls.start({ opacity: 1, y: 0 });
+    } else {
+      controls.start({ opacity: 0, y: 20 });
+    }
+  }, [inView, controls]);
+
   return (
     <MotionBox
+      ref={ref}
       initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ type: 'spring', stiffness: 80, damping: 18 } as any }
-      viewport={{ once: true, amount: 0.3 }}
+      animate={controls}
+      transition={{ type: 'spring', stiffness: 80, damping: 18 } as any}
       {...props}
     >
       {children}

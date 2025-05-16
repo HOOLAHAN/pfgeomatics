@@ -21,9 +21,11 @@ const Home: React.FC = () => {
       bgRepeat="no-repeat"
       minH="100vh"
     >
-      <Box id="cover-video">
-        <CoverVideo src={require(`../media/pfg.mp4`)} />
-      </Box>
+      <AnimatedSection id="video">
+        <Box id="cover-video">
+          <CoverVideo src={require(`../media/pfg.mp4`)} />
+        </Box>
+      </AnimatedSection>
 
       <AnimatedSection id="about">
         <About />
