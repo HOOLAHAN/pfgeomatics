@@ -22,7 +22,12 @@ const navLinks = [
   { label: 'Contact', to: 'contact-form' },
 ];
 
-const Navbar: React.FC = () => {
+interface NavbarProps {
+  onCycleTheme: () => void;
+  currentTheme: string;
+}
+
+const Navbar: React.FC<NavbarProps> = ({ onCycleTheme, currentTheme }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [isNarrow, setIsNarrow] = useState(false);
@@ -67,7 +72,7 @@ const Navbar: React.FC = () => {
       top={0}
       zIndex={11}
       w="100%"
-      boxShadow={'lg'}
+      boxShadow="lg"
     >
       <Flex align="center" justify="space-between" position="relative">
         {/* Logo */}
@@ -80,7 +85,7 @@ const Navbar: React.FC = () => {
           />
         </Box>
 
-        {/* Centered Button Group */}
+        {/* Centered Nav Links (desktop) */}
         {!isMobile && (
           <HStack
             spacing={4}
@@ -97,19 +102,34 @@ const Navbar: React.FC = () => {
           </HStack>
         )}
 
-        {/* Hamburger */}
-        {isMobile && (
-          <IconButton
-            onClick={toggleMenu}
-            icon={isOpen ? <CloseIcon /> : <HamburgerIcon />}
-            variant="ghost"
-            aria-label="Toggle Navigation"
+        {/* Right-side controls */}
+        <HStack spacing={2}>
+          {/* Theme Switcher */}
+          <Button
+            size="sm"
+            variant="outline"
             color="white"
-          />
-        )}
+            borderColor="whiteAlpha.600"
+            _hover={{ bg: 'whiteAlpha.300' }}
+            onClick={onCycleTheme}
+          >
+            {currentTheme}
+          </Button>
+
+          {/* Hamburger for mobile */}
+          {isMobile && (
+            <IconButton
+              onClick={toggleMenu}
+              icon={isOpen ? <CloseIcon /> : <HamburgerIcon />}
+              variant="ghost"
+              aria-label="Toggle Navigation"
+              color="white"
+            />
+          )}
+        </HStack>
       </Flex>
 
-      {/* Mobile Menu */}
+      {/* Mobile menu */}
       {isMobile && (
         <Collapse in={isOpen} animateOpacity>
           <VStack spacing={3} mt={3} align="start">

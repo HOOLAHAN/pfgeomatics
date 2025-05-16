@@ -14,13 +14,8 @@ import AnimatedSection from './shared/AnimatedSection';
 
 const Home: React.FC = () => {
   return (
-    <Box
-      bgImage="url('/contour_background.svg')"
-      bgSize="cover"
-      bgPosition="center"
-      bgRepeat="no-repeat"
-      minH="100vh"
-    >
+      <Box minH="100vh">
+
       <AnimatedSection id="video">
         <Box id="cover-video">
           <CoverVideo src={require(`../media/pfg.mp4`)} />

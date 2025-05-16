@@ -1,54 +1,28 @@
-import { ChakraProvider, extendTheme, ThemeConfig } from "@chakra-ui/react";
+// src/App.tsx
+import { ChakraProvider } from "@chakra-ui/react";
+import { useState } from "react";
+import { theme_1 } from "./themes/theme_1";
+import { theme_2 } from "./themes/theme_2";
+import { theme_3 } from "./themes/theme_3";
 import Navbar from "./components/layout/Navbar";
 import Home from "./components/Home";
 
-// Lock to light mode
-const config: ThemeConfig = {
-  initialColorMode: "light",
-  useSystemColorMode: false,
+const themes = [theme_1, theme_2, theme_3];
+const themeNames = ["Theme 1", "Theme 2", "Theme 3"];
+
+const App = () => {
+  const [themeIndex, setThemeIndex] = useState(0);
+
+  const cycleTheme = () => {
+    setThemeIndex((prev) => (prev + 1) % themes.length);
+  };
+
+  return (
+    <ChakraProvider theme={themes[themeIndex]}>
+      <Navbar onCycleTheme={cycleTheme} currentTheme={themeNames[themeIndex]} />
+      <Home />
+    </ChakraProvider>
+  );
 };
-
-// Logo-inspired earthy color scheme
-const colors = {
-  brand: {
-    50: "#f8f7f3",  // soft background
-    100: "#d9d6ce", // warm neutral
-    200: "#aaaaa0", // muted green-gray (logo tone)
-    300: "#dbdcd6",
-    400: "#7c7a6e", // mid tone
-    // 500: "#6C756B",
-    // 500: "#7C7C7C",
-    500: "#727D71", // olive gray (logo tone)
-    600: "#545145", // charcoal olive (logo base)
-    800: "#3b3933", // deep neutral
-  },
-  gray: {
-    50: "#fafafa",
-    100: "#f0f0f0",
-    200: "#d6d6d6",
-    300: "#bcbcbc",
-    400: "#a2a2a2",
-    500: "#888888",
-    600: "#6e6e6e",
-    700: "#545454",
-    800: "#3a3a3a",
-    900: "#202020",
-  },
-};
-
-const fonts = {
-  heading: "Inter, sans-serif",
-  body: "Inter, sans-serif",
-  mono: "Menlo, monospace",
-};
-
-const theme = extendTheme({ config, colors, fonts });
-
-const App = () => (
-  <ChakraProvider theme={theme}>
-    <Navbar />
-    <Home />
-  </ChakraProvider>
-);
 
 export default App;
