@@ -3,12 +3,14 @@
 import type { SystemStyleObject } from '@chakra-ui/react';
 import {
   Flex,
-  Text,
-  useColorModeValue,
   useMultiStyleConfig,
+  useToken
 } from '@chakra-ui/react';
 import React, { useCallback, useEffect, useState } from 'react';
 import { useSwipeable } from 'react-swipeable';
+import { IconButton } from '@chakra-ui/react';
+import { ChevronLeftIcon, ChevronRightIcon } from '@chakra-ui/icons';
+
 
 export enum Direction {
   LEFT,
@@ -77,7 +79,6 @@ export const Carousel = ({
   const carouselStyles: Record<string, SystemStyleObject> =
     useMultiStyleConfig('Carousel');
   arrowStyles = { ...arrowStyles, ...carouselStyles.arrows };
-  const arrowColor = useColorModeValue('black', 'white');
 
 useEffect(() => {
   const extendedItems = [...(inputItems || []), ...(inputItems || [])];
@@ -116,29 +117,23 @@ useEffect(() => {
     };
   };
 
-  const getArrowStyles = (arrowDirection: Direction) => {
-    let { borderRadius } = arrowStyles;
-    return {
-      ...arrowStyles,
-      borderRadius:
-        arrowDirection === Direction.LEFT
-          ? `${borderRadius} 0 0 ${borderRadius}`
-          : `0 ${borderRadius} ${borderRadius} 0`,
-    };
-  };
+  const brandBg = useToken("colors", "brand.300");
 
   return (
     <Flex w="full" p={4} alignItems="center" justifyContent="center" {...handlers}>
-      <Text
-        pos="relative"
-        userSelect="none"
-        sx={getArrowStyles(Direction.LEFT)}
-        color={arrowColor}
-        left="0"
-        onMouseDown={prevSlide}
-      >
-        &#10094;
-      </Text>
+      <IconButton
+        aria-label="Previous Slide"
+        icon={<ChevronLeftIcon />}
+        onClick={prevSlide}
+        variant="ghost"
+        size="lg"
+        colorScheme="gray"
+        borderRadius="full"
+        boxShadow="md"
+        position="relative"
+        mr={2}
+        bg={brandBg}
+      />
         {[...Array(repetitions)].map((_, index) => (
           <Flex key={`${id}-${index}`} overflowX="hidden" overflowY="visible">
             <Flex pos="relative" w="full" {...carouselStyle(index)}>
@@ -157,15 +152,19 @@ useEffect(() => {
           </Flex>
         </Flex>
       ))}
-      <Text
-        pos="relative"
-        userSelect="none"
-        sx={getArrowStyles(Direction.RIGHT)}
-        right="0"
-        onMouseDown={nextSlide}
-      >
-        &#10095;
-      </Text>
+      <IconButton
+        aria-label="Next Slide"
+        icon={<ChevronRightIcon />}
+        onClick={nextSlide}
+        variant="ghost"
+        size="lg"
+        colorScheme="gray"
+        borderRadius="full"
+        boxShadow="md"
+        position="relative"
+        ml={2}
+        bg={brandBg}
+      />
     </Flex>
   );
 };
