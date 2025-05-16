@@ -10,6 +10,7 @@ import Services from './Services';
 import ContactForm from './ContactForm';
 import Footer from './Footer';
 import BrochureDownload from './BrochureDownload';
+import AnimatedSection from './AnimatedSection';
 
 const Home: React.FC = () => {
   return (
@@ -23,30 +24,38 @@ const Home: React.FC = () => {
       <Box id="cover-video">
         <CoverVideo src={require(`../media/pfg.mp4`)} />
       </Box>
-      <Box id='about'>
+
+      <AnimatedSection id="about">
         <About />
-      </Box>
-      <Box id="services">
+      </AnimatedSection>
+
+      <AnimatedSection id="services">
         <Services />
-      </Box>
-      <Box id="projects">
+      </AnimatedSection>
+
+      <AnimatedSection id="projects">
         <Projects />
-      </Box>
-      <Box  id="map">
+      </AnimatedSection>
+
+      <AnimatedSection id="map">
         <MapComponent />
-      </Box>
-      <Box id="clients">
+      </AnimatedSection>
+
+      <AnimatedSection id="clients">
         <Clients />
-      </Box>
-      <Box id="brochure-download" mt={10}>
+      </AnimatedSection>
+
+      <AnimatedSection id="brochure-download" mt={10}>
         <BrochureDownload />
-      </Box>
-      <Box id="contact-form">
+      </AnimatedSection>
+
+      <AnimatedSection id="contact-form">
         <ContactForm />
-      </Box>
+      </AnimatedSection>
+
       <Footer />
     </Box>
   );
-}
+};
 
 export default Home;
