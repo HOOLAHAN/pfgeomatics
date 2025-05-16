@@ -58,10 +58,13 @@ const CoverVideo: React.FC<{ src: string }> = ({ src }) => {
           px={4}
           zIndex={10}
         >
-          <Heading fontSize={{ base: '2xl', md: '4xl' }} fontWeight="bold">
+          <Heading fontSize={{ base: 'lg', sm: 'xl', md: '4xl' }} fontWeight="bold">
             PF Geomatics
           </Heading>
-          <Text fontSize={{ base: 'md', md: 'lg' }}>
+          <Text
+            fontSize={{ base: 'sm', sm: 'md', md: 'lg' }}
+            display={{ base: 'none', sm: 'block' }}
+          >
             Precision Engineering & Surveying Services
           </Text>
         </VStack>
