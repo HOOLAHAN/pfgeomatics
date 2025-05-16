@@ -110,6 +110,9 @@ const Navbar: React.FC<NavbarProps> = ({ onCycleTheme, currentTheme }) => {
             {...buttonStyles}
             border={'1px'}
             onClick={onCycleTheme}
+            size={'sm'}
+            px={2}
+            mx={2}
           >
             {currentTheme}
           </Button>
