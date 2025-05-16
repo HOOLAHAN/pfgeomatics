@@ -35,7 +35,7 @@ interface ClientModalProps {
 }
 
 const ClientModal: React.FC<ClientModalProps> = ({ isOpen, onClose, selectedClient, clientLogos }) => {
-  const modalBg = useToken("colors", "white");
+  const brandBg = useToken("colors", "brand.300");
 
   if (!selectedClient) return null;
 
@@ -44,7 +44,7 @@ const ClientModal: React.FC<ClientModalProps> = ({ isOpen, onClose, selectedClie
   return (
     <Modal isOpen={isOpen} onClose={onClose} size="lg" isCentered motionPreset="scale">
       <ModalOverlay />
-      <ModalContent mx={4} my={6} bg={modalBg} borderRadius="xl" boxShadow="lg">
+      <ModalContent mx={4} my={6} bg={brandBg} borderRadius="xl" boxShadow="lg">
         <ModalCloseButton />
         <ModalBody py={6}>
           <Center>

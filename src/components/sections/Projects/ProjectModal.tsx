@@ -15,7 +15,7 @@ import {
   HStack,
   Icon,
   Link,
-  useColorModeValue,
+  useToken,
   Box,
   Image,
 } from '@chakra-ui/react';
@@ -48,9 +48,10 @@ interface ProjectModalProps {
 }
 
 const ProjectModal: React.FC<ProjectModalProps> = ({ project, isOpen, onClose }) => {
-  const buttonBorderColor = useColorModeValue('black', 'white');
-  const buttonTextColor = useColorModeValue('black', 'white');
-  const buttonHoverBg = useColorModeValue('gray.200', 'whiteAlpha.300');
+  const brandBg = useToken("colors", "brand.300");
+  const buttonBorderColor = useToken("colors", "brand.600");
+  const buttonTextColor = useToken("colors", "brand.600");
+  const buttonHoverBg = useToken("colors", "brand.50");
 
   const [images, setImages] = useState<string[]>([]);
   const [loading, setLoading] = useState(true);
@@ -64,7 +65,7 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, isOpen, onClose })
   return (
     <Modal isOpen={isOpen} onClose={onClose} size="xl" isCentered motionPreset="scale">
       <ModalOverlay />
-      <ModalContent mx={4} borderRadius="xl" boxShadow="lg">
+      <ModalContent mx={4} borderRadius="xl" boxShadow="lg" bg={brandBg}>
         <ModalHeader fontSize="2xl" fontWeight="semibold" textAlign="center">
           {project.name}
         </ModalHeader>

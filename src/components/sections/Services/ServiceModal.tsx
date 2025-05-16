@@ -14,9 +14,9 @@ import {
   VStack,
   Box,
   Image,
-  useColorModeValue,
   List,
   ListItem,
+  useToken
 } from '@chakra-ui/react';
 import { Carousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
@@ -35,9 +35,10 @@ interface ServiceModalProps {
 }
 
 const ServiceModal: React.FC<ServiceModalProps> = ({ isOpen, onClose, selectedService }) => {
-  const buttonBorderColor = useColorModeValue('black', 'white');
-  const buttonTextColor = useColorModeValue('black', 'white');
-  const buttonHoverBg = useColorModeValue('gray.200', 'whiteAlpha.300');
+  const brandBg = useToken("colors", "brand.300");
+  const buttonBorderColor = useToken("colors", "brand.600");
+  const buttonTextColor = useToken("colors", "brand.600");
+  const buttonHoverBg = useToken("colors", "brand.50");
 
   const [images, setImages] = useState<string[]>([]);
   const [loading, setLoading] = useState(true);
@@ -62,6 +63,7 @@ const ServiceModal: React.FC<ServiceModalProps> = ({ isOpen, onClose, selectedSe
         boxShadow="lg"
         maxH="100vh"
         overflowY="auto"
+        bg={brandBg}
       >
         <ModalHeader fontSize="2xl" fontWeight="semibold" textAlign="center">
           {selectedService.title}
@@ -120,6 +122,7 @@ const ServiceModal: React.FC<ServiceModalProps> = ({ isOpen, onClose, selectedSe
             _hover={{ bg: buttonHoverBg }}
             _active={{ bg: buttonHoverBg, transform: 'scale(0.95)' }}
             onClick={onClose}
+            bg={brandBg}
           >
             Close
           </Button>

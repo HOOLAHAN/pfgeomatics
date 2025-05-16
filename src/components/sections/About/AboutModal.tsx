@@ -25,6 +25,7 @@ interface AboutModalProps {
 }
 
 const AboutModal: React.FC<AboutModalProps> = ({ isOpen, onClose }) => {
+  const brandBg = useToken("colors", "brand.300");
   const buttonBorderColor = useToken("colors", "brand.600");
   const buttonTextColor = useToken("colors", "brand.600");
   const buttonHoverBg = useToken("colors", "brand.50");
@@ -32,7 +33,7 @@ const AboutModal: React.FC<AboutModalProps> = ({ isOpen, onClose }) => {
 return (
   <Modal isOpen={isOpen} onClose={onClose} size="xl" isCentered>
     <ModalOverlay />
-    <ModalContent mx={4} borderRadius="xl" boxShadow="lg">
+    <ModalContent mx={4} borderRadius="xl" boxShadow="lg" bg={brandBg}>
       <ModalHeader>About PF Geomatics</ModalHeader>
       <ModalCloseButton />
       <ModalBody>
@@ -65,6 +66,7 @@ return (
         <Button
           variant="outline"
           size="sm"
+          bg={brandBg}
           borderColor={buttonBorderColor}
           color={buttonTextColor}
           _hover={{ bg: buttonHoverBg }}
