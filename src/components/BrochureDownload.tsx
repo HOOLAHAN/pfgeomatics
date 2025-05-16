@@ -11,13 +11,14 @@ import {
 import { DownloadIcon } from '@chakra-ui/icons';
 
 const BrochureDownload: React.FC = () => {
-  const brandBg = useToken("colors", "brand.300");
+  const brandBg = useToken("colors", "brand.400");
+  const buttonBackgroundColor = useToken("colors", "brand.300");
   const buttonBorderColor = useToken("colors", "brand.600");
   const buttonTextColor = useToken("colors", "brand.600");
   const buttonHoverBg = useToken("colors", "brand.50");
 
   return (
-    <Box p={5} textAlign="center" borderRadius="md">
+    <Box p={5} textAlign="center" bg={brandBg} boxShadow="md">
       <Heading as="h3" size="lg" mb={4} color="brand.700">
         Download Our Brochure
       </Heading>
@@ -33,7 +34,7 @@ const BrochureDownload: React.FC = () => {
         variant="outline"
         borderColor={buttonBorderColor}
         color={buttonTextColor}
-        bg={brandBg}
+        bg={buttonBackgroundColor}
         _hover={{ bg: buttonHoverBg }}
         _active={{ transform: 'scale(0.97)' }}
         transition="all 0.2s ease"
