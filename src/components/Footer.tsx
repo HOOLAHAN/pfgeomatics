@@ -12,7 +12,7 @@ const Footer: React.FC = () => {
 
   return (
     <Box 
-    color="gray.700" mt={10} py={5}>
+    color="gray.700" mt={5} py={5}>
       <Container maxW="container.xl">
         <Flex direction="column" align="center">
           <Text fontSize="lg" fontWeight="bold">PF Geomatics</Text>
