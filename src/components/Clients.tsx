@@ -1,7 +1,7 @@
 // src/components/Clients.tsx
 
 import React, { useState } from 'react';
-import { Box, Image, Heading, VStack, Text, useColorModeValue, SimpleGrid, Modal, ModalOverlay, ModalContent, ModalCloseButton, ModalBody, useDisclosure, Link, Center } from '@chakra-ui/react';
+import { Box, Image, Heading, VStack, Text, SimpleGrid, Modal, ModalOverlay, ModalContent, ModalCloseButton, ModalBody, useDisclosure, Link, Center } from '@chakra-ui/react';
 import { ExternalLinkIcon } from '@chakra-ui/icons';
 import { clientData } from '../data/clientData';
 
@@ -38,7 +38,6 @@ const clientLogos: ClientLogo[] = [
 const Clients: React.FC = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [selectedClient, setSelectedClient] = useState<any>(null);
-  const boxBg = useColorModeValue('transparent', 'rgba(255, 255, 255, 0.3)');
 
   const handleLogoClick = (clientName: string) => {
     const clientInfo = clientData.find(client => client.name === clientName);
@@ -50,26 +49,27 @@ const Clients: React.FC = () => {
     <Box pt={7} maxW="1200px" mx="auto">
       <VStack spacing={4} align="center">
         <Heading>Clients</Heading>
-        <Text>Working With The Best</Text>
         <SimpleGrid columns={{ base: 2, sm: 3, md: 4, lg: 5 }} spacing={5} mt={5}>
           {clientLogos.map((logo) => (
-            <Box 
-              key={logo.name} 
+            <Box
+              key={logo.name}
               maxW={{ base: "150px", sm: "150px", md: "200px", lg: "250px" }}
-              p={{ base: 2, sm: 3, md: 4, lg: 5 }}
-              bg={boxBg} 
-              display="flex" 
-              justifyContent="center" 
+              p={4}
+              bg="whiteAlpha.600"
+              borderRadius="md"
+              boxShadow="md"
+              display="flex"
+              justifyContent="center"
               alignItems="center"
               onClick={() => handleLogoClick(logo.name)}
-              _hover={{ cursor: 'pointer', transform: 'scale(1.1)' }}
-              transition="transform 0.2s"
+              _hover={{ cursor: 'pointer', transform: 'scale(1.05)' }}
+              transition="transform 0.2s ease"
             >
-              <Image 
-                src={logo.src} 
-                alt={`${logo.name} logo`} 
-                objectFit="contain" 
-                maxH={{ base: "60px", sm: "80px", md: "100px", lg: "120px" }} 
+              <Image
+                src={logo.src}
+                alt={`${logo.name} logo`}
+                objectFit="contain"
+                maxH={{ base: "60px", sm: "80px", md: "100px", lg: "120px" }}
               />
             </Box>
           ))}
