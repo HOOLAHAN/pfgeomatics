@@ -3,18 +3,24 @@
 import { Box, Image, Heading, Center } from '@chakra-ui/react';
 import { CarouselItemProps } from './Carousel';
 
-const CarouselCard: React.FC<CarouselItemProps> = ({
+interface ProjectCardProps extends CarouselItemProps {
+  isMobile?: boolean;
+}
+
+const ProjectCard: React.FC<ProjectCardProps> = ({
   title,
   image,
   onClick,
+  isMobile = false,
 }) => (
   <Box
-    minW="300px"
-    maxW="300px"
-    mx="2"
-    my="4"
     cursor="pointer"
     onClick={onClick}
+    w="100%"
+    minW={isMobile ? undefined : '300px'}
+    maxW={isMobile ? '360px' : '300px'}
+    mx={isMobile ? 'auto' : 2}
+    my={4}
   >
     <Box
       borderRadius="md"
@@ -36,7 +42,7 @@ const CarouselCard: React.FC<CarouselItemProps> = ({
     </Box>
     <Box mt={3}>
       <Center>
-        <Heading size="md" color="brand.800">
+        <Heading size="md" color="brand.800" textAlign="center">
           {title}
         </Heading>
       </Center>
@@ -44,4 +50,4 @@ const CarouselCard: React.FC<CarouselItemProps> = ({
   </Box>
 );
 
-export default CarouselCard;
+export default ProjectCard;
