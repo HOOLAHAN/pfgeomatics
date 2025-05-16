@@ -17,11 +17,17 @@ import {
   Link,
   useColorModeValue,
   Box,
-  Image
+  Image,
 } from '@chakra-ui/react';
 import { Carousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
-import { FaLinkedin } from 'react-icons/fa';
+import {
+  FaLinkedin,
+  FaMapMarkerAlt,
+  FaBuilding,
+  FaCalendarAlt,
+  FaInfoCircle,
+} from 'react-icons/fa';
 import checkImageExists from '../../utils/checkImageExists';
 
 interface Project {
@@ -98,10 +104,22 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, isOpen, onClose })
               </Carousel>
             )}
             <VStack align="start" spacing={2}>
-              <Text><strong>📍 Location:</strong> {project.location}</Text>
-              <Text><strong>🏗️ Client:</strong> {project.client}</Text>
-              <Text><strong>🗓️ Duration:</strong> {project.dateStarted} – {project.dateEnded}</Text>
-              <Text><strong>📝 Description:</strong> {project.description}</Text>
+              <HStack>
+                <Icon as={FaMapMarkerAlt} color="gray.600" />
+                <Text><strong>Location:</strong> {project.location}</Text>
+              </HStack>
+              <HStack>
+                <Icon as={FaBuilding} color="gray.600" />
+                <Text><strong>Client:</strong> {project.client}</Text>
+              </HStack>
+              <HStack>
+                <Icon as={FaCalendarAlt} color="gray.600" />
+                <Text><strong>Duration:</strong> {project.dateStarted} – {project.dateEnded}</Text>
+              </HStack>
+              <HStack align="start">
+                <Icon as={FaInfoCircle} mt={1} color="gray.600" />
+                <Text><strong>Description:</strong> {project.description}</Text>
+              </HStack>
               {project.linkedIn && (
                 <HStack spacing={2}>
                   <Icon as={FaLinkedin} w={5} h={5} color="blue.500" />
