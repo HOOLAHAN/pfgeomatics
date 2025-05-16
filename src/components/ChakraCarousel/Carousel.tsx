@@ -139,9 +139,9 @@ useEffect(() => {
       >
         &#10094;
       </Text>
-      {[...Array(repetitions)].map((_, index) => (
-        <Flex key={`${id}-${index}`} overflow="hidden">
-          <Flex pos="relative" w="full" {...carouselStyle(index)}>
+        {[...Array(repetitions)].map((_, index) => (
+          <Flex key={`${id}-${index}`} overflowX="hidden" overflowY="visible">
+            <Flex pos="relative" w="full" {...carouselStyle(index)}>
             {items.map((item, innerIndex) => {
               const req: CarouselItemProps = {
                 id,

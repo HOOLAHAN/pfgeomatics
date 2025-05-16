@@ -12,10 +12,13 @@ const CarouselCard: React.FC<CarouselItemProps> = ({
     minW="300px"
     maxW="300px"
     mx="2"
+    my="4"
     cursor="pointer"
     onClick={onClick}
     borderRadius="md"
     overflow="hidden"
+    transition="all 0.3s ease"
+    _hover={{ transform: 'scale(1.03)', boxShadow: 'lg' }}
   >
     {image?.imageUrl && (
       <Image src={image.imageUrl} alt={title} objectFit="cover" w="100%" h="200px" borderRadius="md" boxShadow="md"/>
