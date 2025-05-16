@@ -41,7 +41,6 @@ const Projects: React.FC = () => {
 
   return (
     <Box 
-    // bg={brandBg} 
     py={5}
     >
       <Box px={0} maxW="1200px" mx="auto">
@@ -58,7 +57,7 @@ const Projects: React.FC = () => {
         >
           <ProjectCard
             key="carousel-item"
-            title="" // these are overridden via cloneElement
+            title=""
             description=""
             image={{ imageUrl: '' }}
             onClick={() => {}}
