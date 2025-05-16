@@ -24,7 +24,8 @@ interface FormValues {
 }
 
 const ContactForm: React.FC = () => {
-  const brandBg = useToken("colors", "brand.400");
+  const brandBg = useToken("colors", "brand.600");
+  const brandText = useToken("colors", "brand.50");
   const buttonBackgroundColor = useToken("colors", "brand.300");
   const buttonBorderColor = useToken("colors", "brand.600");
   const buttonTextColor = useToken("colors", "brand.600");
@@ -67,7 +68,7 @@ const ContactForm: React.FC = () => {
   return (
     <Box py={10} >
       <Box px={5} maxW="1200px" mx="auto" >
-        <Heading size="lg" textAlign="center" mb={6} color="brand.700">
+        <Heading size="lg" textAlign="center" mb={6} color={"brand.700"}>
           Contact Us
         </Heading>
         <Text fontSize="lg" textAlign="center" color="brand.700" mb={6} maxW="700px" mx="auto">
@@ -98,6 +99,7 @@ const ContactForm: React.FC = () => {
           borderRadius="md"
           bg={brandBg}
           mx="auto"
+          color={brandText}
         >
           <form onSubmit={handleSubmit(onSubmit)}>
             <VStack spacing={4}>
@@ -109,6 +111,7 @@ const ContactForm: React.FC = () => {
                   border="1px"
                   borderColor={buttonBorderColor}
                   bg={buttonBackgroundColor}
+                  color={'black'}
                   {...register("name", { required: "This is required", maxLength: 80 })}
                 />
               </FormControl>
@@ -120,6 +123,7 @@ const ContactForm: React.FC = () => {
                     border="1px"
                     borderColor={buttonBorderColor}
                     bg={buttonBackgroundColor}
+                    color={'black'}
                     {...register("email", {
                       required: "This is required",
                       pattern: {
@@ -138,6 +142,7 @@ const ContactForm: React.FC = () => {
                   bg={buttonBackgroundColor}
                   {...register("message", { required: "This is required", maxLength: 2000 })}
                   rows={6}
+                  color={'black'}
                 />
               </FormControl>
               <Button

@@ -34,6 +34,7 @@ const Navbar: React.FC<NavbarProps> = ({ onCycleTheme, currentTheme }) => {
   const [isTiny, setIsTiny] = useState(false);
 
   const brandBg = 'brand.600';
+  const brandText = 'brand.50';
 
   useEffect(() => {
     const handleResize = () => {
@@ -55,7 +56,7 @@ const Navbar: React.FC<NavbarProps> = ({ onCycleTheme, currentTheme }) => {
     size: isNarrow ? 'sm' : 'md',
     fontWeight: 500,
     fontSize: isNarrow ? 'sm' : 'md',
-    color: 'white',
+    color: brandText,
     px: isNarrow ? 2 : 4,
     _hover: { bg: 'brand.400', color: 'white' },
     _active: { bg: 'brand.300', color: 'black' },
