@@ -38,11 +38,11 @@ const Home: React.FC = () => {
       <Box id="clients">
         <Clients />
       </Box>
-      <Box id="brochure-download" my={10}>
-        <BrochureDownload />
-      </Box>
       <Box id="contact-form">
         <ContactForm />
+      </Box>
+      <Box id="brochure-download" my={10}>
+        <BrochureDownload />
       </Box>
       <Footer />
     </Box>
