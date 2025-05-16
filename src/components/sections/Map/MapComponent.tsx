@@ -5,18 +5,18 @@ import ReactMapGL, { Marker, ViewStateChangeEvent } from 'react-map-gl';
 import {
   Box,
   Button,
-  useColorModeValue,
   useBreakpointValue,
   Spinner,
   Center,
   HStack,
+  Image
 } from '@chakra-ui/react';
 import { fetchCoordinates } from '../../../utils/fetchCoordinates';
 import { projectsData } from '../../../data/projectsData';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import { LngLatBounds } from 'mapbox-gl';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faMapMarkerAlt, faSearchMinus } from '@fortawesome/free-solid-svg-icons';
+import { faSearchMinus } from '@fortawesome/free-solid-svg-icons';
 import ProjectModal from '../Projects/ProjectModal';
 import checkImageExists from '../../../utils/checkImageExists';
 
@@ -42,7 +42,6 @@ export type ProjectWithCoordinates = Project & {
 
 const MapComponent: React.FC = () => {
   const height = useBreakpointValue({ base: '45vh', md: '45vh' });
-  const brandColour = useColorModeValue('#2B6CB0', '#63B3ED');
   const [isDarkMode, setIsDarkMode] = useState(true);
 
   const mapStyle = isDarkMode
@@ -184,20 +183,27 @@ const MapComponent: React.FC = () => {
                   latitude={project.latitude}
                   longitude={project.longitude}
                 >
-                  <Button
+                  <Box
+                    bg="brand.100"
+                    p={1}
+                    rounded="full"
+                    shadow="md"
+                    cursor="pointer"
                     onClick={(e) => {
                       e.preventDefault();
                       handleMarkerClick(project);
                     }}
-                    bg="white"
-                    p={1}
-                    rounded="full"
-                    shadow="md"
-                    _hover={{ bg: 'brand.100' }}
-                    _active={{ transform: 'scale(0.95)' }}
+                    _hover={{ transform: 'scale(1.05)' }}
+                    transition="transform 0.2s ease"
                   >
-                    <FontAwesomeIcon icon={faMapMarkerAlt} size="lg" color={brandColour} />
-                  </Button>
+                    <Image
+                      src="/EDM.png"
+                      alt="Project marker"
+                      boxSize="28px"
+                      objectFit="contain"
+                      draggable={false}
+                    />
+                  </Box>
                 </Marker>
               ) : null
             ))}
