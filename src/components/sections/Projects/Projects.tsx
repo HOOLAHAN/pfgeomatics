@@ -68,7 +68,7 @@ const Projects: React.FC = () => {
             showThumbs={false}
             infiniteLoop
             autoPlay
-            interval={6000}
+            interval={4000}
             showStatus={false}
             showIndicators={false}
             emulateTouch
@@ -88,7 +88,7 @@ const Projects: React.FC = () => {
         ) : (
           <Carousel
             id="project-carousel"
-            interval={6000}
+            interval={4000}
             direction={Direction.RIGHT}
             repetitions={1}
             items={carouselItems}
