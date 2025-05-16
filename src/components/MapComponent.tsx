@@ -5,11 +5,10 @@ import ReactMapGL, { Marker, ViewStateChangeEvent } from 'react-map-gl';
 import {
   Box,
   Button,
-  useDisclosure,
   useColorModeValue,
   useBreakpointValue,
   Spinner,
-  Center
+  Center,
 } from '@chakra-ui/react';
 import { fetchCoordinates } from '../utils/fetchCoordinates';
 import { projectsData } from '../data/projectsData';
@@ -19,7 +18,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMapMarkerAlt, faSearchMinus } from '@fortawesome/free-solid-svg-icons';
 import ProjectModal from './modals/ProjectModal';
 import checkImageExists from '../utils/checkImageExists';
-import MapModal from './modals/MapModal';
 
 export interface Project {
   name: string;
@@ -62,8 +60,6 @@ const MapComponent: React.FC = () => {
   const [initialLoad, setInitialLoad] = useState(true);
   const [isProjectModalOpen, setProjectModalOpen] = useState(false);
   const [loading, setLoading] = useState(true);
-
-  const { isOpen, onOpen, onClose } = useDisclosure();
 
   useEffect(() => {
     const fetchAndSetCoordinates = async () => {
@@ -116,11 +112,6 @@ const MapComponent: React.FC = () => {
 
   const handleMarkerClick = (project: ProjectWithCoordinates) => {
     setSelectedProject(project);
-    onOpen();
-  };
-
-  const handleMoreInfoClick = () => {
-    onClose();
     setProjectModalOpen(true);
   };
 
@@ -219,13 +210,6 @@ const MapComponent: React.FC = () => {
       >
         <FontAwesomeIcon icon={faSearchMinus} />
       </Button>
-
-      <MapModal
-        project={selectedProject}
-        isOpen={isOpen}
-        onClose={onClose}
-        onMoreInfoClick={handleMoreInfoClick}
-      />
 
       {selectedProject && (
         <ProjectModal
