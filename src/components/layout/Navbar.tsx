@@ -58,7 +58,7 @@ const Navbar: React.FC<NavbarProps> = ({ onCycleTheme, currentTheme }) => {
     fontSize: isNarrow ? 'sm' : 'md',
     color: brandText,
     px: isNarrow ? 2 : 4,
-    _hover: { bg: 'brand.400', color: 'white' },
+    _hover: { bg: 'brand.300', color: 'white' },
     _active: { bg: 'brand.300', color: 'black' },
   };
 

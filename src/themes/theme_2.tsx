@@ -13,9 +13,9 @@ export const theme_2 = extendTheme({
     brand: {
       50: "#fefefe",      // white variant
       100: "#ffefd6",     // pale warm tone
-      200: "#ffb100",     // golden accent
-      300: "#ffd280",     // lighter gold
-      400: "#c88e00",     // darker gold
+      200: "#c88e00",     // darker gold
+      300: "#ffb100",     // golden accent
+      400: "#ffd280",     // lighter gold
       500: "#015e7b",     // deep blue-green
       600: "#01475e",     // darker teal
       700: "#42373a",     // deep brown

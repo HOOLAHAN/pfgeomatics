@@ -45,8 +45,8 @@ const MapComponent: React.FC = () => {
   const [isDarkMode, setIsDarkMode] = useState(true);
 
   const mapStyle = isDarkMode
-    ? 'mapbox://styles/mapbox/dark-v10'      // Default dark
-    : 'mapbox://styles/mapbox/streets-v11';  // Alternate option
+    ? 'mapbox://styles/mapbox/streets-v11'      // Default
+    : 'mapbox://styles/mapbox/dark-v10';        // Alternate option
 
 
   const mapContainerRef = useRef<HTMLDivElement>(null);
@@ -184,7 +184,7 @@ const MapComponent: React.FC = () => {
                   longitude={project.longitude}
                 >
                   <Box
-                    bg="brand.100"
+                    bg="brand.300"
                     p={1}
                     rounded="full"
                     shadow="md"
@@ -193,7 +193,7 @@ const MapComponent: React.FC = () => {
                       e.preventDefault();
                       handleMarkerClick(project);
                     }}
-                    _hover={{ transform: 'scale(1.05)' }}
+                    _hover={{ transform: 'scale(1.05)', bg: "brand.400" }}
                     transition="transform 0.2s ease"
                   >
                     <Image
@@ -215,9 +215,9 @@ const MapComponent: React.FC = () => {
             top="20px"
             right="20px"
             onClick={() => fitBounds(projects)}
-            bg="brand.100"
+            bg="brand.300"
             color="brand.700"
-            _hover={{ bg: "brand.200" }}
+            _hover={{ bg: "brand.400" }}
             _active={{ transform: 'scale(0.95)' }}
             rounded="full"
             shadow="lg"
@@ -232,9 +232,9 @@ const MapComponent: React.FC = () => {
             top="20px"
             right="60px"
             onClick={() => setIsDarkMode(prev => !prev)}
-            bg="brand.100"
+            bg="brand.300"
             color="brand.700"
-            _hover={{ bg: "brand.200" }}
+            _hover={{ bg: "brand.400" }}
             _active={{ transform: 'scale(0.95)' }}
             rounded="full"
             shadow="lg"
