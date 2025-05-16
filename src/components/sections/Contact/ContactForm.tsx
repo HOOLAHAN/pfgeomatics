@@ -27,6 +27,7 @@ const ContactForm: React.FC = () => {
   const brandBg = useToken("colors", "brand.600");
   const brandText = useToken("colors", "brand.50");
   const buttonBackgroundColor = useToken("colors", "brand.300");
+  const formInputColor = useToken("colors", "brand.100");
   const buttonBorderColor = useToken("colors", "brand.800");
   const buttonTextColor = useToken("colors", "brand.800");
   const buttonHoverBg = useToken("colors", "brand.50");
@@ -110,7 +111,7 @@ const ContactForm: React.FC = () => {
                   type="text"
                   border="1px"
                   borderColor={buttonBorderColor}
-                  bg={buttonBackgroundColor}
+                  bg={formInputColor}
                   color={'black'}
                   {...register("name", { required: "This is required", maxLength: 80 })}
                 />
@@ -122,7 +123,7 @@ const ContactForm: React.FC = () => {
                     type="email"
                     border="1px"
                     borderColor={buttonBorderColor}
-                    bg={buttonBackgroundColor}
+                    bg={formInputColor}
                     color={'black'}
                     {...register("email", {
                       required: "This is required",
@@ -139,7 +140,7 @@ const ContactForm: React.FC = () => {
                   id="message"
                   border="1px"
                   borderColor={buttonBorderColor}
-                  bg={buttonBackgroundColor}
+                  bg={formInputColor}
                   {...register("message", { required: "This is required", maxLength: 2000 })}
                   rows={6}
                   color={'black'}
