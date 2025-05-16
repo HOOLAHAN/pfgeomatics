@@ -17,7 +17,7 @@ import {
   useColorModeValue,
   useToken,
 } from '@chakra-ui/react';
-import { ProjectWithCoordinates } from './MapComponent';
+import { ProjectWithCoordinates } from '../MapComponent';
 
 interface MapModalProps {
   project: ProjectWithCoordinates | null;

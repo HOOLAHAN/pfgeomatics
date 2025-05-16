@@ -17,9 +17,9 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 import { LngLatBounds } from 'mapbox-gl';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMapMarkerAlt, faSearchMinus } from '@fortawesome/free-solid-svg-icons';
-import ProjectModal from './ProjectModal';
+import ProjectModal from './modals/ProjectModal';
 import checkImageExists from '../utils/checkImageExists';
-import MapModal from './MapModal';
+import MapModal from './modals/MapModal';
 
 export interface Project {
   name: string;

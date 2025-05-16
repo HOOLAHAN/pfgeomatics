@@ -22,7 +22,7 @@ import {
 import { Carousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import { FaLinkedin } from 'react-icons/fa';
-import checkImageExists from '../utils/checkImageExists';
+import checkImageExists from '../../utils/checkImageExists';
 
 interface Project {
   name: string;

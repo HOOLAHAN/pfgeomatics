@@ -13,7 +13,7 @@ import {
   Heading,
   useToken,
 } from '@chakra-ui/react';
-import AboutModal from './AboutModal';
+import AboutModal from './modals/AboutModal';
 
 import aboutImage from '../media/serviceImages/about/1.png';
 

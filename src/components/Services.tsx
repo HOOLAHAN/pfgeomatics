@@ -11,7 +11,7 @@ import {
   SimpleGrid,
 } from '@chakra-ui/react';
 import { servicesData } from '../data/servicesData';
-import ServiceModal from './ServiceModal';
+import ServiceModal from './modals/ServiceModal';
 
 interface Service {
   title: string;

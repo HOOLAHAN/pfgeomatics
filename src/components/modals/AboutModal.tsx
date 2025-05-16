@@ -38,7 +38,7 @@ const AboutModal: React.FC<AboutModalProps> = ({ isOpen, onClose }) => {
         <ModalBody>
           <VStack spacing={5} align="start">
             <Image
-              src={require(`../media/serviceImages/about/1.png`)}
+              src={require(`../../media/serviceImages/about/1.png`)}
               alt="Surveyor at work"
               width="100%"
               maxH="300px"
