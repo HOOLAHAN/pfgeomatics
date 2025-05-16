@@ -27,9 +27,14 @@ const AnimatedSection: FC<PropsWithChildren<MotionBoxProps>> = ({ children, ...p
   return (
     <MotionBox
       ref={ref}
-      initial={{ opacity: 0, y: 20 }}
+      initial={{ opacity: 0, y: 40 }}
       animate={controls}
-      transition={{ type: 'spring', stiffness: 80, damping: 18 } as any}
+      transition={{
+        type: 'spring',
+        stiffness: 50,
+        damping: 12,
+        mass: 1.5,
+      } as any}
       {...props}
     >
       {children}
