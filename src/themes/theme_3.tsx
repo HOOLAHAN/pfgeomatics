@@ -45,15 +45,12 @@ export const theme_3 = extendTheme({
   styles: {
     global: {
       body: {
+        bgImage: "url('/background_theme_3.svg')",
+        bgSize: "cover",
+        bgRepeat: "no-repeat",
+        bgPosition: "center",
         bg: 'brand.50',
         color: 'gray.800',
-      },
-    },
-  },
-  semanticTokens: {
-    colors: {
-      backgroundImage: {
-        default: "url('/background_theme_3.svg')",
       },
     },
   },
