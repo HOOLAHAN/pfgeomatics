@@ -74,34 +74,37 @@ const Projects: React.FC = () => {
             emulateTouch
           >
             {carouselItems.map((item, index) => (
-              <Box key={index} px={6} py={2}>
-                <Center><Box
-                  cursor="pointer"
-                  onClick={item.onClick}
-                  borderRadius="md"
-                  overflow="hidden"
-                  transition="all 0.3s ease"
-                  _hover={{ transform: 'scale(1.03)', boxShadow: 'lg' }}
-                >
-                  <img
-                    src={item.image?.imageUrl}
-                    alt={item.title}
-                    style={{
-                      width: '100%',
-                      maxWidth: '360px',
-                      margin: '0 auto',
-                      height: '200px',
-                      objectFit: 'cover',
-                      borderRadius: '8px',
-                    }}
-                  />
-                </Box></Center>
+              <Box key={index} py={2}>
+                <Center>
+                  <Box
+                    w="100%"
+                    maxW="360px"
+                    px={4}
+                    cursor="pointer"
+                    onClick={item.onClick}
+                    borderRadius="md"
+                    overflow="hidden"
+                    transition="all 0.3s ease"
+                    _hover={{ transform: 'scale(1.03)', boxShadow: 'lg' }}
+                  >
+                    <img
+                      src={item.image?.imageUrl}
+                      alt={item.title}
+                      style={{
+                        width: '100%',
+                        height: '200px',
+                        objectFit: 'cover',
+                        borderRadius: '8px',
+                      }}
+                    />
+                  </Box>
+                </Center>
                 <Heading size="md" mt={3} textAlign="center" color="brand.800">
                   {item.title}
                 </Heading>
               </Box>
             ))}
-        </ResponsiveCarousel>
+          </ResponsiveCarousel>
         ) : (
           <Carousel
             id="project-carousel"
