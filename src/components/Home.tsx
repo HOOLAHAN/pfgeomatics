@@ -18,7 +18,7 @@ const Home: React.FC = () => {
 
       <AnimatedSection id="video">
         <Box id="cover-video">
-          <CoverVideo src={require(`../media/pfg.mp4`)} />
+          <CoverVideo src={require(`../media/pfg720.mp4`)} />
         </Box>
       </AnimatedSection>
 
