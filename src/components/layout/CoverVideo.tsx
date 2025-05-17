@@ -14,7 +14,8 @@ const CoverVideo: React.FC<{ src: string }> = ({ src }) => {
       position="relative"
       width="100%"
       height={height}
-      padding={10}
+      px={{ base: 4, md: 10 }}
+      py={{ base: 6, md: 10 }}
     >
       <Box
         bg="black"
