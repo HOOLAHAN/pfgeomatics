@@ -30,7 +30,7 @@ const About: React.FC = () => {
             <Image
               src="/PFG_LOGO_B2.png"
               alt="PF Geomatics Logo"
-              maxH={{ base: '80px', md: '220px' }}
+              maxH={{ base: '120px', md: '220px' }}
               mx="auto"
             />
           </Box>
@@ -41,7 +41,7 @@ const About: React.FC = () => {
               Who We Are
             </Heading>
             <Button
-              size="lg"
+              size={{ base: 'sm', md: 'lg' }} 
               onClick={() => setModalOpen(true)}
               variant="outline"
               borderColor={buttonBorderColor}
