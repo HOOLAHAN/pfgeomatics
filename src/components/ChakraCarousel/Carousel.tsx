@@ -54,25 +54,20 @@ export const Carousel = ({
   children,
 }: CarouselProps) => {
   const [items, setItems] = useState<Partial<CarouselItem>[]>([]);
-  const [currentSlides, setCurrentSlides] = useState<number[]>([]);
+  const [currentIndex, setCurrentIndex] = useState(0);
   const brandBg = useToken('colors', 'brand.300');
 
   useEffect(() => {
-    const extendedItems = [...(inputItems || []), ...(inputItems || [])];
-    setItems(extendedItems);
-    setCurrentSlides(Array.from({ length: repetitions }, (_, index) => index));
-  }, [inputItems, repetitions]);
+    setItems(inputItems || []);
+    setCurrentIndex(0);
+  }, [inputItems]);
 
   const prevSlide = useCallback(() => {
-    setCurrentSlides((prev) =>
-      prev.map((val) => (val - 1 + items.length) % items.length)
-    );
+    setCurrentIndex((prev) => (prev - 1 + items.length) % items.length);
   }, [items.length]);
 
   const nextSlide = useCallback(() => {
-    setCurrentSlides((prev) =>
-      prev.map((val) => (val + 1) % items.length)
-    );
+    setCurrentIndex((prev) => (prev + 1) % items.length);
   }, [items.length]);
 
   const handlers = useSwipeable({
@@ -87,39 +82,28 @@ export const Carousel = ({
     return () => clearInterval(autoSlide);
   }, [direction, interval, nextSlide, prevSlide]);
 
-  const carouselStyle = (index: number) => ({
-    transition: 'all 1s ease-in-out',
-    ml: `-${currentSlides[index]! * 100}%`,
-    minWidth: `${items.length * 100}%`,
-    display: 'flex',
-  });
-
   return (
     <Box w="full" px={4} {...handlers}>
-      <Flex justifyContent="center">
-        {[...Array(repetitions)].map((_, index) => (
-          <Flex
-            key={`${id}-${index}`}
-            overflowX="hidden"
-            overflowY="visible"
-            width="100%"
-          >
-            <Flex {...carouselStyle(index)}>
-              {items.map((item, innerIndex) => {
-                const req: CarouselItemProps = {
-                  id,
-                  index: innerIndex,
-                  slides: items.length,
-                  ...item,
-                };
-                return React.cloneElement(children, {
-                  key: `${id}-${index}-${item.title}`,
-                  ...req,
-                });
-              })}
-            </Flex>
-          </Flex>
-        ))}
+      <Flex overflow="hidden" width="100%">
+        <Flex
+          width={`${items.length * 100}%`}
+          transform={`translateX(-${(100 / items.length) * currentIndex}%)`}
+          transition="transform 0.5s ease"
+        >
+          {items.map((item, index) => {
+            const props: CarouselItemProps = {
+              id,
+              index,
+              slides: items.length,
+              ...item,
+            };
+            return (
+              <Box key={`${id}-${index}`} width={`${100 / items.length}%`}>
+                {React.cloneElement(children, props)}
+              </Box>
+            );
+          })}
+        </Flex>
       </Flex>
 
       {/* Arrows below carousel */}
