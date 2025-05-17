@@ -133,8 +133,8 @@ useEffect(() => {
         position="relative"
         mr={2}
         bg={brandBg}
-        _hover={{ bg: 'brand.100' }}
-        _active={{ bg: 'brand.200', transform: 'scale(0.95)' }}
+        _hover={{ bg: 'brand.200' }}
+        _active={{ bg: 'brand.100', transform: 'scale(0.95)' }}
       />
         {[...Array(repetitions)].map((_, index) => (
           <Flex key={`${id}-${index}`} overflowX="hidden" overflowY="visible">

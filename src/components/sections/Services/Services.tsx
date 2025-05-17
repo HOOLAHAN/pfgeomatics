@@ -1,6 +1,6 @@
 // src/components/Services.tsx
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import {
   Box,
   Heading,
@@ -9,6 +9,7 @@ import {
   Spinner,
   Center,
   SimpleGrid,
+  useToken
 } from '@chakra-ui/react';
 import { servicesData } from '../../../data/servicesData';
 import ServiceModal from './ServiceModal';
@@ -28,6 +29,8 @@ const Services: React.FC = () => {
   const [selectedService, setSelectedService] = useState<Service | null>(null);
   const [loadingImages, setLoadingImages] = useState<{ [key: string]: boolean }>({});
   const [width, setWidth] = useState<number>(window.innerWidth);
+  const brandBg = useToken("colors", "brand.300");
+  const carouselRef = useRef<ResponsiveCarousel>(null);
 
   useEffect(() => {
     const handleResize = () => setWidth(window.innerWidth);
@@ -107,7 +110,7 @@ const renderServiceCard = (service: Service) => (
         ) : isTablet ? (
           <Carousel
             id="services-carousel"
-            interval={4000}
+            interval={5000}
             direction={Direction.RIGHT}
             repetitions={1}
             items={carouselItems}
@@ -123,14 +126,19 @@ const renderServiceCard = (service: Service) => (
             />
           </Carousel>
         ) : (
+        <>
           <ResponsiveCarousel
+            ref={carouselRef}
             showThumbs={false}
             infiniteLoop
             autoPlay
-            interval={4000}
+            interval={5000}
             showStatus={false}
             showIndicators={false}
             emulateTouch
+            showArrows={true}
+            renderArrowPrev={() => null}
+            renderArrowNext={() => null}
           >
             {servicesData.map((service) => (
               <Box key={service.title} px={6} py={2}>
@@ -138,7 +146,44 @@ const renderServiceCard = (service: Service) => (
               </Box>
             ))}
           </ResponsiveCarousel>
-        )}
+
+          {/* Custom Arrow Controls Below */}
+          <Box mt={4}>
+            <Center>
+              <Box display="flex" gap={4}>
+                <Box
+                  as="button"
+                  onClick={() => carouselRef.current?.moveTo(carouselRef.current.state.selectedItem - 1)}
+                  p={2}
+                  fontSize="24px"
+                  color="white"
+                  bg={brandBg}
+                  borderRadius="full"
+                  _hover={{ bg: 'brand.200' }}
+                  _active={{ bg: 'brand.100', transform: 'scale(0.95)' }}
+                  aria-label="Previous slide"
+                >
+                  &#10094;
+                </Box>
+                <Box
+                  as="button"
+                  onClick={() => carouselRef.current?.moveTo(carouselRef.current.state.selectedItem + 1)}
+                  p={2}
+                  fontSize="24px"
+                  color="white"
+                  bg={brandBg}
+                  borderRadius="full"
+                  _hover={{ bg: 'brand.200' }}
+                  _active={{ bg: 'brand.100', transform: 'scale(0.95)' }}
+                  aria-label="Next slide"
+                >
+                  &#10095;
+                </Box>
+              </Box>
+            </Center>
+          </Box>
+        </>
+      )}
       </Box>
 
       <ServiceModal
