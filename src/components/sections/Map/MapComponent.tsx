@@ -199,7 +199,7 @@ const MapComponent: React.FC = () => {
                     <Image
                       src="/EDM.png"
                       alt="Project marker"
-                      boxSize="28px"
+                      boxSize="20px"
                       objectFit="contain"
                       draggable={false}
                     />

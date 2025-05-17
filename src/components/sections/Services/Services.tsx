@@ -35,8 +35,8 @@ const Services: React.FC = () => {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  const isDesktop = width >= 950;
-  const isTablet = width >= 720 && width < 950;
+  const isDesktop = width >= 1000;
+  const isTablet = width >= 720 && width < 1000;
 
   const handleServiceClick = (service: Service) => {
     setSelectedService(service);
