@@ -47,14 +47,16 @@ const Services: React.FC = () => {
     setLoadingImages(prev => ({ ...prev, [title]: false }));
   };
 
-  const renderServiceCard = (service: Service) => (
+const renderServiceCard = (service: Service) => (
+  <Box
+    key={service.title}
+    minW="300px"
+    maxW="300px"
+    mx="auto"
+    cursor="pointer"
+    onClick={() => handleServiceClick(service)}
+  >
     <Box
-      key={service.title}
-      minW="300px"
-      maxW="300px"
-      mx="auto"
-      cursor="pointer"
-      onClick={() => handleServiceClick(service)}
       borderRadius="md"
       overflow="hidden"
       transition="all 0.3s ease"
@@ -76,13 +78,14 @@ const Services: React.FC = () => {
         display={loadingImages[service.title] ? 'none' : 'block'}
         onLoad={() => handleImageLoad(service.title)}
       />
-      <Box p="4" textAlign="center">
-        <Heading size="md" mb="1" color="brand.800">
-          {service.title}
-        </Heading>
-      </Box>
     </Box>
-  );
+    <Box mt={3} textAlign="center">
+      <Heading size="md" color="brand.800">
+        {service.title}
+      </Heading>
+    </Box>
+  </Box>
+);
 
   const carouselItems = servicesData.map((service) => ({
     title: service.title,
