@@ -140,10 +140,45 @@ const renderServiceCard = (service: Service) => (
             renderArrowPrev={() => null}
             renderArrowNext={() => null}
           >
-            {servicesData.map((service) => (
-              <Box key={service.title} px={6} py={2}>
-                {renderServiceCard(service)}
-              </Box>
+            {servicesData.map((service, index) => (
+              <Center key={index} py={2}>
+                <Box
+                  minW="300px"
+                  maxW="360px"
+                  mx="auto"
+                  cursor="pointer"
+                  onClick={() => handleServiceClick(service)}
+                >
+                  <Box
+                    borderRadius="md"
+                    overflow="hidden"
+                    transition="all 0.3s ease"
+                    _hover={{ transform: 'scale(1.03)', boxShadow: 'lg' }}
+                  >
+                    {loadingImages[service.title] && (
+                      <Center h="200px">
+                        <Spinner size="lg" />
+                      </Center>
+                    )}
+                    <Image
+                      src={require(`../../../media/serviceImages/${service.imageFolder}/1.png`)}
+                      alt={`${service.title} image`}
+                      objectFit="cover"
+                      w="100%"
+                      h="200px"
+                      borderRadius="md"
+                      boxShadow="md"
+                      display={loadingImages[service.title] ? 'none' : 'block'}
+                      onLoad={() => handleImageLoad(service.title)}
+                    />
+                  </Box>
+                  <Box mt={3} textAlign="center">
+                    <Heading size="md" color="brand.800">
+                      {service.title}
+                    </Heading>
+                  </Box>
+                </Box>
+              </Center>
             ))}
           </ResponsiveCarousel>
 
@@ -153,8 +188,11 @@ const renderServiceCard = (service: Service) => (
               <Box display="flex" gap={4}>
                 <Box
                   as="button"
-                  onClick={() => carouselRef.current?.moveTo(carouselRef.current.state.selectedItem - 1)}
+                  onClick={() =>
+                    carouselRef.current?.moveTo(carouselRef.current.state.selectedItem - 1)
+                  }
                   p={2}
+                  px={4}
                   fontSize="24px"
                   color="white"
                   bg={brandBg}
@@ -167,8 +205,11 @@ const renderServiceCard = (service: Service) => (
                 </Box>
                 <Box
                   as="button"
-                  onClick={() => carouselRef.current?.moveTo(carouselRef.current.state.selectedItem + 1)}
+                  onClick={() =>
+                    carouselRef.current?.moveTo(carouselRef.current.state.selectedItem + 1)
+                  }
                   p={2}
+                  px={4}
                   fontSize="24px"
                   color="white"
                   bg={brandBg}

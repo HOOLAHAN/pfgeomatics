@@ -64,27 +64,82 @@ const Projects: React.FC = () => {
         </Heading>
 
         {isMobile ? (
-          <ResponsiveCarousel
-            showThumbs={false}
-            infiniteLoop
-            autoPlay
-            interval={4000}
-            showStatus={false}
-            showIndicators={false}
-            emulateTouch
-          >
-            {carouselItems.map((item, index) => (
-              <Center key={index} py={2}>
-                <ProjectCard
-                  {...item}
-                  id={`mobile-${index}`}
-                  index={index}
-                  slides={carouselItems.length}
-                  isMobile
-                />
+          <>
+            <ResponsiveCarousel
+              showThumbs={false}
+              infiniteLoop
+              autoPlay
+              interval={4000}
+              showStatus={false}
+              showIndicators={false}
+              emulateTouch
+              showArrows={true}
+              renderArrowPrev={() => null}
+              renderArrowNext={() => null}
+              ref={(ref) => {
+                // Store ref so buttons can use it
+                (window as any).__projectCarouselRef__ = ref;
+              }}
+            >
+              {carouselItems.map((item, index) => (
+                <Center key={index} py={2}>
+                  <ProjectCard
+                    {...item}
+                    id={`mobile-${index}`}
+                    index={index}
+                    slides={carouselItems.length}
+                    isMobile
+                  />
+                </Center>
+              ))}
+            </ResponsiveCarousel>
+
+            {/* Custom Arrow Controls Below */}
+            <Box mt={4}>
+              <Center>
+                <Box display="flex" gap={4}>
+                  <Box
+                    as="button"
+                    onClick={() =>
+                      (window as any).__projectCarouselRef__?.moveTo(
+                        (window as any).__projectCarouselRef__.state.selectedItem - 1
+                      )
+                    }
+                    p={2}
+                    px={4}
+                    fontSize="24px"
+                    color="white"
+                    bg="brand.300"
+                    borderRadius="full"
+                    _hover={{ bg: 'brand.200' }}
+                    _active={{ bg: 'brand.100', transform: 'scale(0.95)' }}
+                    aria-label="Previous slide"
+                  >
+                    &#10094;
+                  </Box>
+                  <Box
+                    as="button"
+                    onClick={() =>
+                      (window as any).__projectCarouselRef__?.moveTo(
+                        (window as any).__projectCarouselRef__.state.selectedItem + 1
+                      )
+                    }
+                    p={2}
+                    px={4}
+                    fontSize="24px"
+                    color="white"
+                    bg="brand.300"
+                    borderRadius="full"
+                    _hover={{ bg: 'brand.200' }}
+                    _active={{ bg: 'brand.100', transform: 'scale(0.95)' }}
+                    aria-label="Next slide"
+                  >
+                    &#10095;
+                  </Box>
+                </Box>
               </Center>
-            ))}
-          </ResponsiveCarousel>
+            </Box>
+          </>
         ) : (
           <Carousel
             id="project-carousel"
