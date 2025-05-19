@@ -58,7 +58,7 @@ export const clientData = [
   },
   {
     name: "Criterion Capital",
-    website: "",
+    website: "https://www.criterioncapital.co.uk/",
     logo: "criterion-capital.png",
     about: "Criterion Capital is a leading property investment and development company specialising in the acquisition, development, and management of commercial and residential properties in prime locations across London and the UK.",
     pfgService: "For Criterion Capital, we provide detailed surveys and precision setting out for their development projects. Our services include establishing site control, setting out gridlines, surveying existing structures, and providing as-built drawings. We collaborate closely with their site and design teams to ensure accurate implementation of project specifications and to address any potential issues, ensuring smooth and efficient project execution."
