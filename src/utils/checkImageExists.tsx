@@ -3,24 +3,23 @@
 const checkImageExists = (baseFolder: string, folder: string): string[] => {
   const extensions = ['jpg', 'jpeg', 'png'];
   const images = [];
-  for (let i = 1; ; i++) {
-    let found = false;
+
+  const maxFiles = 20; // Scan up to image 20
+  for (let i = 1; i <= maxFiles; i++) {
     for (const ext of extensions) {
       try {
         const imagePath = require(`../media/${baseFolder}/${folder}/${i}.${ext}`);
         images.push(imagePath);
-        found = true;
-        break;
+        break; // Stop checking other extensions if found
       } catch (err) {
         // Continue to next extension
       }
     }
-    if (!found) {
-      break;
-    }
   }
+
   return images;
 };
+
 
 export const getFirstImage = (baseFolder: string, folder: string): string => {
   const images = checkImageExists(baseFolder, folder);
