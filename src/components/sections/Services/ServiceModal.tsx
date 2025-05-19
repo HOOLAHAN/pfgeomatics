@@ -1,6 +1,6 @@
 // src/components/ServiceModal.tsx
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import {
   Modal,
   ModalOverlay,
@@ -16,7 +16,8 @@ import {
   Image,
   List,
   ListItem,
-  useToken
+  useToken,
+  Center,
 } from '@chakra-ui/react';
 import { Carousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
@@ -42,6 +43,7 @@ const ServiceModal: React.FC<ServiceModalProps> = ({ isOpen, onClose, selectedSe
 
   const [images, setImages] = useState<string[]>([]);
   const [loading, setLoading] = useState(true);
+  const carouselRef = useRef<any>(null);
 
   useEffect(() => {
     if (selectedService) {
@@ -72,36 +74,81 @@ const ServiceModal: React.FC<ServiceModalProps> = ({ isOpen, onClose, selectedSe
         <ModalBody maxH={{ base: '90vh', md: 'auto' }}>
           <VStack align="stretch" spacing={4}>
             {!loading && images.length > 0 && (
-              <Carousel
-                showThumbs={true}
-                infiniteLoop={true}
-                autoPlay={true}
-                interval={6000}
-                showStatus={false}
-                dynamicHeight={false}
-                thumbWidth={100}
-              >
-                {images.map((src, index) => (
-                  <Box
-                    key={index}
-                    w="100%"
-                    h={{ base: '200px', md: '300px' }}
-                    position="relative"
-                    overflow="hidden"
-                    borderRadius="md"
-                    bg="gray.100"
-                  >
-                    <Image
-                      src={src}
-                      alt={`Slide ${index + 1} of ${selectedService.title}`}
-                      objectFit="cover"
+              <>
+                <Carousel
+                  ref={carouselRef}
+                  showThumbs={false}
+                  infiniteLoop
+                  autoPlay
+                  interval={6000}
+                  showStatus={false}
+                  showIndicators={false}
+                  emulateTouch
+                  showArrows={true}
+                  renderArrowPrev={() => null}
+                  renderArrowNext={() => null}
+                >
+                  {images.map((src, index) => (
+                    <Box
+                      key={index}
                       w="100%"
-                      h="100%"
+                      h={{ base: '200px', md: '300px' }}
+                      position="relative"
+                      overflow="hidden"
                       borderRadius="md"
-                    />
+                      bg="gray.100"
+                    >
+                      <Image
+                        src={src}
+                        alt={`Slide ${index + 1} of ${selectedService.title}`}
+                        objectFit="cover"
+                        w="100%"
+                        h="100%"
+                        borderRadius="md"
+                      />
+                    </Box>
+                  ))}
+                </Carousel>
+
+                {images.length > 1 && (
+                  <Box mt={3}>
+                    <Center>
+                      <Box display="flex" gap={4}>
+                        <Box
+                          as="button"
+                          onClick={() => carouselRef.current?.moveTo(carouselRef.current.state.selectedItem - 1)}
+                          p={2}
+                          px={4}
+                          fontSize="24px"
+                          color="white"
+                          bg={brandBg}
+                          borderRadius="full"
+                          _hover={{ bg: 'brand.200' }}
+                          _active={{ bg: 'brand.100', transform: 'scale(0.95)' }}
+                          aria-label="Previous slide"
+                        >
+                          &#10094;
+                        </Box>
+                        <Box
+                          as="button"
+                          onClick={() => carouselRef.current?.moveTo(carouselRef.current.state.selectedItem + 1)}
+                          p={2}
+                          px={4}
+                          fontSize="24px"
+                          color="white"
+                          bg={brandBg}
+                          borderRadius="full"
+                          _hover={{ bg: 'brand.200' }}
+                          _active={{ bg: 'brand.100', transform: 'scale(0.95)' }}
+                          aria-label="Next slide"
+                        >
+                          &#10095;
+                        </Box>
+                      </Box>
+                    </Center>
                   </Box>
-                ))}
-              </Carousel>
+                )}
+              </>
             )}
             <VStack align="start" spacing={2}>
               <Text fontWeight="bold">Services:</Text>
