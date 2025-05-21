@@ -19,6 +19,8 @@ import {
   Divider,
 } from '@chakra-ui/react';
 
+import { getMediaUrl } from '../../../utils/getMediaUrl';
+
 interface AboutModalProps {
   isOpen: boolean;
   onClose: () => void;
@@ -38,15 +40,15 @@ return (
       <ModalCloseButton />
       <ModalBody>
         <VStack spacing={5} align="start">
-          <Image
-            src={require(`../../../media/serviceImages/about/2.png`)}
-            alt="Surveyor at work"
-            width="100%"
-            maxH="300px"
-            objectFit="cover"
-            borderRadius="md"
-            shadow="md"
-          />
+        <Image
+          src={getMediaUrl('serviceImages/about', '2.png')}
+          alt="Surveyor at work"
+          width="100%"
+          maxH="300px"
+          objectFit="cover"
+          borderRadius="md"
+          shadow="md"
+        />
           <Divider />
           <Box>
             <Heading size="sm" mb={2}>What We Do</Heading>

@@ -13,12 +13,15 @@ import BrochureDownload from './sections/Brochure/BrochureDownload';
 import AnimatedSection from './shared/AnimatedSection';
 
 const Home: React.FC = () => {
+  const cloudFrontBaseUrl = process.env.REACT_APP_CLOUDFRONT_BASE_URL;
+  const videoSrc = `${cloudFrontBaseUrl}/pfg720.mp4`;
+
   return (
       <Box minH="100vh">
 
       <AnimatedSection id="video">
         <Box id="cover-video">
-          <CoverVideo src={require(`../media/pfg720.mp4`)} />
+          <CoverVideo src={videoSrc} />
         </Box>
       </AnimatedSection>
 

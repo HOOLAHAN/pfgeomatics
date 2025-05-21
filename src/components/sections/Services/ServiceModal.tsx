@@ -21,7 +21,7 @@ import {
 } from '@chakra-ui/react';
 import { Carousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
-import checkImageExists from '../../../utils/checkImageExists';
+import { getMediaUrl } from '../../../utils/getMediaUrl';
 
 interface Service {
   title: string;
@@ -46,11 +46,21 @@ const ServiceModal: React.FC<ServiceModalProps> = ({ isOpen, onClose, selectedSe
   const carouselRef = useRef<any>(null);
 
   useEffect(() => {
-    if (selectedService) {
-      const imageUrls = checkImageExists('serviceImages', selectedService.imageFolder);
-      setImages(imageUrls);
+    if (!selectedService) return;
+
+    const loadStaticImageUrls = () => {
+      const urls: string[] = [];
+      const maxImages = 10;
+      for (let i = 1; i <= maxImages; i++) {
+        const url = getMediaUrl('serviceImages', `${selectedService.imageFolder}/${i}.png`);
+        urls.push(url);
+      }
+      setImages(urls);
       setLoading(false);
-    }
+    };
+
+    setLoading(true);
+    loadStaticImageUrls();
   }, [selectedService]);
 
   if (!selectedService) return null;
@@ -78,13 +88,13 @@ const ServiceModal: React.FC<ServiceModalProps> = ({ isOpen, onClose, selectedSe
                 <Carousel
                   ref={carouselRef}
                   showThumbs={false}
-                  infiniteLoop
-                  autoPlay
+                  infiniteLoop={true}
+                  autoPlay={true}
                   interval={6000}
                   showStatus={false}
                   showIndicators={false}
                   emulateTouch
-                  showArrows={true}
+                  showArrows={images.length > 1}
                   renderArrowPrev={() => null}
                   renderArrowNext={() => null}
                 >
@@ -116,7 +126,9 @@ const ServiceModal: React.FC<ServiceModalProps> = ({ isOpen, onClose, selectedSe
                       <Box display="flex" gap={4}>
                         <Box
                           as="button"
-                          onClick={() => carouselRef.current?.moveTo(carouselRef.current.state.selectedItem - 1)}
+                          onClick={() =>
+                            carouselRef.current?.moveTo(carouselRef.current.state.selectedItem - 1)
+                          }
                           p={2}
                           px={4}
                           fontSize="24px"
@@ -131,7 +143,9 @@ const ServiceModal: React.FC<ServiceModalProps> = ({ isOpen, onClose, selectedSe
                         </Box>
                         <Box
                           as="button"
-                          onClick={() => carouselRef.current?.moveTo(carouselRef.current.state.selectedItem + 1)}
+                          onClick={() =>
+                            carouselRef.current?.moveTo(carouselRef.current.state.selectedItem + 1)
+                          }
                           p={2}
                           px={4}
                           fontSize="24px"

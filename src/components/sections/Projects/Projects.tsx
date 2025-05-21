@@ -1,20 +1,20 @@
 // src/components/Projects.tsx
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import {
   Box,
   Heading,
   useDisclosure,
-  Center
+  Center,
+  Spinner,
 } from '@chakra-ui/react';
 import { projectsData } from '../../../data/projectsData';
 import ProjectModal from './ProjectModal';
 import { Carousel, Direction } from '../../ChakraCarousel';
 import ProjectCard from '../../ChakraCarousel/CarouselCard';
-import { getFirstImage } from '../../../utils/checkImageExists';
+import { getMediaUrl } from '../../../utils/getMediaUrl';
 import { Carousel as ResponsiveCarousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
-
 
 interface Project {
   name: string;
@@ -31,39 +31,50 @@ const Projects: React.FC = () => {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [isMobile, setIsMobile] = useState(false);
+  const [carouselItems, setCarouselItems] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-        const checkScreenSize = () => {
-          setIsMobile(window.innerWidth < 720);
-        };
+    const checkScreenSize = () => {
+      setIsMobile(window.innerWidth < 720);
+    };
 
-        checkScreenSize();
-        window.addEventListener('resize', checkScreenSize);
-        return () => window.removeEventListener('resize', checkScreenSize);
-      }, []);
+    checkScreenSize();
+    window.addEventListener('resize', checkScreenSize);
+    return () => window.removeEventListener('resize', checkScreenSize);
+  }, []);
 
-  const handleProjectClick = (project: Project) => {
+  const handleProjectClick = useCallback((project: Project) => {
     setSelectedProject(project);
     onOpen();
-  };
+  }, [onOpen]);
 
-  const carouselItems = projectsData.map((project) => ({
-    title: project.name,
-    description: project.description,
-    image: { imageUrl: getFirstImage('projectImages', project.imageFolder) },
-    onClick: () => handleProjectClick(project),
-  }));
+  useEffect(() => {
+    const items = projectsData.map((project) => ({
+      title: project.name,
+      description: project.description,
+      image: {
+        imageUrl: getMediaUrl('projectImages', `${project.imageFolder}/1.png`),
+      },
+      onClick: () => handleProjectClick(project),
+    }));
+    setCarouselItems(items);
+    setLoading(false);
+  }, [handleProjectClick]);
+
 
   return (
-    <Box 
-    py={5}
-    >
+    <Box py={5}>
       <Box px={0} maxW="1335px" mx="auto">
         <Heading as="h2" size="xl" mb={6} textAlign="center" color="brand.800">
           Featured Projects
         </Heading>
 
-        {isMobile ? (
+        {loading ? (
+          <Center h="200px">
+            <Spinner size="xl" />
+          </Center>
+        ) : isMobile ? (
           <>
             <ResponsiveCarousel
               showThumbs={false}
@@ -77,7 +88,6 @@ const Projects: React.FC = () => {
               renderArrowPrev={() => null}
               renderArrowNext={() => null}
               ref={(ref) => {
-                // Store ref so buttons can use it
                 (window as any).__projectCarouselRef__ = ref;
               }}
             >
@@ -94,7 +104,6 @@ const Projects: React.FC = () => {
               ))}
             </ResponsiveCarousel>
 
-            {/* Custom Arrow Controls Below */}
             <Box mt={4}>
               <Center>
                 <Box display="flex" gap={4}>
@@ -156,7 +165,7 @@ const Projects: React.FC = () => {
               onClick={() => {}}
               id=""
               index={0}
-              slides={projectsData.length}
+              slides={carouselItems.length}
             />
           </Carousel>
         )}

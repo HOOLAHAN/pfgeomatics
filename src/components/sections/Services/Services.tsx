@@ -16,6 +16,7 @@ import ServiceModal from './ServiceModal';
 import { Carousel as ResponsiveCarousel } from 'react-responsive-carousel';
 import { Carousel, Direction } from '../../ChakraCarousel';
 import CarouselCard from '../../ChakraCarousel/CarouselCard';
+import { getMediaUrl } from '../../../utils/getMediaUrl';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 
 interface Service {
@@ -50,49 +51,52 @@ const Services: React.FC = () => {
     setLoadingImages(prev => ({ ...prev, [title]: false }));
   };
 
-const renderServiceCard = (service: Service) => (
-  <Box
-    key={service.title}
-    minW="300px"
-    maxW="300px"
-    mx="auto"
-    cursor="pointer"
-    onClick={() => handleServiceClick(service)}
-  >
-    <Box
-      borderRadius="md"
-      overflow="hidden"
-      transition="all 0.3s ease"
-      _hover={{ transform: 'scale(1.03)', boxShadow: 'lg' }}
-    >
-      {loadingImages[service.title] && (
-        <Center h="200px">
-          <Spinner size="lg" />
-        </Center>
-      )}
-      <Image
-        src={require(`../../../media/serviceImages/${service.imageFolder}/1.png`)}
-        alt={`${service.title} image`}
-        objectFit="cover"
-        w="100%"
-        h="200px"
-        boxShadow="md"
-        borderRadius="md"
-        display={loadingImages[service.title] ? 'none' : 'block'}
-        onLoad={() => handleImageLoad(service.title)}
-      />
-    </Box>
-    <Box mt={3} textAlign="center">
-      <Heading size="md" color="brand.800">
-        {service.title}
-      </Heading>
-    </Box>
-  </Box>
-);
+  const renderServiceCard = (service: Service) => {
+    const imageUrl = getMediaUrl('serviceImages', `${service.imageFolder}/1.png`);
+    return (
+      <Box
+        key={service.title}
+        minW="300px"
+        maxW="300px"
+        mx="auto"
+        cursor="pointer"
+        onClick={() => handleServiceClick(service)}
+      >
+        <Box
+          borderRadius="md"
+          overflow="hidden"
+          transition="all 0.3s ease"
+          _hover={{ transform: 'scale(1.03)', boxShadow: 'lg' }}
+        >
+          {loadingImages[service.title] && (
+            <Center h="200px">
+              <Spinner size="lg" />
+            </Center>
+          )}
+          <Image
+            src={imageUrl}
+            alt={`${service.title} image`}
+            objectFit="cover"
+            w="100%"
+            h="200px"
+            borderRadius="md"
+            boxShadow="md"
+            display={loadingImages[service.title] ? 'none' : 'block'}
+            onLoad={() => handleImageLoad(service.title)}
+          />
+        </Box>
+        <Box mt={3} textAlign="center">
+          <Heading size="md" color="brand.800">
+            {service.title}
+          </Heading>
+        </Box>
+      </Box>
+    );
+  };
 
   const carouselItems = servicesData.map((service) => ({
     title: service.title,
-    image: { imageUrl: require(`../../../media/serviceImages/${service.imageFolder}/1.png`) },
+    image: { imageUrl: getMediaUrl('serviceImages', `${service.imageFolder}/1.png`) },
     onClick: () => handleServiceClick(service),
   }));
 
@@ -126,105 +130,108 @@ const renderServiceCard = (service: Service) => (
             />
           </Carousel>
         ) : (
-        <>
-          <ResponsiveCarousel
-            ref={carouselRef}
-            showThumbs={false}
-            infiniteLoop
-            autoPlay
-            interval={5000}
-            showStatus={false}
-            showIndicators={false}
-            emulateTouch
-            showArrows={true}
-            renderArrowPrev={() => null}
-            renderArrowNext={() => null}
-          >
-            {servicesData.map((service, index) => (
-              <Center key={index} py={2}>
-                <Box
-                  minW="300px"
-                  maxW="360px"
-                  mx="auto"
-                  cursor="pointer"
-                  onClick={() => handleServiceClick(service)}
-                >
+          <>
+            <ResponsiveCarousel
+              ref={carouselRef}
+              showThumbs={false}
+              infiniteLoop
+              autoPlay
+              interval={5000}
+              showStatus={false}
+              showIndicators={false}
+              emulateTouch
+              showArrows={true}
+              renderArrowPrev={() => null}
+              renderArrowNext={() => null}
+            >
+              {servicesData.map((service, index) => {
+                const imageUrl = getMediaUrl('serviceImages', `${service.imageFolder}/1.png`);
+                return (
+                  <Center key={index} py={2}>
+                    <Box
+                      minW="300px"
+                      maxW="360px"
+                      mx="auto"
+                      cursor="pointer"
+                      onClick={() => handleServiceClick(service)}
+                    >
+                      <Box
+                        borderRadius="md"
+                        overflow="hidden"
+                        transition="all 0.3s ease"
+                        _hover={{ transform: 'scale(1.03)', boxShadow: 'lg' }}
+                      >
+                        {loadingImages[service.title] && (
+                          <Center h="200px">
+                            <Spinner size="lg" />
+                          </Center>
+                        )}
+                        <Image
+                          src={imageUrl}
+                          alt={`${service.title} image`}
+                          objectFit="cover"
+                          w="100%"
+                          h="200px"
+                          borderRadius="md"
+                          boxShadow="md"
+                          display={loadingImages[service.title] ? 'none' : 'block'}
+                          onLoad={() => handleImageLoad(service.title)}
+                        />
+                      </Box>
+                      <Box mt={3} textAlign="center">
+                        <Heading size="md" color="brand.800">
+                          {service.title}
+                        </Heading>
+                      </Box>
+                    </Box>
+                  </Center>
+                );
+              })}
+            </ResponsiveCarousel>
+
+            {/* Custom Arrow Controls Below */}
+            <Box mt={4}>
+              <Center>
+                <Box display="flex" gap={4}>
                   <Box
-                    borderRadius="md"
-                    overflow="hidden"
-                    transition="all 0.3s ease"
-                    _hover={{ transform: 'scale(1.03)', boxShadow: 'lg' }}
+                    as="button"
+                    onClick={() =>
+                      carouselRef.current?.moveTo(carouselRef.current.state.selectedItem - 1)
+                    }
+                    p={2}
+                    px={4}
+                    fontSize="24px"
+                    color="white"
+                    bg={brandBg}
+                    borderRadius="full"
+                    _hover={{ bg: 'brand.200' }}
+                    _active={{ bg: 'brand.100', transform: 'scale(0.95)' }}
+                    aria-label="Previous slide"
                   >
-                    {loadingImages[service.title] && (
-                      <Center h="200px">
-                        <Spinner size="lg" />
-                      </Center>
-                    )}
-                    <Image
-                      src={require(`../../../media/serviceImages/${service.imageFolder}/1.png`)}
-                      alt={`${service.title} image`}
-                      objectFit="cover"
-                      w="100%"
-                      h="200px"
-                      borderRadius="md"
-                      boxShadow="md"
-                      display={loadingImages[service.title] ? 'none' : 'block'}
-                      onLoad={() => handleImageLoad(service.title)}
-                    />
+                    &#10094;
                   </Box>
-                  <Box mt={3} textAlign="center">
-                    <Heading size="md" color="brand.800">
-                      {service.title}
-                    </Heading>
+                  <Box
+                    as="button"
+                    onClick={() =>
+                      carouselRef.current?.moveTo(carouselRef.current.state.selectedItem + 1)
+                    }
+                    p={2}
+                    px={4}
+                    fontSize="24px"
+                    color="white"
+                    bg={brandBg}
+                    borderRadius="full"
+                    _hover={{ bg: 'brand.200' }}
+                    _active={{ bg: 'brand.100', transform: 'scale(0.95)' }}
+                    aria-label="Next slide"
+                  >
+                    &#10095;
                   </Box>
                 </Box>
               </Center>
-            ))}
-          </ResponsiveCarousel>
-
-          {/* Custom Arrow Controls Below */}
-          <Box mt={4}>
-            <Center>
-              <Box display="flex" gap={4}>
-                <Box
-                  as="button"
-                  onClick={() =>
-                    carouselRef.current?.moveTo(carouselRef.current.state.selectedItem - 1)
-                  }
-                  p={2}
-                  px={4}
-                  fontSize="24px"
-                  color="white"
-                  bg={brandBg}
-                  borderRadius="full"
-                  _hover={{ bg: 'brand.200' }}
-                  _active={{ bg: 'brand.100', transform: 'scale(0.95)' }}
-                  aria-label="Previous slide"
-                >
-                  &#10094;
-                </Box>
-                <Box
-                  as="button"
-                  onClick={() =>
-                    carouselRef.current?.moveTo(carouselRef.current.state.selectedItem + 1)
-                  }
-                  p={2}
-                  px={4}
-                  fontSize="24px"
-                  color="white"
-                  bg={brandBg}
-                  borderRadius="full"
-                  _hover={{ bg: 'brand.200' }}
-                  _active={{ bg: 'brand.100', transform: 'scale(0.95)' }}
-                  aria-label="Next slide"
-                >
-                  &#10095;
-                </Box>
-              </Box>
-            </Center>
-          </Box>
-        </>
-      )}
+            </Box>
+          </>
+        )}
       </Box>
 
       <ServiceModal

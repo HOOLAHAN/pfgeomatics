@@ -18,7 +18,7 @@ import { LngLatBounds } from 'mapbox-gl';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearchMinus } from '@fortawesome/free-solid-svg-icons';
 import ProjectModal from '../Projects/ProjectModal';
-import checkImageExists from '../../../utils/checkImageExists';
+import { getMediaUrl } from '../../../utils/getMediaUrl';
 
 export interface Project {
   name: string;
@@ -45,9 +45,8 @@ const MapComponent: React.FC = () => {
   const [isDarkMode, setIsDarkMode] = useState(true);
 
   const mapStyle = isDarkMode
-    ? 'mapbox://styles/mapbox/streets-v11'      // Default
-    : 'mapbox://styles/mapbox/dark-v10';        // Alternate option
-
+    ? 'mapbox://styles/mapbox/streets-v11'
+    : 'mapbox://styles/mapbox/dark-v10';
 
   const mapContainerRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<any>(null);
@@ -75,8 +74,7 @@ const MapComponent: React.FC = () => {
         const updatedProjects: ProjectWithCoordinates[] = await Promise.all(
           projectsData.map(async (project) => {
             const coordinate = coordinates.find(c => c.postcode === project.postcode);
-            const imageUrls = checkImageExists('projectImages', project.imageFolder);
-            const thumbnail = imageUrls.length > 0 ? imageUrls[0] : undefined;
+            const thumbnail = getMediaUrl('projectImages', `${project.imageFolder}/1.png`);
 
             return {
               ...project,
@@ -143,10 +141,7 @@ const MapComponent: React.FC = () => {
   };
 
   return (
-    <Box
-      px={{ base: 3, md: 0 }}
-      py={3}
-    >
+    <Box px={{ base: 3, md: 0 }} py={3}>
       <Box
         width="100%"
         maxW="1200px"
@@ -243,7 +238,7 @@ const MapComponent: React.FC = () => {
           >
             {isDarkMode ? "Light Map" : "Dark Map"}
           </Button>
-        </HStack>  
+        </HStack>
         {selectedProject && (
           <ProjectModal
             project={selectedProject}

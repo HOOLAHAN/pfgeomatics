@@ -1,38 +1,33 @@
 // src/components/Clients.tsx
 
 import React, { useState } from 'react';
-import { Box, Image, Heading, VStack, SimpleGrid, useDisclosure } from '@chakra-ui/react';
+import {
+  Box,
+  Image,
+  Heading,
+  VStack,
+  SimpleGrid,
+  useDisclosure,
+} from '@chakra-ui/react';
 import { clientData } from '../../../data/clientData';
 import ClientModal from './ClientModal';
+import { getMediaUrl } from '../../../utils/getMediaUrl';
 
-// Import images
-import lindnerPraterLogo from '../../../media/clients/lindner-prater-logo.png';
-import severfieldLogo from '../../../media/clients/severfield-logo.png';
-import build8Logo from '../../../media/clients/8build-logo.png';
-import kilnbridgeLogo from '../../../media/clients/kilnbridge-logo.png';
-import regalLondonLogo from '../../../media/clients/regal-london-logo.png';
-import mjrobinsonLogo from '../../../media/clients/MJ-Robinson-Structures.png';
-import capitalSteelStructuresLogo from '../../../media/clients/capital-steel-structures-logo.jpeg';
-import alpineGroupLogo from '../../../media/clients/alpine-group-logo.png';
-import criterionCapitalLogo from '../../../media/clients/criterion-capital.png'
-
-// Define an interface for each client logo
 interface ClientLogo {
   name: string;
-  src: string; 
+  filename: string;
 }
 
-// Client logos array using imported images
-const clientLogos: ClientLogo[] = [
-  { name: 'Lindner Prater', src: lindnerPraterLogo },
-  { name: 'Severfield UK', src: severfieldLogo },
-  { name: '8 Build', src: build8Logo },
-  { name: 'Kilnbridge', src: kilnbridgeLogo },
-  { name: 'Regal London', src: regalLondonLogo },
-  { name: 'MJ Robinson', src: mjrobinsonLogo },
-  { name: 'Capital Steel Structures', src: capitalSteelStructuresLogo },
-  { name: 'Alpine Group', src: alpineGroupLogo },
-  { name: 'Criterion Capital', src: criterionCapitalLogo },
+const clientLogoMeta: ClientLogo[] = [
+  { name: 'Lindner Prater', filename: 'lindner-prater-logo.png' },
+  { name: 'Severfield UK', filename: 'severfield-logo.png' },
+  { name: '8 Build', filename: '8build-logo.png' },
+  { name: 'Kilnbridge', filename: 'kilnbridge-logo.png' },
+  { name: 'Regal London', filename: 'regal-london-logo.png' },
+  { name: 'MJ Robinson', filename: 'MJ-Robinson-Structures.png' },
+  { name: 'Capital Steel Structures', filename: 'capital-steel-structures-logo.jpeg' },
+  { name: 'Alpine Group', filename: 'alpine-group-logo.png' },
+  { name: 'Criterion Capital', filename: 'criterion-capital.png' },
 ];
 
 const Clients: React.FC = () => {
@@ -50,7 +45,7 @@ const Clients: React.FC = () => {
       <VStack spacing={4} align="center">
         <Heading color="brand.800">Clients</Heading>
         <SimpleGrid columns={{ base: 2, sm: 3, md: 4, lg: 5 }} spacing={5} mt={5}>
-          {clientLogos.map((logo) => (
+          {clientLogoMeta.map((logo) => (
             <Box
               key={logo.name}
               maxW={{ base: "150px", sm: "150px", md: "200px", lg: "250px" }}
@@ -66,7 +61,7 @@ const Clients: React.FC = () => {
               transition="transform 0.2s ease"
             >
               <Image
-                src={logo.src}
+                src={getMediaUrl('clients', logo.filename)}
                 alt={`${logo.name} logo`}
                 objectFit="contain"
                 maxH={{ base: "60px", sm: "80px", md: "100px", lg: "120px" }}
@@ -80,7 +75,10 @@ const Clients: React.FC = () => {
         isOpen={isOpen}
         onClose={onClose}
         selectedClient={selectedClient}
-        clientLogos={clientLogos}
+        clientLogos={clientLogoMeta.map((c) => ({
+          name: c.name,
+          src: getMediaUrl('clients', c.filename),
+        }))}
       />
     </Box>
   );
