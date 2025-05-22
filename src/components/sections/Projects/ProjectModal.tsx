@@ -29,7 +29,7 @@ import {
   FaCalendarAlt,
   FaInfoCircle,
 } from 'react-icons/fa';
-import { getMediaUrl } from '../../../utils/getMediaUrl';
+import { fetchImageUrls } from '../../../utils/fetchImageUrls';
 
 interface Project {
   name: string;
@@ -59,19 +59,17 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, isOpen, onClose })
   const carouselRef = useRef<any>(null);
 
   useEffect(() => {
-    const loadStaticImageUrls = () => {
-      const urls: string[] = [];
-      const maxImages = 10;
-      for (let i = 1; i <= maxImages; i++) {
-        const url = getMediaUrl('projectImages', `${project.imageFolder}/${i}.png`);
-        urls.push(url);
-      }
-      setImages(urls);
-      setLoading(false);
-    };
+  if (!project) return;
 
-    loadStaticImageUrls();
-  }, [project.imageFolder]);
+  const loadImages = async () => {
+    setLoading(true);
+    const urls = await fetchImageUrls('projectImages', project.imageFolder);
+    setImages(urls);
+    setLoading(false);
+  };
+
+  loadImages();
+}, [project]);
 
   return (
     <Modal isOpen={isOpen} onClose={onClose} size="xl" isCentered motionPreset="scale">

@@ -21,7 +21,7 @@ import {
 } from '@chakra-ui/react';
 import { Carousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
-import { getMediaUrl } from '../../../utils/getMediaUrl';
+import { fetchImageUrls } from '../../../utils/fetchImageUrls';
 
 interface Service {
   title: string;
@@ -46,22 +46,17 @@ const ServiceModal: React.FC<ServiceModalProps> = ({ isOpen, onClose, selectedSe
   const carouselRef = useRef<any>(null);
 
   useEffect(() => {
-    if (!selectedService) return;
+  if (!selectedService) return;
 
-    const loadStaticImageUrls = () => {
-      const urls: string[] = [];
-      const maxImages = 10;
-      for (let i = 1; i <= maxImages; i++) {
-        const url = getMediaUrl('serviceImages', `${selectedService.imageFolder}/${i}.png`);
-        urls.push(url);
-      }
-      setImages(urls);
-      setLoading(false);
-    };
-
+  const loadImages = async () => {
     setLoading(true);
-    loadStaticImageUrls();
-  }, [selectedService]);
+    const urls = await fetchImageUrls('serviceImages', selectedService.imageFolder);
+    setImages(urls);
+    setLoading(false);
+  };
+
+  loadImages();
+}, [selectedService]);
 
   if (!selectedService) return null;
 

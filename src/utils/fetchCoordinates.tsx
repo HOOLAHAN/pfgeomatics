@@ -8,7 +8,7 @@ interface Coordinate {
 
 export const fetchCoordinates = async (postcodes: string[]): Promise<Coordinate[]> => {
   try {
-    const response = await fetch('https://j2jpymq5m4.execute-api.eu-west-2.amazonaws.com/dev/fetch-coordinates', {
+    const response = await fetch('https://shzy66ugnl.execute-api.eu-west-2.amazonaws.com/dev/fetch-coordinates', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
