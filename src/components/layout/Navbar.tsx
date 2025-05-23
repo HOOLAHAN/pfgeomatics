@@ -1,3 +1,5 @@
+// src/components/layout/Navbar.tsx
+
 import { useState, useEffect } from 'react';
 import {
   Box,
@@ -7,13 +9,12 @@ import {
   Image,
   Collapse,
   HStack,
-  VStack,
+  SimpleGrid,
 } from '@chakra-ui/react';
 import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
 import { Link } from 'react-scroll';
 
 const navLinks = [
-  { label: 'Home', to: 'cover-video' },
   { label: 'About', to: 'about' },
   { label: 'Services', to: 'services' },
   { label: 'Projects', to: 'projects' },
@@ -22,12 +23,7 @@ const navLinks = [
   { label: 'Contact', to: 'contact-form' },
 ];
 
-interface NavbarProps {
-  onCycleTheme: () => void;
-  currentTheme: string;
-}
-
-const Navbar: React.FC<NavbarProps> = ({ onCycleTheme, currentTheme }) => {
+const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [isNarrow, setIsNarrow] = useState(false);
@@ -62,7 +58,7 @@ const Navbar: React.FC<NavbarProps> = ({ onCycleTheme, currentTheme }) => {
     _active: { bg: 'brand.300', color: 'black' },
   };
 
-  const offset = isMobile ? -224 : -56;
+  const offset = isMobile ? -250 : -80;
 
   return (
     <Box
@@ -76,15 +72,23 @@ const Navbar: React.FC<NavbarProps> = ({ onCycleTheme, currentTheme }) => {
       boxShadow="lg"
     >
       <Flex align="center" justify="space-between" position="relative">
-        {/* Logo */}
-        <Box bg="whiteAlpha.700" borderRadius="md" p={1} zIndex={1}>
-          <Image
-            src="/PFG_LOGO_B4.png"
-            alt="PF Geomatics"
-            h={isTiny ? '28px' : isNarrow ? '32px' : '40px'}
-            transition="all 0.2s ease"
-          />
-        </Box>
+        {/* Logo now links to Home */}
+        <Link to="cover-video" smooth duration={500} offset={offset}>
+          <Box
+            bg="whiteAlpha.700"
+            borderRadius="md"
+            p={1}
+            zIndex={1}
+            cursor="pointer"
+          >
+            <Image
+              src="/PFG_LOGO_B4.png"
+              alt="PF Geomatics"
+              h={isTiny ? '28px' : isNarrow ? '32px' : '40px'}
+              transition="all 0.2s ease"
+            />
+          </Box>
+        </Link>
 
         {/* Centered Nav Links (desktop) */}
         {!isMobile && (
@@ -105,19 +109,6 @@ const Navbar: React.FC<NavbarProps> = ({ onCycleTheme, currentTheme }) => {
 
         {/* Right-side controls */}
         <HStack spacing={2}>
-          {/* Theme Switcher */}
-          <Button
-            {...buttonStyles}
-            border={'1px'}
-            onClick={onCycleTheme}
-            size={'sm'}
-            px={2}
-            mx={2}
-          >
-            {currentTheme}
-          </Button>
-
-          {/* Hamburger for mobile */}
           {isMobile && (
             <IconButton
               onClick={toggleMenu}
@@ -133,7 +124,7 @@ const Navbar: React.FC<NavbarProps> = ({ onCycleTheme, currentTheme }) => {
       {/* Mobile menu */}
       {isMobile && (
         <Collapse in={isOpen} animateOpacity>
-          <VStack spacing={3} mt={3} align="start">
+          <SimpleGrid columns={2} spacing={3} mt={3} px={4}>
             {navLinks.map(({ label, to }) => (
               <Link
                 key={to}
@@ -148,7 +139,7 @@ const Navbar: React.FC<NavbarProps> = ({ onCycleTheme, currentTheme }) => {
                 </Button>
               </Link>
             ))}
-          </VStack>
+          </SimpleGrid>
         </Collapse>
       )}
     </Box>
