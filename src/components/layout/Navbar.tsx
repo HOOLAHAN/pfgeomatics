@@ -54,8 +54,8 @@ const Navbar = () => {
     fontSize: isNarrow ? 'sm' : 'md',
     color: brandText,
     px: isNarrow ? 2 : 4,
-    _hover: { bg: 'brand.300', color: 'white' },
-    _active: { bg: 'brand.300', color: 'black' },
+    _hover: { bg: 'brand.50', color: 'brand.600' },
+    _active: { bg: 'brand.50', transform: 'scale(0.95)' },
   };
 
   const offset = isMobile ? -250 : -80;
