@@ -27,7 +27,7 @@ const ContactForm: React.FC = () => {
   const brandBg = useToken("colors", "brand.600");
   const brandText = useToken("colors", "brand.50");
   const buttonBackgroundColor = useToken("colors", "brand.50");
-  const formInputColor = useToken("colors", "brand.100");
+  const formInputColor = useToken("colors", "brand.50");
   const buttonBorderColor = useToken("colors", "brand.800");
   const buttonTextColor = useToken("colors", "brand.800");
   const buttonHoverBg = useToken("colors", "brand.300");
