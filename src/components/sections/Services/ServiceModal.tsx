@@ -36,9 +36,11 @@ interface ServiceModalProps {
 }
 
 const ServiceModal: React.FC<ServiceModalProps> = ({ isOpen, onClose, selectedService }) => {
-  const brandBg = useToken("colors", "brand.300");
+  const brandBg = useToken("colors", "brand.50");
+  const buttonBg = useToken("colors", "brand.600");
   const buttonBorderColor = useToken("colors", "brand.600");
-  const buttonTextColor = useToken("colors", "brand.600");
+  const buttonTextColor = useToken("colors", "white");
+  const buttonHoverTextColor = useToken("colors", "brand.600");
   const buttonHoverBg = useToken("colors", "brand.50");
 
   const [images, setImages] = useState<string[]>([]);
@@ -118,7 +120,7 @@ const ServiceModal: React.FC<ServiceModalProps> = ({ isOpen, onClose, selectedSe
                 {images.length > 1 && (
                   <Box mt={3}>
                     <Center>
-                      <Box display="flex" gap={4}>
+                      <Box display="flex" gap={12} px={4}>
                         <Box
                           as="button"
                           onClick={() =>
@@ -127,11 +129,13 @@ const ServiceModal: React.FC<ServiceModalProps> = ({ isOpen, onClose, selectedSe
                           p={2}
                           px={4}
                           fontSize="24px"
-                          color="white"
-                          bg={brandBg}
+                          color={buttonTextColor}
+                          bg={buttonBg}
+                          border="1px solid"
+                          borderColor={buttonBorderColor}
                           borderRadius="full"
-                          _hover={{ bg: 'brand.200' }}
-                          _active={{ bg: 'brand.100', transform: 'scale(0.95)' }}
+                          _hover={{ bg: buttonHoverBg, color: buttonHoverTextColor }}
+                          _active={{ bg: buttonHoverBg, transform: 'scale(0.95)' }}
                           aria-label="Previous slide"
                         >
                           &#10094;
@@ -144,11 +148,13 @@ const ServiceModal: React.FC<ServiceModalProps> = ({ isOpen, onClose, selectedSe
                           p={2}
                           px={4}
                           fontSize="24px"
-                          color="white"
-                          bg={brandBg}
+                          color={buttonTextColor}
+                          bg={buttonBg}
+                          border="1px solid"
+                          borderColor={buttonBorderColor}
                           borderRadius="full"
-                          _hover={{ bg: 'brand.200' }}
-                          _active={{ bg: 'brand.100', transform: 'scale(0.95)' }}
+                          _hover={{ bg: buttonHoverBg, color: buttonHoverTextColor }}
+                          _active={{ bg: buttonHoverBg, transform: 'scale(0.95)' }}
                           aria-label="Next slide"
                         >
                           &#10095;
@@ -175,10 +181,10 @@ const ServiceModal: React.FC<ServiceModalProps> = ({ isOpen, onClose, selectedSe
             variant="outline"
             borderColor={buttonBorderColor}
             color={buttonTextColor}
-            _hover={{ bg: buttonHoverBg }}
-            _active={{ bg: buttonHoverBg, transform: 'scale(0.95)' }}
+            _hover={{ bg: buttonHoverBg, color : buttonHoverTextColor }}
+            _active={{ bg: buttonHoverBg,  transform: 'scale(0.95)' }}
             onClick={onClose}
-            bg={brandBg}
+            bg={buttonBg}
           >
             Close
           </Button>

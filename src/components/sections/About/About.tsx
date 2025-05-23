@@ -15,9 +15,10 @@ import AboutModal from './AboutModal';
 const About: React.FC = () => {
   const [isModalOpen, setModalOpen] = useState(false);
 
-  const brandBg = useToken("colors", "brand.300");
+  const buttonBg = useToken("colors", "brand.600");
   const buttonBorderColor = useToken("colors", "brand.600");
-  const buttonTextColor = useToken("colors", "brand.800");
+  const buttonTextColor = useToken("colors", "white");
+  const buttonHoverTextColor = useToken("colors", "brand.600");
   const buttonHoverBg = useToken("colors", "brand.50");
 
   return (
@@ -46,8 +47,8 @@ const About: React.FC = () => {
               variant="outline"
               borderColor={buttonBorderColor}
               color={buttonTextColor}
-              bg={brandBg}
-              _hover={{ bg: buttonHoverBg }}
+              bg={buttonBg}
+              _hover={{ bg: buttonHoverBg, color: buttonHoverTextColor }}
               _active={{ transform: 'scale(0.97)' }}
               transition="all 0.2s ease"
             >

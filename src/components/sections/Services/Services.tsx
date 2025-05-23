@@ -9,7 +9,6 @@ import {
   Spinner,
   Center,
   SimpleGrid,
-  useToken
 } from '@chakra-ui/react';
 import { servicesData } from '../../../data/servicesData';
 import ServiceModal from './ServiceModal';
@@ -30,8 +29,17 @@ const Services: React.FC = () => {
   const [selectedService, setSelectedService] = useState<Service | null>(null);
   const [loadingImages, setLoadingImages] = useState<{ [key: string]: boolean }>({});
   const [width, setWidth] = useState<number>(window.innerWidth);
-  const brandBg = useToken("colors", "brand.300");
   const carouselRef = useRef<ResponsiveCarousel>(null);
+
+  const arrowStyles = {
+    color: 'white',
+    bg: 'brand.600',
+    border: '1px solid',
+    borderColor: 'brand.600',
+    borderRadius: 'full',
+    _hover: { bg: 'brand.50', color: 'brand.600' },
+    _active: { bg: 'brand.50', transform: 'scale(0.95)' },
+  };
 
   useEffect(() => {
     const handleResize = () => setWidth(window.innerWidth);
@@ -192,7 +200,7 @@ const Services: React.FC = () => {
             {/* Custom Arrow Controls Below */}
             <Box mt={4}>
               <Center>
-                <Box display="flex" gap={4}>
+                <Box display="flex" gap={12} px={4}>
                   <Box
                     as="button"
                     onClick={() =>
@@ -201,12 +209,8 @@ const Services: React.FC = () => {
                     p={2}
                     px={4}
                     fontSize="24px"
-                    color="white"
-                    bg={brandBg}
-                    borderRadius="full"
-                    _hover={{ bg: 'brand.200' }}
-                    _active={{ bg: 'brand.100', transform: 'scale(0.95)' }}
                     aria-label="Previous slide"
+                    {...arrowStyles}
                   >
                     &#10094;
                   </Box>
@@ -218,12 +222,8 @@ const Services: React.FC = () => {
                     p={2}
                     px={4}
                     fontSize="24px"
-                    color="white"
-                    bg={brandBg}
-                    borderRadius="full"
-                    _hover={{ bg: 'brand.200' }}
-                    _active={{ bg: 'brand.100', transform: 'scale(0.95)' }}
                     aria-label="Next slide"
+                    {...arrowStyles}
                   >
                     &#10095;
                   </Box>

@@ -35,7 +35,7 @@ interface ClientModalProps {
 }
 
 const ClientModal: React.FC<ClientModalProps> = ({ isOpen, onClose, selectedClient, clientLogos }) => {
-  const brandBg = useToken("colors", "brand.300");
+  const brandBg = useToken("colors", "brand.50");
 
   if (!selectedClient) return null;
 

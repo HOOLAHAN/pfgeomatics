@@ -1,7 +1,7 @@
 // src/components/MapComponent.tsx
 
 import React, { useEffect, useState, useRef } from 'react';
-import ReactMapGL, { Marker, ViewStateChangeEvent } from 'react-map-gl';
+import ReactMapGL, { ViewStateChangeEvent } from 'react-map-gl';
 import {
   Box,
   Button,
@@ -9,16 +9,16 @@ import {
   Spinner,
   Center,
   HStack,
-  Image
 } from '@chakra-ui/react';
 import { fetchCoordinates } from '../../../utils/fetchCoordinates';
 import { projectsData } from '../../../data/projectsData';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import { LngLatBounds } from 'mapbox-gl';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearchMinus } from '@fortawesome/free-solid-svg-icons';
+import { faExpand } from '@fortawesome/free-solid-svg-icons';
 import ProjectModal from '../Projects/ProjectModal';
 import { getMediaUrl } from '../../../utils/getMediaUrl';
+import ProjectMarker from './ProjectMarker';
 
 export interface Project {
   name: string;
@@ -171,72 +171,46 @@ const MapComponent: React.FC = () => {
             }
             mapboxAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
           >
-            {projects.map((project, index) => (
+            {projects.map((project, index) =>
               project.latitude !== 0 && project.longitude !== 0 ? (
-                <Marker
+                <ProjectMarker
                   key={index}
-                  latitude={project.latitude}
-                  longitude={project.longitude}
-                >
-                  <Box
-                    bg="brand.300"
-                    p={1}
-                    rounded="full"
-                    shadow="md"
-                    cursor="pointer"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      handleMarkerClick(project);
-                    }}
-                    _hover={{ transform: 'scale(1.05)', bg: "brand.400" }}
-                    transition="transform 0.2s ease"
-                  >
-                    <Image
-                      src="/EDM.png"
-                      alt="Project marker"
-                      boxSize="20px"
-                      objectFit="contain"
-                      draggable={false}
-                    />
-                  </Box>
-                </Marker>
+                  project={project}
+                  onClick={() => handleMarkerClick(project)}
+                />
               ) : null
-            ))}
+            )}
           </ReactMapGL>
         </Box>
-        <HStack>
+        <HStack spacing={2} position="absolute" top="20px" right="20px" zIndex={2}>
           <Button
-            position="absolute"
-            top="20px"
-            right="20px"
             onClick={() => fitBounds(projects)}
-            bg="brand.300"
-            color="brand.800"
-            _hover={{ bg: "brand.400" }}
-            _active={{ transform: 'scale(0.95)' }}
+            bg="brand.600"
+            color="white"
+            border="1px solid"
+            borderColor="brand.600"
+            _hover={{ bg: "brand.50", color: "brand.600" }}
+            _active={{ bg: "brand.50", transform: 'scale(0.95)' }}
             rounded="full"
             shadow="lg"
-            zIndex={2}
             size="sm"
           >
-            <FontAwesomeIcon icon={faSearchMinus} />
+            <FontAwesomeIcon icon={faExpand} />
           </Button>
 
           <Button
-            position="absolute"
-            top="20px"
-            right="60px"
             onClick={() => setIsDarkMode(prev => !prev)}
-            bg="brand.300"
-            color="brand.800"
-            _hover={{ bg: "brand.400" }}
-            _active={{ transform: 'scale(0.95)' }}
+            bg="brand.600"
+            color="white"
+            border="1px solid"
+            borderColor="brand.600"
+            _hover={{ bg: "brand.50", color: "brand.600" }}
+            _active={{ bg: "brand.50", transform: 'scale(0.95)' }}
             rounded="full"
             shadow="lg"
-            zIndex={2}
             size="sm"
           >
-            {isDarkMode ? "Light Map" : "Dark Map"}
+            {isDarkMode ? "Dark Map" : "Light Map"}
           </Button>
         </HStack>
         {selectedProject && (

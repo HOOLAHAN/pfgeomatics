@@ -49,9 +49,11 @@ interface ProjectModalProps {
 }
 
 const ProjectModal: React.FC<ProjectModalProps> = ({ project, isOpen, onClose }) => {
-  const brandBg = useToken("colors", "brand.300");
+  const brandBg = useToken("colors", "brand.50");
+  const buttonBg = useToken("colors", "brand.600");
   const buttonBorderColor = useToken("colors", "brand.600");
-  const buttonTextColor = useToken("colors", "brand.600");
+  const buttonTextColor = useToken("colors", "white");
+  const buttonHoverTextColor = useToken("colors", "brand.600");
   const buttonHoverBg = useToken("colors", "brand.50");
 
   const [images, setImages] = useState<string[]>([]);
@@ -74,7 +76,15 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, isOpen, onClose })
   return (
     <Modal isOpen={isOpen} onClose={onClose} size="xl" isCentered motionPreset="scale">
       <ModalOverlay />
-      <ModalContent mx={4} borderRadius="xl" boxShadow="lg" bg={brandBg}>
+      <ModalContent
+        mx={4}
+        my={6}
+        borderRadius="xl"
+        boxShadow="lg"
+        maxH="100vh"
+        overflowY="auto"
+        bg={brandBg}
+      >
         <ModalHeader fontSize="2xl" fontWeight="semibold" textAlign="center">
           {project.name}
         </ModalHeader>
@@ -122,7 +132,7 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, isOpen, onClose })
                 {images.length > 1 && (
                   <Box mt={3}>
                     <Center>
-                      <Box display="flex" gap={4}>
+                      <Box display="flex" gap={12} px={4}>
                         <Box
                           as="button"
                           onClick={() => carouselRef.current?.moveTo(carouselRef.current.state.selectedItem - 1)}
@@ -130,10 +140,12 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, isOpen, onClose })
                           px={4}
                           fontSize="24px"
                           color="white"
-                          bg={brandBg}
+                          bg={buttonBg}
+                          border="1px solid"
+                          borderColor={buttonBorderColor}
                           borderRadius="full"
-                          _hover={{ bg: 'brand.200' }}
-                          _active={{ bg: 'brand.100', transform: 'scale(0.95)' }}
+                          _hover={{ bg: buttonHoverBg, color: buttonHoverTextColor }}
+                          _active={{ bg: buttonHoverBg, transform: 'scale(0.95)' }}
                           aria-label="Previous slide"
                         >
                           &#10094;
@@ -145,10 +157,12 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, isOpen, onClose })
                           px={4}
                           fontSize="24px"
                           color="white"
-                          bg={brandBg}
+                          bg={buttonBg}
+                          border="1px solid"
+                          borderColor={buttonBorderColor}
                           borderRadius="full"
-                          _hover={{ bg: 'brand.200' }}
-                          _active={{ bg: 'brand.100', transform: 'scale(0.95)' }}
+                          _hover={{ bg: buttonHoverBg, color: buttonHoverTextColor }}
+                          _active={{ bg: buttonHoverBg, transform: 'scale(0.95)' }}
                           aria-label="Next slide"
                         >
                           &#10095;
@@ -194,7 +208,8 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, isOpen, onClose })
             variant="outline"
             borderColor={buttonBorderColor}
             color={buttonTextColor}
-            _hover={{ bg: buttonHoverBg }}
+            bg={buttonBg}
+            _hover={{ bg: buttonHoverBg, color: buttonHoverTextColor }}
             _active={{ bg: buttonHoverBg, transform: 'scale(0.95)' }}
             onClick={onClose}
           >

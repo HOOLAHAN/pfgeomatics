@@ -27,9 +27,11 @@ interface AboutModalProps {
 }
 
 const AboutModal: React.FC<AboutModalProps> = ({ isOpen, onClose }) => {
-  const brandBg = useToken("colors", "brand.300");
+  const brandBg = useToken("colors", "brand.50");
+  const buttonBg = useToken("colors", "brand.600");
   const buttonBorderColor = useToken("colors", "brand.600");
-  const buttonTextColor = useToken("colors", "brand.600");
+  const buttonTextColor = useToken("colors", "white");
+  const buttonHoverTextColor = useToken("colors", "brand.600");
   const buttonHoverBg = useToken("colors", "brand.50");
 
 return (
@@ -68,10 +70,11 @@ return (
         <Button
           variant="outline"
           size="sm"
-          bg={brandBg}
+          bg={buttonBg}
           borderColor={buttonBorderColor}
           color={buttonTextColor}
-          _hover={{ bg: buttonHoverBg }}
+          _hover={{ bg: buttonHoverBg, color: buttonHoverTextColor }}
+          _active={{ transform: 'scale(0.97)' }}
           onClick={onClose}
         >
           Close

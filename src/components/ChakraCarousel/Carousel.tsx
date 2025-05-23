@@ -2,7 +2,7 @@ import {
   Box,
   Center,
   Flex,
-  useToken,
+  // useToken,
 } from '@chakra-ui/react';
 import React, { useCallback, useEffect, useState } from 'react';
 import { useSwipeable } from 'react-swipeable';
@@ -55,7 +55,17 @@ export const Carousel = ({
 }: CarouselProps) => {
   const [items, setItems] = useState<Partial<CarouselItem>[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const brandBg = useToken('colors', 'brand.300');
+  // const brandBg = useToken('colors', 'brand.300');
+  const arrowStyles = {
+  color: 'white',
+  bg: 'brand.600',
+  border: '1px solid',
+  borderColor: 'brand.600',
+  borderRadius: 'full',
+  _hover: { bg: 'brand.50', color: 'brand.600' },
+  _active: { bg: 'brand.50', transform: 'scale(0.95)' },
+};
+
 
   useEffect(() => {
     setItems(inputItems || []);
@@ -109,19 +119,15 @@ export const Carousel = ({
       {/* Arrows below carousel */}
       <Box mt={4}>
         <Center>
-          <Box display="flex" gap={4}>
+          <Box display="flex" gap={12} px={4}>
             <Box
               as="button"
               onClick={prevSlide}
               p={2}
               px={4}
               fontSize="24px"
-              color="white"
-              bg={brandBg}
-              borderRadius="full"
-              _hover={{ bg: 'brand.200' }}
-              _active={{ bg: 'brand.100', transform: 'scale(0.95)' }}
               aria-label="Previous slide"
+              {...arrowStyles}
             >
               &#10094;
             </Box>
@@ -131,12 +137,8 @@ export const Carousel = ({
               p={2}
               px={4}
               fontSize="24px"
-              color="white"
-              bg={brandBg}
-              borderRadius="full"
-              _hover={{ bg: 'brand.200' }}
-              _active={{ bg: 'brand.100', transform: 'scale(0.95)' }}
               aria-label="Next slide"
+              {...arrowStyles}
             >
               &#10095;
             </Box>

@@ -26,11 +26,11 @@ interface FormValues {
 const ContactForm: React.FC = () => {
   const brandBg = useToken("colors", "brand.600");
   const brandText = useToken("colors", "brand.50");
-  const buttonBackgroundColor = useToken("colors", "brand.300");
+  const buttonBackgroundColor = useToken("colors", "brand.50");
   const formInputColor = useToken("colors", "brand.100");
   const buttonBorderColor = useToken("colors", "brand.800");
   const buttonTextColor = useToken("colors", "brand.800");
-  const buttonHoverBg = useToken("colors", "brand.50");
+  const buttonHoverBg = useToken("colors", "brand.300");
 
   const { register, handleSubmit, reset, formState: { errors, isSubmitting } } = useForm<FormValues>();
   const toast = useToast();
@@ -72,8 +72,19 @@ const ContactForm: React.FC = () => {
         <Heading size="lg" textAlign="center" mb={6} color={"brand.800"}>
           Contact Us
         </Heading>
-        <Text fontSize="lg" textAlign="center" color="brand.800" mb={6} maxW="700px" mx="auto">
-          For enquiries, reach out via email or find us on{" "}
+        <Box
+          maxW={{ base: "90%", md: "700px" }}
+          p={6}
+          shadow="md"
+          borderWidth="1px"
+          borderColor={buttonBorderColor}
+          borderRadius="md"
+          bg={brandBg}
+          mx="auto"
+          color={brandText}
+        >
+        <Text fontSize="lg" textAlign="center" color="white" mb={6} maxW="700px" mx="auto">
+          For enquiries, please complete the form below and we'll get back to you. You can also find us on{" "}
           <Link href="https://www.linkedin.com/company/pf-geomatics/" isExternal>
             <Button
               leftIcon={<Icon as={FaLinkedin} />}
@@ -91,17 +102,6 @@ const ContactForm: React.FC = () => {
             </Button>
           </Link>
         </Text>
-        <Box
-          maxW={{ base: "90%", md: "700px" }}
-          p={6}
-          shadow="md"
-          borderWidth="1px"
-          borderColor={buttonBorderColor}
-          borderRadius="md"
-          bg={brandBg}
-          mx="auto"
-          color={brandText}
-        >
           <form onSubmit={handleSubmit(onSubmit)}>
             <VStack spacing={4}>
               <FormControl isInvalid={Boolean(errors.name)}>

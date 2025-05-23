@@ -75,7 +75,7 @@ const Navbar = () => {
         {/* Logo now links to Home */}
         <Link to="cover-video" smooth duration={500} offset={offset}>
           <Box
-            bg="whiteAlpha.700"
+            bg="brand.100"
             borderRadius="md"
             p={1}
             zIndex={1}

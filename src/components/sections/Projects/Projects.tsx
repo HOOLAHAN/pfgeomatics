@@ -106,7 +106,7 @@ const Projects: React.FC = () => {
 
             <Box mt={4}>
               <Center>
-                <Box display="flex" gap={4}>
+                <Box display="flex" gap={12} px={4}>
                   <Box
                     as="button"
                     onClick={() =>
@@ -118,10 +118,12 @@ const Projects: React.FC = () => {
                     px={4}
                     fontSize="24px"
                     color="white"
-                    bg="brand.300"
+                    bg="brand.600"
+                    border="1px solid"
+                    borderColor="brand.600"
                     borderRadius="full"
-                    _hover={{ bg: 'brand.200' }}
-                    _active={{ bg: 'brand.100', transform: 'scale(0.95)' }}
+                    _hover={{ bg: 'brand.50', color: 'brand.600' }}
+                    _active={{ bg: 'brand.50', transform: 'scale(0.95)' }}
                     aria-label="Previous slide"
                   >
                     &#10094;
@@ -137,10 +139,12 @@ const Projects: React.FC = () => {
                     px={4}
                     fontSize="24px"
                     color="white"
-                    bg="brand.300"
+                    bg="brand.600"
+                    border="1px solid"
+                    borderColor="brand.600"
                     borderRadius="full"
-                    _hover={{ bg: 'brand.200' }}
-                    _active={{ bg: 'brand.100', transform: 'scale(0.95)' }}
+                    _hover={{ bg: 'brand.50', color: 'brand.600' }}
+                    _active={{ bg: 'brand.50', transform: 'scale(0.95)' }}
                     aria-label="Next slide"
                   >
                     &#10095;
