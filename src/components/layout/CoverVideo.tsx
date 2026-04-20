@@ -5,7 +5,7 @@ import { Box, Button, HStack, VStack, useBreakpointValue, Spinner, Center, Headi
 import { Link as ScrollLink } from 'react-scroll';
 
 const CoverVideo: React.FC<{ src: string }> = ({ src }) => {
-  const height = useBreakpointValue({ base: '74vh', md: '82vh' });
+  const height = useBreakpointValue({ base: 'auto', md: 'min(760px, calc(100vh - 132px))' });
   const [loading, setLoading] = useState(true);
 
   const handleVideoLoad = () => setLoading(false);
@@ -14,16 +14,16 @@ const CoverVideo: React.FC<{ src: string }> = ({ src }) => {
     <Box
       position="relative"
       width="100%"
-      height={height}
       px={{ base: 4, md: 8, xl: 10 }}
-      py={{ base: 5, md: 8 }}
+      py={{ base: 4, md: 6 }}
     >
       <Box
         bg="black"
         borderRadius={{ base: '2xl', md: '32px' }}
         overflow="hidden"
         width="100%"
-        height="100%"
+        height={height}
+        minH={{ base: '620px', md: '520px', lg: '540px' }}
         position="relative"
         boxShadow="0 30px 90px rgba(6, 24, 36, 0.35)"
         border="1px solid"
@@ -69,13 +69,13 @@ const CoverVideo: React.FC<{ src: string }> = ({ src }) => {
 
         <VStack
           position="absolute"
-          top="50%"
+          top={{ base: '50%', md: '52%' }}
           left={{ base: '50%', md: '8%' }}
           transform={{ base: 'translate(-50%, -50%)', md: 'translateY(-50%)' }}
           color="white"
           textAlign={{ base: 'center', md: 'left' }}
           align={{ base: 'center', md: 'flex-start' }}
-          spacing={5}
+          spacing={{ base: 4, md: 4 }}
           px={{ base: 4, md: 0 }}
           zIndex={10}
           maxW={{ base: '92%', md: '680px' }}
@@ -90,7 +90,7 @@ const CoverVideo: React.FC<{ src: string }> = ({ src }) => {
             Engineering Surveyors
           </Text>
           <Heading
-            fontSize={{ base: '4xl', sm: '5xl', md: '7xl' }}
+            fontSize={{ base: '4xl', sm: '5xl', md: '5xl', lg: '6xl', xl: '7xl' }}
             fontWeight="900"
             lineHeight="0.95"
             letterSpacing="-0.07em"
@@ -98,8 +98,8 @@ const CoverVideo: React.FC<{ src: string }> = ({ src }) => {
             Precision that keeps complex sites moving.
           </Heading>
           <Text
-            fontSize={{ base: 'md', md: 'xl' }}
-            lineHeight="1.7"
+            fontSize={{ base: 'md', md: 'lg', xl: 'xl' }}
+            lineHeight="1.65"
             color="whiteAlpha.800"
             maxW="610px"
           >
@@ -131,7 +131,19 @@ const CoverVideo: React.FC<{ src: string }> = ({ src }) => {
               </Button>
             </ScrollLink>
           </HStack>
-          <SimpleGrid columns={3} spacing={{ base: 3, md: 6 }} pt={{ base: 4, md: 8 }} w="100%" maxW="560px">
+          <SimpleGrid
+            className="hero-stats"
+            columns={3}
+            spacing={{ base: 3, md: 4, xl: 6 }}
+            pt={{ base: 4, md: 4, xl: 8 }}
+            w="100%"
+            maxW="560px"
+            sx={{
+              '@media (max-height: 760px) and (min-width: 768px)': {
+                display: 'none',
+              },
+            }}
+          >
             {[
               ['15+', 'major project references'],
               ['24/7', 'site-responsive support'],
@@ -139,16 +151,22 @@ const CoverVideo: React.FC<{ src: string }> = ({ src }) => {
             ].map(([value, label]) => (
               <Box
                 key={value}
-                p={{ base: 3, md: 4 }}
+                p={{ base: 3, md: 3, xl: 4 }}
                 bg="rgba(255, 255, 255, 0.12)"
                 border="1px solid"
                 borderColor="rgba(255, 255, 255, 0.25)"
                 borderRadius="xl"
               >
-                <Text color="accent.100" fontSize={{ base: 'xl', md: '2xl' }} fontWeight="900">
+                <Text color="accent.100" fontSize={{ base: 'xl', md: 'xl', xl: '2xl' }} fontWeight="900">
                   {value}
                 </Text>
-                <Text color="whiteAlpha.700" fontSize="xs" textTransform="uppercase" letterSpacing="0.08em">
+                <Text
+                  color="whiteAlpha.700"
+                  fontSize="xs"
+                  textTransform="uppercase"
+                  letterSpacing="0.08em"
+                  noOfLines={2}
+                >
                   {label}
                 </Text>
               </Box>
