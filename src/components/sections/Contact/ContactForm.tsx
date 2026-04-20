@@ -1,44 +1,18 @@
 import React from 'react';
-import { useForm, SubmitHandler } from 'react-hook-form';
 import {
   Box,
   Button,
-  FormControl,
-  FormLabel,
-  Input,
-  Textarea,
-  VStack,
   Heading,
   Icon,
   Text,
   Link,
   SimpleGrid,
+  VStack,
 } from '@chakra-ui/react';
 import { FaLinkedin, FaEnvelope } from 'react-icons/fa';
 import SectionHeader from '../../shared/SectionHeader';
 
-interface FormValues {
-  name: string;
-  email: string;
-  message: string;
-}
-
 const ContactForm: React.FC = () => {
-  const { register, handleSubmit, formState: { errors } } = useForm<FormValues>();
-
-  const onSubmit: SubmitHandler<FormValues> = (data) => {
-    const subject = `PF Geomatics enquiry from ${data.name}`;
-    const body = [
-      `Name: ${data.name}`,
-      `Email: ${data.email}`,
-      '',
-      'Message:',
-      data.message,
-    ].join('\n');
-
-    window.location.href = `mailto:info@pfgeomatics.co.uk?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-  };
-
   return (
     <Box py={{ base: 16, md: 24 }} px={{ base: 4, md: 8 }}>
       <Box maxW="1120px" mx="auto">
@@ -86,56 +60,31 @@ const ContactForm: React.FC = () => {
               </Button>
             </Link>
           </Box>
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <VStack spacing={4}>
-              <FormControl isInvalid={Boolean(errors.name)}>
-                <FormLabel htmlFor="name">Name</FormLabel>
-                <Input
-                  id="name"
-                  type="text"
-                  border="1px"
-                  borderColor="blackAlpha.200"
-                  bg="brand.50"
-                  color={'black'}
-                  borderRadius="xl"
-                  {...register("name", { required: "This is required", maxLength: 80 })}
-                />
-              </FormControl>
-              <FormControl isInvalid={Boolean(errors.email)}>
-                <FormLabel htmlFor="email">Email</FormLabel>
-                  <Input
-                    id="email"
-                    type="email"
-                    border="1px"
-                    borderColor="blackAlpha.200"
-                    bg="brand.50"
-                    color={'black'}
-                    borderRadius="xl"
-                    {...register("email", {
-                      required: "This is required",
-                      pattern: {
-                        value: /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/,
-                        message: "Invalid email address"
-                      }
-                    })}
-                  />
-              </FormControl>
-              <FormControl isInvalid={Boolean(errors.message)}>
-                <FormLabel htmlFor="message">Message</FormLabel>
-                <Textarea
-                  id="message"
-                  border="1px"
-                  borderColor="blackAlpha.200"
-                  bg="brand.50"
-                  {...register("message", { required: "This is required", maxLength: 2000 })}
-                  rows={6}
-                  color={'black'}
-                  borderRadius="xl"
-                />
-              </FormControl>
+          <VStack
+            spacing={5}
+            align="stretch"
+            justify="center"
+            bg="brand.50"
+            border="1px solid"
+            borderColor="blackAlpha.100"
+            borderRadius="24px"
+            p={{ base: 6, md: 8 }}
+            minH="100%"
+          >
+              <Icon as={FaEnvelope} color="accent.300" boxSize={9} />
+              <Heading size="lg" color="brand.900" letterSpacing="-0.04em">
+                Email the team directly.
+              </Heading>
+              <Text color="gray.600" lineHeight="1.8">
+                Send your enquiry to info@pfgeomatics.co.uk. Include the site location, programme pressure, and the type of survey support you need.
+              </Text>
+              <Text color="brand.900" fontWeight="900">
+                info@pfgeomatics.co.uk
+              </Text>
               <Button
+                as="a"
+                href="mailto:info@pfgeomatics.co.uk?subject=PF%20Geomatics%20enquiry"
                 mt={4}
-                type="submit"
                 bg="brand.900"
                 leftIcon={<Icon as={FaEnvelope} />}
                 color="white"
@@ -145,10 +94,9 @@ const ContactForm: React.FC = () => {
                 size="lg"
                 w="100%"
               >
-                Open Email
+                Email PF Geomatics
               </Button>
-            </VStack>
-          </form>
+          </VStack>
         </SimpleGrid>
         </Box>
       </Box>
