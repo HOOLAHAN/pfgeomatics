@@ -13,10 +13,11 @@ import {
   Icon,
   Text,
   Link,
-  useToken,
+  SimpleGrid,
 } from '@chakra-ui/react';
 import { FaLinkedin, FaEnvelope } from 'react-icons/fa';
 import { env } from '../../../config/env';
+import SectionHeader from '../../shared/SectionHeader';
 
 interface FormValues {
   name: string;
@@ -25,14 +26,6 @@ interface FormValues {
 }
 
 const ContactForm: React.FC = () => {
-  const brandBg = useToken("colors", "brand.600");
-  const brandText = useToken("colors", "brand.50");
-  const buttonBackgroundColor = useToken("colors", "brand.50");
-  const formInputColor = useToken("colors", "brand.50");
-  const buttonBorderColor = useToken("colors", "brand.800");
-  const buttonTextColor = useToken("colors", "brand.800");
-  const buttonHoverBg = useToken("colors", "brand.300");
-
   const { register, handleSubmit, reset, formState: { errors, isSubmitting } } = useForm<FormValues>();
   const toast = useToast();
 
@@ -72,41 +65,52 @@ const ContactForm: React.FC = () => {
   };
 
   return (
-    <Box py={10} >
-      <Box px={5} maxW="1200px" mx="auto" >
-        <Heading size="lg" textAlign="center" mb={6} color={"brand.800"}>
-          Contact Us
-        </Heading>
+    <Box py={{ base: 16, md: 24 }} px={{ base: 4, md: 8 }}>
+      <Box maxW="1120px" mx="auto">
+        <SectionHeader
+          eyebrow="Contact"
+          title="Need reliable survey support on site?"
+          description="Send the project details and the team will come back to you with the right next step."
+        />
         <Box
-          maxW={{ base: "90%", md: "700px" }}
-          p={6}
-          shadow="md"
+          maxW="980px"
+          p={{ base: 5, md: 8 }}
+          shadow="0 24px 80px rgba(6, 24, 36, 0.16)"
           borderWidth="1px"
-          borderColor={buttonBorderColor}
-          borderRadius="md"
-          bg={brandBg}
+          borderColor="blackAlpha.100"
+          borderRadius="32px"
+          bg="white"
           mx="auto"
-          color={brandText}
         >
-        <Text fontSize="lg" textAlign="center" color="white" mb={6} maxW="700px" mx="auto">
-          For enquiries, please complete the form below and we'll get back to you. You can also find us on{" "}
-          <Link href="https://www.linkedin.com/company/pf-geomatics/" isExternal>
-            <Button
-              leftIcon={<Icon as={FaLinkedin} />}
-              variant="outline"
-              borderColor={buttonBorderColor}
-              color={buttonTextColor}
-              bg={buttonBackgroundColor}
-              _hover={{ bg: buttonHoverBg }}
-              _active={{ bg: buttonHoverBg, transform: 'scale(0.97)' }}
-              transition="all 0.2s ease"
-              size="sm"
-              ml={2}
-            >
-              LinkedIn
-            </Button>
-          </Link>
-        </Text>
+        <SimpleGrid columns={{ base: 1, md: 2 }} spacing={8} alignItems="start">
+          <Box
+            bg="brand.900"
+            color="white"
+            borderRadius="24px"
+            p={{ base: 6, md: 8 }}
+            minH="100%"
+            bgImage="linear-gradient(145deg, rgba(248,213,138,0.18), transparent 42%)"
+          >
+            <Heading size="lg" letterSpacing="-0.04em" mb={4}>
+              Tell us what needs setting out, checking, scanning, or monitoring.
+            </Heading>
+            <Text color="whiteAlpha.700" lineHeight="1.8" mb={6}>
+              Include the site location, programme pressure, discipline, and any drawings or tolerance concerns. We will help identify the most practical survey support.
+            </Text>
+            <Link href="https://www.linkedin.com/company/pf-geomatics/" isExternal>
+              <Button
+                leftIcon={<Icon as={FaLinkedin} />}
+                variant="outline"
+                borderColor="whiteAlpha.500"
+                color="white"
+                _hover={{ bg: 'whiteAlpha.200' }}
+                _active={{ transform: 'scale(0.97)' }}
+                transition="all 0.2s ease"
+              >
+                Find us on LinkedIn
+              </Button>
+            </Link>
+          </Box>
           <form onSubmit={handleSubmit(onSubmit)}>
             <VStack spacing={4}>
               <FormControl isInvalid={Boolean(errors.name)}>
@@ -115,9 +119,10 @@ const ContactForm: React.FC = () => {
                   id="name"
                   type="text"
                   border="1px"
-                  borderColor={buttonBorderColor}
-                  bg={formInputColor}
+                  borderColor="blackAlpha.200"
+                  bg="brand.50"
                   color={'black'}
+                  borderRadius="xl"
                   {...register("name", { required: "This is required", maxLength: 80 })}
                 />
               </FormControl>
@@ -127,9 +132,10 @@ const ContactForm: React.FC = () => {
                     id="email"
                     type="email"
                     border="1px"
-                    borderColor={buttonBorderColor}
-                    bg={formInputColor}
+                    borderColor="blackAlpha.200"
+                    bg="brand.50"
                     color={'black'}
+                    borderRadius="xl"
                     {...register("email", {
                       required: "This is required",
                       pattern: {
@@ -144,32 +150,32 @@ const ContactForm: React.FC = () => {
                 <Textarea
                   id="message"
                   border="1px"
-                  borderColor={buttonBorderColor}
-                  bg={formInputColor}
+                  borderColor="blackAlpha.200"
+                  bg="brand.50"
                   {...register("message", { required: "This is required", maxLength: 2000 })}
                   rows={6}
                   color={'black'}
+                  borderRadius="xl"
                 />
               </FormControl>
               <Button
                 mt={4}
                 isLoading={isSubmitting}
                 type="submit"
-                border="1px"
-                bg={buttonBackgroundColor}
-                borderColor={buttonBorderColor}
+                bg="brand.900"
                 leftIcon={<Icon as={FaEnvelope} />}
-                variant="outline"
-                color={buttonTextColor}
-                _hover={{ bg: buttonHoverBg }}
-                _active={{ bg: buttonHoverBg, transform: 'scale(0.97)' }}
+                color="white"
+                _hover={{ bg: 'brand.700', transform: 'translateY(-2px)' }}
+                _active={{ transform: 'scale(0.97)' }}
                 transition="all 0.2s ease"
                 size="lg"
+                w="100%"
               >
                 Send Message
               </Button>
             </VStack>
           </form>
+        </SimpleGrid>
         </Box>
       </Box>
     </Box>

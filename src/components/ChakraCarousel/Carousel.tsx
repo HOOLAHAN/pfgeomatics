@@ -58,12 +58,12 @@ export const Carousel = ({
   // const brandBg = useToken('colors', 'brand.300');
   const arrowStyles = {
   color: 'white',
-  bg: 'brand.600',
+  bg: 'brand.900',
   border: '1px solid',
-  borderColor: 'brand.600',
+  borderColor: 'brand.900',
   borderRadius: 'full',
-  _hover: { bg: 'brand.50', color: 'brand.600' },
-  _active: { bg: 'brand.50', transform: 'scale(0.95)' },
+  _hover: { bg: 'accent.100', color: 'brand.900', borderColor: 'accent.100' },
+  _active: { transform: 'scale(0.95)' },
 };
 
 

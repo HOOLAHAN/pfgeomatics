@@ -11,12 +11,18 @@ const Footer: React.FC = () => {
   const flexDirection = useBreakpointValue<'column' | 'row'>({ base: 'column', md: 'row' });
 
   return (
-    <Box 
-    color="gray.700" mt={5} py={5}>
+    <Box
+      color="whiteAlpha.800"
+      mt={5}
+      py={8}
+      bg="brand.900"
+      borderTop="1px solid"
+      borderColor="whiteAlpha.200"
+    >
       <Container maxW="container.xl">
         <Flex direction="column" align="center">
-          <Text fontSize="lg" fontWeight="bold">PF Geomatics</Text>
-          <Text>© 2024 PF Geomatics. All rights reserved.</Text>
+          <Text fontSize="lg" fontWeight="900" letterSpacing="-0.03em">PF Geomatics</Text>
+          <Text color="whiteAlpha.600">© 2024 PF Geomatics. All rights reserved.</Text>
           <Flex
             direction={flexDirection}
             align="center"
@@ -24,18 +30,18 @@ const Footer: React.FC = () => {
             wrap="wrap"
           >
             <Flex align="center" m={2}>
-              <Icon as={FaEnvelope} w={5} h={5} color="blue.500" mr={2} />
-              <Link href="mailto:info@pfgeomatics.co.uk" isExternal color="blue.500">
+              <Icon as={FaEnvelope} w={5} h={5} color="accent.100" mr={2} />
+              <Link href="mailto:info@pfgeomatics.co.uk" isExternal color="whiteAlpha.800" _hover={{ color: 'accent.100' }}>
                 info@pfgeomatics.co.uk
               </Link>
             </Flex>
             <Flex align="center" m={2}>
-              <Icon as={FaLinkedin} w={5} h={5} color="blue.500" mr={2} />
-              <Link href="https://www.linkedin.com/company/pf-geomatics/" isExternal color="blue.500">
+              <Icon as={FaLinkedin} w={5} h={5} color="accent.100" mr={2} />
+              <Link href="https://www.linkedin.com/company/pf-geomatics/" isExternal color="whiteAlpha.800" _hover={{ color: 'accent.100' }}>
                 LinkedIn
               </Link>
             </Flex>
-            <Link href="#" onClick={onOpen} color="blue.500" m={2}>Privacy Policy</Link>
+            <Link href="#" onClick={onOpen} color="whiteAlpha.800" _hover={{ color: 'accent.100' }} m={2}>Privacy Policy</Link>
           </Flex>
           <PrivacyPolicy isOpen={isOpen} onClose={onClose} />
         </Flex>

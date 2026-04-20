@@ -10,6 +10,7 @@ import {
   Center,
   SimpleGrid,
   useBreakpointValue,
+  Text,
 } from '@chakra-ui/react';
 import { servicesData } from '../../../data/servicesData';
 import ServiceModal from './ServiceModal';
@@ -18,6 +19,7 @@ import { Carousel, Direction } from '../../ChakraCarousel';
 import CarouselCard from '../../ChakraCarousel/CarouselCard';
 import { getMediaUrl } from '../../../utils/getMediaUrl';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
+import SectionHeader from '../../shared/SectionHeader';
 
 interface Service {
   title: string;
@@ -34,12 +36,12 @@ const Services: React.FC = () => {
 
   const arrowStyles = {
     color: 'white',
-    bg: 'brand.600',
+    bg: 'brand.900',
     border: '1px solid',
-    borderColor: 'brand.600',
+    borderColor: 'brand.900',
     borderRadius: 'full',
-    _hover: { bg: 'brand.50', color: 'brand.600' },
-    _active: { bg: 'brand.50', transform: 'scale(0.95)' },
+    _hover: { bg: 'accent.100', color: 'brand.900', borderColor: 'accent.100' },
+    _active: { transform: 'scale(0.95)' },
   };
 
   const handleServiceClick = (service: Service) => {
@@ -57,16 +59,21 @@ const Services: React.FC = () => {
       <Box
         key={service.title}
         minW="300px"
-        maxW="300px"
+        maxW="340px"
         mx="auto"
         cursor="pointer"
         onClick={() => handleServiceClick(service)}
+        role="group"
       >
         <Box
-          borderRadius="md"
+          borderRadius="28px"
           overflow="hidden"
           transition="all 0.3s ease"
-          _hover={{ transform: 'scale(1.03)', boxShadow: 'lg' }}
+          bg="white"
+          border="1px solid"
+          borderColor="blackAlpha.100"
+          boxShadow="0 18px 55px rgba(6, 24, 36, 0.12)"
+          _groupHover={{ transform: 'translateY(-8px)', boxShadow: '0 26px 70px rgba(6, 24, 36, 0.18)' }}
         >
           {loadingImages[service.title] && (
             <Center h="200px">
@@ -79,17 +86,18 @@ const Services: React.FC = () => {
             loading="lazy"
             objectFit="cover"
             w="100%"
-            h="200px"
-            borderRadius="md"
-            boxShadow="md"
+            h="220px"
             display={loadingImages[service.title] ? 'none' : 'block'}
             onLoad={() => handleImageLoad(service.title)}
           />
-        </Box>
-        <Box mt={3} textAlign="center">
-          <Heading size="md" color="brand.800">
-            {service.title}
-          </Heading>
+          <Box p={5}>
+            <Heading size="md" color="brand.900" letterSpacing="-0.03em">
+              {service.title}
+            </Heading>
+            <Text color="gray.600" fontSize="sm" mt={2} lineHeight="1.7">
+              {service.service.slice(0, 3).join(' / ')}
+            </Text>
+          </Box>
         </Box>
       </Box>
     );
@@ -102,11 +110,13 @@ const Services: React.FC = () => {
   }));
 
   return (
-    <Box py={10}>
+    <Box py={{ base: 16, md: 24 }} px={{ base: 4, md: 8 }} bg="rgba(255,255,255,0.55)">
       <Box px={5} maxW="1200px" mx="auto">
-        <Heading as="h2" size="xl" mb={6} textAlign="center" color="brand.800">
-          Our Services
-        </Heading>
+        <SectionHeader
+          eyebrow="Services"
+          title="Survey capability built for live construction environments."
+          description="From control networks and setting out to monitoring, laser scanning, and as-built reporting, the focus is practical accuracy at site pace."
+        />
 
         {carouselMode === 'desktop' ? (
           <SimpleGrid columns={{ base: 1, sm: 2, md: 3 }} spacing={6} justifyContent="center">
@@ -157,10 +167,12 @@ const Services: React.FC = () => {
                       onClick={() => handleServiceClick(service)}
                     >
                       <Box
-                        borderRadius="md"
+                        borderRadius="28px"
                         overflow="hidden"
                         transition="all 0.3s ease"
-                        _hover={{ transform: 'scale(1.03)', boxShadow: 'lg' }}
+                        bg="white"
+                        boxShadow="0 18px 55px rgba(6, 24, 36, 0.12)"
+                        _hover={{ transform: 'translateY(-6px)', boxShadow: '0 24px 68px rgba(6, 24, 36, 0.18)' }}
                       >
                         {loadingImages[service.title] && (
                           <Center h="200px">
@@ -173,17 +185,18 @@ const Services: React.FC = () => {
                           loading="lazy"
                           objectFit="cover"
                           w="100%"
-                          h="200px"
-                          borderRadius="md"
-                          boxShadow="md"
+                          h="220px"
                           display={loadingImages[service.title] ? 'none' : 'block'}
                           onLoad={() => handleImageLoad(service.title)}
                         />
-                      </Box>
-                      <Box mt={3} textAlign="center">
-                        <Heading size="md" color="brand.800">
-                          {service.title}
-                        </Heading>
+                        <Box p={5}>
+                          <Heading size="md" color="brand.900" letterSpacing="-0.03em">
+                            {service.title}
+                          </Heading>
+                          <Text color="gray.600" fontSize="sm" mt={2} lineHeight="1.7">
+                            {service.service.slice(0, 3).join(' / ')}
+                          </Text>
+                        </Box>
                       </Box>
                     </Box>
                   </Center>

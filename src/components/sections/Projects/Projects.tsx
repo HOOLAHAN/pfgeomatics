@@ -3,10 +3,10 @@
 import React, { useCallback, useRef, useState } from 'react';
 import {
   Box,
-  Heading,
   useDisclosure,
   Center,
   useBreakpointValue,
+  Text,
 } from '@chakra-ui/react';
 import { projectsData } from '../../../data/projectsData';
 import ProjectModal from './ProjectModal';
@@ -15,6 +15,7 @@ import ProjectCard from '../../ChakraCarousel/CarouselCard';
 import { getMediaUrl } from '../../../utils/getMediaUrl';
 import { Carousel as ResponsiveCarousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
+import SectionHeader from '../../shared/SectionHeader';
 
 interface Project {
   name: string;
@@ -48,11 +49,21 @@ const Projects: React.FC = () => {
   }));
 
   return (
-    <Box py={5}>
-      <Box px={0} maxW="1335px" mx="auto">
-        <Heading as="h2" size="xl" mb={6} textAlign="center" color="brand.800">
-          Featured Projects
-        </Heading>
+    <Box py={{ base: 16, md: 24 }} px={{ base: 4, md: 8 }} bg="brand.900" position="relative" overflow="hidden">
+      <Box
+        position="absolute"
+        inset={0}
+        opacity={0.22}
+        bgImage="linear-gradient(rgba(255,255,255,0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.08) 1px, transparent 1px)"
+        bgSize="72px 72px"
+      />
+      <Box px={0} maxW="1335px" mx="auto" position="relative">
+        <SectionHeader
+          eyebrow="Project Experience"
+          title="Proven on high-tolerance, high-pressure construction work."
+          description="A selection of projects spanning transport infrastructure, steel frames, commercial refurbishment, residential towers, and landmark buildings."
+          inverse
+        />
 
         {isMobile ? (
           <>
@@ -92,12 +103,12 @@ const Projects: React.FC = () => {
                     px={4}
                     fontSize="24px"
                     color="white"
-                    bg="brand.600"
+                    bg="whiteAlpha.200"
                     border="1px solid"
-                    borderColor="brand.600"
+                    borderColor="whiteAlpha.300"
                     borderRadius="full"
-                    _hover={{ bg: 'brand.50', color: 'brand.600' }}
-                    _active={{ bg: 'brand.50', transform: 'scale(0.95)' }}
+                    _hover={{ bg: 'accent.100', color: 'brand.900', borderColor: 'accent.100' }}
+                    _active={{ transform: 'scale(0.95)' }}
                     aria-label="Previous slide"
                   >
                     &#10094;
@@ -109,12 +120,12 @@ const Projects: React.FC = () => {
                     px={4}
                     fontSize="24px"
                     color="white"
-                    bg="brand.600"
+                    bg="whiteAlpha.200"
                     border="1px solid"
-                    borderColor="brand.600"
+                    borderColor="whiteAlpha.300"
                     borderRadius="full"
-                    _hover={{ bg: 'brand.50', color: 'brand.600' }}
-                    _active={{ bg: 'brand.50', transform: 'scale(0.95)' }}
+                    _hover={{ bg: 'accent.100', color: 'brand.900', borderColor: 'accent.100' }}
+                    _active={{ transform: 'scale(0.95)' }}
                     aria-label="Next slide"
                   >
                     &#10095;
@@ -143,6 +154,9 @@ const Projects: React.FC = () => {
             />
           </Carousel>
         )}
+        <Text color="whiteAlpha.600" textAlign="center" mt={8} fontSize="sm">
+          Select a project to review the client, scope, duration, and supporting media.
+        </Text>
         {selectedProject && (
           <ProjectModal project={selectedProject} isOpen={isOpen} onClose={onClose} />
         )}

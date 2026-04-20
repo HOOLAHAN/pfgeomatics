@@ -20,6 +20,7 @@ import ProjectModal from '../Projects/ProjectModal';
 import { getMediaUrl } from '../../../utils/getMediaUrl';
 import ProjectMarker from './ProjectMarker';
 import { env } from '../../../config/env';
+import SectionHeader from '../../shared/SectionHeader';
 
 export interface Project {
   name: string;
@@ -156,24 +157,31 @@ const MapComponent: React.FC = () => {
   };
 
   return (
-    <Box px={{ base: 3, md: 0 }} py={3}>
+    <Box px={{ base: 4, md: 8 }} py={{ base: 16, md: 22 }}>
+      <SectionHeader
+        eyebrow="Project Map"
+        title="A geographic view of recent and landmark work."
+        description="Explore selected project locations and open the markers for project context, images, and client details."
+      />
       <Box
         width="100%"
         maxW="1200px"
         mx="auto"
         position="relative"
-        borderRadius="lg"
+        borderRadius="32px"
         overflow="hidden"
-        boxShadow="xl"
+        boxShadow="0 24px 80px rgba(6, 24, 36, 0.16)"
         ref={mapContainerRef}
         bg="white"
+        border="1px solid"
+        borderColor="blackAlpha.100"
       >
         {loading && (
           <Center>
             <Spinner size="xl" position="absolute" top="50%" transform="translate(-50%, -50%)" zIndex="10" />
           </Center>
         )}
-        <Box width="calc(100% - 10px)" height={height} m="5px" borderRadius="lg" overflow="hidden" boxShadow="lg">
+        <Box width="calc(100% - 16px)" height={height} m="8px" borderRadius="24px" overflow="hidden">
           <ReactMapGL
             ref={mapRef}
             {...viewport}
@@ -200,12 +208,12 @@ const MapComponent: React.FC = () => {
         <HStack spacing={2} position="absolute" top="20px" right="20px" zIndex={2}>
           <Button
             onClick={() => fitBounds(projects)}
-            bg="brand.600"
+            bg="brand.900"
             color="white"
             border="1px solid"
-            borderColor="brand.600"
-            _hover={{ bg: "brand.50", color: "brand.600" }}
-            _active={{ bg: "brand.50", transform: 'scale(0.95)' }}
+            borderColor="brand.900"
+            _hover={{ bg: "accent.100", color: "brand.900", borderColor: "accent.100" }}
+            _active={{ transform: 'scale(0.95)' }}
             rounded="full"
             shadow="lg"
             size="sm"
@@ -215,12 +223,12 @@ const MapComponent: React.FC = () => {
 
           <Button
             onClick={() => setIsDarkMode(prev => !prev)}
-            bg="brand.600"
+            bg="brand.900"
             color="white"
             border="1px solid"
-            borderColor="brand.600"
-            _hover={{ bg: "brand.50", color: "brand.600" }}
-            _active={{ bg: "brand.50", transform: 'scale(0.95)' }}
+            borderColor="brand.900"
+            _hover={{ bg: "accent.100", color: "brand.900", borderColor: "accent.100" }}
+            _active={{ transform: 'scale(0.95)' }}
             rounded="full"
             shadow="lg"
             size="sm"

@@ -30,44 +30,47 @@ const Navbar = () => {
   const isNarrow = useBreakpointValue({ base: false, xl: true, '2xl': false }) ?? false;
   const logoHeight = useBreakpointValue({ base: '28px', sm: '40px', xl: isNarrow ? '32px' : '40px' });
 
-  const brandBg = 'brand.600';
-  const brandText = 'brand.50';
-
   const toggleMenu = () => setIsOpen(!isOpen);
 
   const buttonStyles = {
     variant: 'ghost',
     size: isNarrow ? 'sm' : 'md',
-    fontWeight: 500,
-    fontSize: isNarrow ? 'sm' : 'md',
-    color: brandText,
+    fontWeight: 800,
+    fontSize: isNarrow ? 'xs' : 'sm',
+    color: 'whiteAlpha.900',
     px: isNarrow ? 2 : 4,
-    _hover: { bg: 'brand.50', color: 'brand.600' },
-    _active: { bg: 'brand.50', transform: 'scale(0.95)' },
+    letterSpacing: '0.06em',
+    textTransform: 'uppercase' as const,
+    _hover: { bg: 'whiteAlpha.200', color: 'accent.100' },
+    _active: { bg: 'whiteAlpha.200', transform: 'scale(0.97)' },
   };
 
-  const offset = isMobile ? -250 : -80;
+  const offset = isMobile ? -180 : -88;
 
   return (
     <Box
-      bg={brandBg}
-      px={5}
-      py={2}
+      bg="rgba(6, 24, 36, 0.92)"
+      backdropFilter="blur(18px)"
+      borderBottom="1px solid"
+      borderColor="whiteAlpha.200"
+      px={{ base: 4, md: 8 }}
+      py={3}
       position="sticky"
       top={0}
       zIndex={11}
       w="100%"
-      boxShadow="lg"
+      boxShadow="0 18px 60px rgba(6, 24, 36, 0.22)"
     >
       <Flex align="center" justify="space-between" position="relative">
         {/* Logo now links to Home */}
         <Link to="cover-video" smooth duration={500} offset={offset}>
           <Box
-            bg="brand.100"
-            borderRadius="md"
-            p={1}
+            bg="white"
+            borderRadius="xl"
+            p={1.5}
             zIndex={1}
             cursor="pointer"
+            boxShadow="0 10px 30px rgba(0, 0, 0, 0.18)"
           >
             <Image
               src="/PFG_LOGO_B4.png"
@@ -104,6 +107,7 @@ const Navbar = () => {
               variant="ghost"
               aria-label="Toggle Navigation"
               color="white"
+              _hover={{ bg: 'whiteAlpha.200' }}
             />
           )}
         </HStack>
