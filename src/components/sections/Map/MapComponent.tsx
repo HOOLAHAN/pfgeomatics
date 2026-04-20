@@ -48,6 +48,26 @@ type Coordinate = {
   longitude: number;
 };
 
+const fallbackCoordinates: Coordinate[] = [
+  { postcode: 'RH6 0RD', latitude: 51.181274, longitude: -0.20856 },
+  { postcode: 'WD17 1LA', latitude: 51.660986, longitude: -0.397445 },
+  { postcode: 'N1C 4AG', latitude: 51.533479, longitude: -0.125068 },
+  { postcode: 'NW10 6NF', latitude: 51.527647, longitude: -0.255345 },
+  { postcode: 'SW1E 6RA', latitude: 51.496908, longitude: -0.137576 },
+  { postcode: 'SL6 1EH', latitude: 51.519727, longitude: -0.722544 },
+  { postcode: 'SE10 0FR', latitude: 51.49977, longitude: 0.008305 },
+  { postcode: 'EC3A 4AF', latitude: 51.513609, longitude: -0.080789 },
+  { postcode: 'W1D 7ET', latitude: 51.510286, longitude: -0.134581 },
+  { postcode: 'SW1H 0ET', latitude: 51.498772, longitude: -0.130974 },
+  { postcode: 'SW1E 6PR', latitude: 51.498679, longitude: -0.139276 },
+  { postcode: 'W2 6LG', latitude: 51.516752, longitude: -0.179228 },
+  { postcode: 'EC3N 4DX', latitude: 51.509939, longitude: -0.073608 },
+  { postcode: 'SW1Y 5AT', latitude: 51.507366, longitude: -0.130219 },
+  { postcode: 'GU1 4UT', latitude: 51.236833, longitude: -0.580386 },
+  { postcode: 'W1J 0DA', latitude: 51.510275, longitude: -0.13389 },
+  { postcode: 'SW1Y 4RX', latitude: 51.5071, longitude: -0.1344 },
+];
+
 const MapComponent: React.FC = () => {
   const height = useBreakpointValue({ base: '45vh', md: '45vh' });
   const [isDarkMode, setIsDarkMode] = useState(false);
@@ -82,24 +102,13 @@ const MapComponent: React.FC = () => {
         const cached = sessionStorage.getItem(cacheKey);
         const coordinates: Coordinate[] = cached
           ? JSON.parse(cached)
-          : await fetchCoordinates(postcodes);
+          : await fetchCoordinates(postcodes).catch(() => fallbackCoordinates);
 
         if (!cached) {
           sessionStorage.setItem(cacheKey, JSON.stringify(coordinates));
         }
 
-        const updatedProjects: ProjectWithCoordinates[] =
-          projectsData.map((project) => {
-            const coordinate = coordinates.find(c => c.postcode === project.postcode);
-            const thumbnail = getMediaUrl('projectImages', `${project.imageFolder}/1.png`);
-
-            return {
-              ...project,
-              latitude: coordinate ? coordinate.latitude : 0,
-              longitude: coordinate ? coordinate.longitude : 0,
-              thumbnail
-            };
-          });
+        const updatedProjects = buildProjectsWithCoordinates(coordinates);
 
         if (cancelled) return;
         setProjects(updatedProjects);
@@ -107,7 +116,12 @@ const MapComponent: React.FC = () => {
         setLoading(false);
       } catch (error) {
         console.error('Error fetching coordinates:', error);
-        if (!cancelled) setLoading(false);
+        if (cancelled) return;
+
+        const fallbackProjects = buildProjectsWithCoordinates(fallbackCoordinates);
+        setProjects(fallbackProjects);
+        fitBounds(fallbackProjects);
+        setLoading(false);
       }
     };
 
@@ -128,6 +142,19 @@ const MapComponent: React.FC = () => {
       }
     }
   }, [height]);
+
+  const buildProjectsWithCoordinates = (coordinates: Coordinate[]): ProjectWithCoordinates[] =>
+    projectsData.map((project) => {
+      const coordinate = coordinates.find(c => c.postcode === project.postcode);
+      const thumbnail = getMediaUrl('projectImages', `${project.imageFolder}/1.png`);
+
+      return {
+        ...project,
+        latitude: coordinate ? coordinate.latitude : 0,
+        longitude: coordinate ? coordinate.longitude : 0,
+        thumbnail
+      };
+    });
 
   const handleMarkerClick = (project: ProjectWithCoordinates) => {
     setSelectedProject(project);

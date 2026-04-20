@@ -26,7 +26,7 @@ const clientLogoMeta: ClientLogo[] = [
   { name: 'Kilnbridge', filename: 'kilnbridge-logo.png' },
   { name: 'Regal London', filename: 'regal-london-logo.png' },
   { name: 'MJ Robinson', filename: 'MJ-Robinson-Structures.png' },
-  { name: 'Capital Steel Structures', filename: 'capital-steel-structures-logo.jpeg' },
+  { name: 'Capital Steel Structures', filename: 'capital-steel-structures-logo.png' },
   { name: 'Alpine Group', filename: 'alpine-group-logo.png' },
   { name: 'Criterion Capital', filename: 'criterion-capital.png' },
 ];

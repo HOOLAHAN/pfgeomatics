@@ -1,8 +1,5 @@
-// scr/components/sections/Map/ProjectMarker.tsx
-
-import React, { useState } from 'react';
 import { Marker } from 'react-map-gl';
-import { Box, Image } from '@chakra-ui/react';
+import { Box } from '@chakra-ui/react';
 import { ProjectWithCoordinates } from './MapComponent';
 
 interface ProjectMarkerProps {
@@ -10,38 +7,47 @@ interface ProjectMarkerProps {
   onClick: () => void;
 }
 
-const ProjectMarker: React.FC<ProjectMarkerProps> = ({ project, onClick }) => {
-  const [isHovered, setIsHovered] = useState(false);
-
-  return (
-    <Marker latitude={project.latitude} longitude={project.longitude}>
-      <Box
-        bg="brand.600"
-        p={1}
-        border="1px solid"
-        borderColor="brand.600"
-        rounded="full"
-        shadow="md"
-        cursor="pointer"
-        onClick={(e) => {
-          e.preventDefault();
-          onClick();
-        }}
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
-        _hover={{ transform: 'scale(1.05)', bg: 'brand.50' }}
-        transition="transform 0.2s ease"
-      >
-        <Image
-          src={isHovered ? "/EDM_B.png" : "/EDM_W.png"}
-          alt="Project marker"
-          boxSize="20px"
-          objectFit="contain"
-          draggable={false}
-        />
-      </Box>
-    </Marker>
-  );
-};
+const ProjectMarker: React.FC<ProjectMarkerProps> = ({ project, onClick }) => (
+  <Marker latitude={project.latitude} longitude={project.longitude} anchor="bottom">
+    <Box
+      as="button"
+      type="button"
+      aria-label={`Open ${project.name}`}
+      title={project.name}
+      w="30px"
+      h="30px"
+      borderRadius="50% 50% 50% 0"
+      bg="accent.100"
+      border="3px solid"
+      borderColor="white"
+      boxShadow="0 10px 28px rgba(6, 24, 36, 0.35)"
+      cursor="pointer"
+      transform="rotate(-45deg)"
+      transition="all 0.2s ease"
+      onClick={(e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        onClick();
+      }}
+      _hover={{
+        bg: 'brand.900',
+        transform: 'rotate(-45deg) scale(1.14)',
+      }}
+      _after={{
+        content: '""',
+        position: 'absolute',
+        inset: '7px',
+        borderRadius: 'full',
+        bg: 'brand.900',
+        transition: 'background 0.2s ease',
+      }}
+      sx={{
+        '&:hover::after': {
+          background: 'var(--chakra-colors-accent-100)',
+        },
+      }}
+    />
+  </Marker>
+);
 
 export default ProjectMarker;
