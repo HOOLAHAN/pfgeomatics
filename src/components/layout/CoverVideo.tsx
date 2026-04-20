@@ -23,7 +23,7 @@ const CoverVideo: React.FC<{ src: string }> = ({ src }) => {
         overflow="hidden"
         width="100%"
         height={height}
-        minH={{ base: '620px', md: '520px', lg: '540px' }}
+        minH={{ base: '520px', sm: '560px', md: '520px', lg: '540px' }}
         position="relative"
         boxShadow="0 30px 90px rgba(6, 24, 36, 0.35)"
         border="1px solid"
@@ -41,6 +41,7 @@ const CoverVideo: React.FC<{ src: string }> = ({ src }) => {
             width: '100%',
             height: '100%',
             objectFit: 'cover',
+            objectPosition: 'center center',
             opacity: loading ? 0 : 1,
             transition: 'opacity 0.5s ease-in-out',
           }}
@@ -75,43 +76,48 @@ const CoverVideo: React.FC<{ src: string }> = ({ src }) => {
           color="white"
           textAlign={{ base: 'center', md: 'left' }}
           align={{ base: 'center', md: 'flex-start' }}
-          spacing={{ base: 4, md: 4 }}
-          px={{ base: 4, md: 0 }}
+          spacing={{ base: 3, md: 4 }}
+          px={{ base: 3, md: 0 }}
           zIndex={10}
-          maxW={{ base: '92%', md: '680px' }}
+          maxW={{ base: '86%', sm: '88%', md: '680px' }}
         >
           <Text
             color="accent.100"
             fontSize="xs"
             fontWeight="900"
-            letterSpacing="0.26em"
+            letterSpacing={{ base: '0.16em', md: '0.26em' }}
             textTransform="uppercase"
           >
             Engineering Surveyors
           </Text>
           <Heading
-            fontSize={{ base: '4xl', sm: '5xl', md: '5xl', lg: '6xl', xl: '7xl' }}
+            fontSize={{ base: '3xl', sm: '4xl', md: '5xl', lg: '6xl', xl: '7xl' }}
             fontWeight="900"
-            lineHeight="0.95"
-            letterSpacing="-0.07em"
+            lineHeight={{ base: '1.04', md: '0.95' }}
+            letterSpacing={{ base: '-0.055em', md: '-0.07em' }}
           >
             Precision that keeps complex sites moving.
           </Heading>
           <Text
             fontSize={{ base: 'md', md: 'lg', xl: 'xl' }}
-            lineHeight="1.65"
+            lineHeight={{ base: '1.55', md: '1.65' }}
             color="whiteAlpha.800"
-            maxW="610px"
+            maxW={{ base: '270px', sm: '360px', md: '610px' }}
           >
-            Site engineering, setting out, monitoring, and measured surveys for structural steel, rail, refurbishment, and high-rise construction.
+            <Box as="span" display={{ base: 'none', md: 'inline' }}>
+              Site engineering, setting out, monitoring, and measured surveys for structural steel, rail, refurbishment, and high-rise construction.
+            </Box>
+            <Box as="span" display={{ base: 'inline', md: 'none' }}>
+              Precision surveying, setting out, monitoring, and measured survey support.
+            </Box>
           </Text>
-          <HStack spacing={3} pt={2} flexWrap="wrap" justify={{ base: 'center', md: 'flex-start' }}>
+          <HStack spacing={3} pt={{ base: 3, md: 2 }} flexWrap="wrap" justify={{ base: 'center', md: 'flex-start' }}>
             <ScrollLink to="projects" smooth duration={500} offset={-90}>
               <Button
-                size={{ base: 'md', md: 'lg' }}
+                size={{ base: 'sm', md: 'lg' }}
                 bg="accent.100"
                 color="brand.900"
-                px={7}
+                px={{ base: 6, md: 7 }}
                 boxShadow="0 12px 34px rgba(233, 185, 73, 0.28)"
                 _hover={{ bg: 'accent.200', transform: 'translateY(-2px)' }}
               >
@@ -120,11 +126,11 @@ const CoverVideo: React.FC<{ src: string }> = ({ src }) => {
             </ScrollLink>
             <ScrollLink to="contact-form" smooth duration={500} offset={-90}>
               <Button
-                size={{ base: 'md', md: 'lg' }}
+                size={{ base: 'sm', md: 'lg' }}
                 variant="outline"
                 borderColor="whiteAlpha.600"
                 color="white"
-                px={7}
+                px={{ base: 6, md: 7 }}
                 _hover={{ bg: 'whiteAlpha.200', borderColor: 'white' }}
               >
                 Request a Quote
@@ -138,6 +144,7 @@ const CoverVideo: React.FC<{ src: string }> = ({ src }) => {
             pt={{ base: 4, md: 4, xl: 8 }}
             w="100%"
             maxW="560px"
+            display={{ base: 'none', md: 'grid' }}
             sx={{
               '@media (max-height: 760px) and (min-width: 768px)': {
                 display: 'none',
