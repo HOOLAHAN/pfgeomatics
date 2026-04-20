@@ -5,7 +5,6 @@ import {
   Modal,
   ModalOverlay,
   ModalContent,
-  ModalHeader,
   ModalCloseButton,
   ModalBody,
   ModalFooter,
@@ -14,14 +13,17 @@ import {
   VStack,
   Box,
   Image,
-  List,
-  ListItem,
-  useToken,
   Center,
+  SimpleGrid,
+  Badge,
+  Heading,
+  Skeleton,
+  HStack,
 } from '@chakra-ui/react';
 import { Carousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import { fetchImageUrls } from '../../../utils/fetchImageUrls';
+import { getMediaUrl } from '../../../utils/getMediaUrl';
 
 interface Service {
   title: string;
@@ -36,13 +38,6 @@ interface ServiceModalProps {
 }
 
 const ServiceModal: React.FC<ServiceModalProps> = ({ isOpen, onClose, selectedService }) => {
-  const brandBg = useToken("colors", "brand.50");
-  const buttonBg = useToken("colors", "brand.600");
-  const buttonBorderColor = useToken("colors", "brand.600");
-  const buttonTextColor = useToken("colors", "white");
-  const buttonHoverTextColor = useToken("colors", "brand.600");
-  const buttonHoverBg = useToken("colors", "brand.50");
-
   const [images, setImages] = useState<string[]>([]);
   const [loading, setLoading] = useState(true);
   const carouselRef = useRef<any>(null);
@@ -62,26 +57,36 @@ const ServiceModal: React.FC<ServiceModalProps> = ({ isOpen, onClose, selectedSe
 
   if (!selectedService) return null;
 
+  const fallbackImage = getMediaUrl('serviceImages', `${selectedService.imageFolder}/1.png`);
+  const displayImages = images.length > 0 ? images : [fallbackImage];
+
   return (
-    <Modal isOpen={isOpen} onClose={onClose} size="xl" isCentered motionPreset="scale">
-      <ModalOverlay />
+    <Modal isOpen={isOpen} onClose={onClose} size="5xl" isCentered motionPreset="scale">
+      <ModalOverlay bg="rgba(6, 24, 36, 0.76)" backdropFilter="blur(8px)" />
       <ModalContent
         mx={4}
         my={6}
-        borderRadius="xl"
-        boxShadow="lg"
-        maxH="100vh"
+        borderRadius="32px"
+        boxShadow="0 30px 100px rgba(6, 24, 36, 0.35)"
+        maxH="92vh"
         overflowY="auto"
-        bg={brandBg}
+        bg="brand.50"
+        border="1px solid"
+        borderColor="blackAlpha.100"
       >
-        <ModalHeader fontSize="2xl" fontWeight="semibold" textAlign="center">
-          {selectedService.title}
-        </ModalHeader>
-        <ModalCloseButton />
-        <ModalBody maxH={{ base: '90vh', md: 'auto' }}>
-          <VStack align="stretch" spacing={4}>
-            {!loading && images.length > 0 && (
-              <>
+        <ModalCloseButton top={5} right={5} bg="whiteAlpha.900" borderRadius="full" zIndex={2} _hover={{ bg: 'white' }} />
+        <ModalBody p={{ base: 4, md: 6 }}>
+          <SimpleGrid columns={{ base: 1, lg: 2 }} spacing={{ base: 6, lg: 8 }}>
+            <Box>
+              <Box
+                position="relative"
+                overflow="hidden"
+                borderRadius="28px"
+                bg="brand.900"
+                minH={{ base: '260px', md: '420px' }}
+                boxShadow="0 24px 70px rgba(6, 24, 36, 0.20)"
+              >
+                {loading && <Skeleton position="absolute" inset={0} startColor="brand.800" endColor="brand.600" />}
                 <Carousel
                   ref={carouselRef}
                   showThumbs={false}
@@ -89,21 +94,19 @@ const ServiceModal: React.FC<ServiceModalProps> = ({ isOpen, onClose, selectedSe
                   autoPlay={true}
                   interval={6000}
                   showStatus={false}
-                  showIndicators={false}
+                  showIndicators={displayImages.length > 1}
                   emulateTouch
-                  showArrows={images.length > 1}
+                  showArrows={false}
                   renderArrowPrev={() => null}
                   renderArrowNext={() => null}
                 >
-                  {images.map((src, index) => (
+                  {displayImages.map((src, index) => (
                     <Box
                       key={index}
                       w="100%"
-                      h={{ base: '200px', md: '300px' }}
+                      h={{ base: '260px', md: '420px' }}
                       position="relative"
                       overflow="hidden"
-                      borderRadius="md"
-                      bg="gray.100"
                     >
                       <Image
                         src={src}
@@ -112,80 +115,106 @@ const ServiceModal: React.FC<ServiceModalProps> = ({ isOpen, onClose, selectedSe
                         objectFit="cover"
                         w="100%"
                         h="100%"
-                        borderRadius="md"
                       />
                     </Box>
                   ))}
                 </Carousel>
+                <Box position="absolute" inset={0} bgGradient="linear(to-t, rgba(6,24,36,0.86), transparent 52%)" pointerEvents="none" />
+                <VStack position="absolute" left={6} right={6} bottom={6} align="start" spacing={2}>
+                  <Badge bg="accent.100" color="brand.900" borderRadius="full" px={3} py={1}>
+                    Service Capability
+                  </Badge>
+                  <Heading color="white" fontSize={{ base: '2xl', md: '4xl' }} letterSpacing="-0.055em">
+                    {selectedService.title}
+                  </Heading>
+                </VStack>
+              </Box>
 
-                {images.length > 1 && (
-                  <Box mt={3}>
-                    <Center>
-                      <Box display="flex" gap={12} px={4}>
+              {displayImages.length > 1 && (
+                <Box mt={4}>
+                  <Center>
+                    <HStack spacing={4}>
+                      {[
+                        ['Previous slide', -1, '&#10094;'],
+                        ['Next slide', 1, '&#10095;'],
+                      ].map(([label, direction, glyph]) => (
                         <Box
+                          key={label as string}
                           as="button"
                           onClick={() =>
-                            carouselRef.current?.moveTo(carouselRef.current.state.selectedItem - 1)
+                            carouselRef.current?.moveTo(carouselRef.current.state.selectedItem + (direction as number))
                           }
-                          p={2}
-                          px={4}
+                          px={5}
+                          py={2}
                           fontSize="24px"
-                          color={buttonTextColor}
-                          bg={buttonBg}
+                          color="white"
+                          bg="brand.900"
                           border="1px solid"
-                          borderColor={buttonBorderColor}
+                          borderColor="brand.900"
                           borderRadius="full"
-                          _hover={{ bg: buttonHoverBg, color: buttonHoverTextColor }}
-                          _active={{ bg: buttonHoverBg, transform: 'scale(0.95)' }}
-                          aria-label="Previous slide"
-                        >
-                          &#10094;
-                        </Box>
-                        <Box
-                          as="button"
-                          onClick={() =>
-                            carouselRef.current?.moveTo(carouselRef.current.state.selectedItem + 1)
-                          }
-                          p={2}
-                          px={4}
-                          fontSize="24px"
-                          color={buttonTextColor}
-                          bg={buttonBg}
-                          border="1px solid"
-                          borderColor={buttonBorderColor}
-                          borderRadius="full"
-                          _hover={{ bg: buttonHoverBg, color: buttonHoverTextColor }}
-                          _active={{ bg: buttonHoverBg, transform: 'scale(0.95)' }}
-                          aria-label="Next slide"
-                        >
-                          &#10095;
-                        </Box>
-                      </Box>
-                    </Center>
-                  </Box>
-                )}
-              </>
-            )}
-            <VStack align="start" spacing={2}>
-              <Text fontWeight="bold">Services:</Text>
-              <List spacing={2} styleType="disc" pl={4}>
+                          _hover={{ bg: 'accent.100', color: 'brand.900', borderColor: 'accent.100' }}
+                          _active={{ transform: 'scale(0.95)' }}
+                          aria-label={label as string}
+                          dangerouslySetInnerHTML={{ __html: glyph as string }}
+                        />
+                      ))}
+                    </HStack>
+                  </Center>
+                </Box>
+              )}
+            </Box>
+
+            <VStack align="stretch" spacing={6}>
+              <Box>
+                <Text color="accent.300" fontSize="xs" fontWeight="900" letterSpacing="0.2em" textTransform="uppercase" mb={3}>
+                  Service Detail
+                </Text>
+                <Heading color="brand.900" fontSize={{ base: '3xl', md: '5xl' }} lineHeight="1" letterSpacing="-0.06em">
+                  {selectedService.title}
+                </Heading>
+                <Text color="gray.600" mt={4} lineHeight="1.8">
+                  A practical breakdown of the support available for this discipline.
+                </Text>
+              </Box>
+
+              <SimpleGrid columns={{ base: 1, sm: 2 }} spacing={3}>
                 {selectedService.service.map((item, index) => (
-                  <ListItem key={index}>{item}</ListItem>
+                  <HStack
+                    key={item}
+                    align="start"
+                    spacing={3}
+                    p={4}
+                    bg="white"
+                    borderRadius="2xl"
+                    border="1px solid"
+                    borderColor="blackAlpha.100"
+                  >
+                    <Center minW="28px" h="28px" borderRadius="full" bg="accent.100" color="brand.900" fontSize="sm" fontWeight="900">
+                      {index + 1}
+                    </Center>
+                    <Text
+                      color="brand.900"
+                      fontWeight="750"
+                      lineHeight="1.45"
+                      minW={0}
+                      overflowWrap="anywhere"
+                      wordBreak="break-word"
+                    >
+                      {item}
+                    </Text>
+                  </HStack>
                 ))}
-              </List>
+              </SimpleGrid>
             </VStack>
-          </VStack>
+          </SimpleGrid>
         </ModalBody>
-        <ModalFooter>
+        <ModalFooter px={6} pb={6} pt={0}>
           <Button
-            size="sm"
-            variant="outline"
-            borderColor={buttonBorderColor}
-            color={buttonTextColor}
-            _hover={{ bg: buttonHoverBg, color : buttonHoverTextColor }}
-            _active={{ bg: buttonHoverBg,  transform: 'scale(0.95)' }}
+            bg="brand.900"
+            color="white"
+            _hover={{ bg: 'brand.700' }}
+            _active={{ transform: 'scale(0.95)' }}
             onClick={onClose}
-            bg={buttonBg}
           >
             Close
           </Button>
