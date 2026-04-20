@@ -7,7 +7,6 @@ import {
   FormLabel,
   Input,
   Textarea,
-  useToast,
   VStack,
   Heading,
   Icon,
@@ -16,7 +15,6 @@ import {
   SimpleGrid,
 } from '@chakra-ui/react';
 import { FaLinkedin, FaEnvelope } from 'react-icons/fa';
-import { env } from '../../../config/env';
 import SectionHeader from '../../shared/SectionHeader';
 
 interface FormValues {
@@ -26,42 +24,19 @@ interface FormValues {
 }
 
 const ContactForm: React.FC = () => {
-  const { register, handleSubmit, reset, formState: { errors, isSubmitting } } = useForm<FormValues>();
-  const toast = useToast();
+  const { register, handleSubmit, formState: { errors } } = useForm<FormValues>();
 
-  const onSubmit: SubmitHandler<FormValues> = async (data) => {
-    try {
-      if (!env.sendEmailEndpoint) {
-        throw new Error('Contact form endpoint is not configured');
-      }
+  const onSubmit: SubmitHandler<FormValues> = (data) => {
+    const subject = `PF Geomatics enquiry from ${data.name}`;
+    const body = [
+      `Name: ${data.name}`,
+      `Email: ${data.email}`,
+      '',
+      'Message:',
+      data.message,
+    ].join('\n');
 
-      const response = await fetch(env.sendEmailEndpoint, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data),
-      });
-
-      if (response.ok) {
-        toast({
-          title: "Success",
-          description: "Your message has been sent successfully.",
-          status: "success",
-          duration: 5000,
-          isClosable: true,
-        });
-        reset();
-      } else {
-        throw new Error('Failed to send email');
-      }
-    } catch (error: any) {
-      toast({
-        title: "Error",
-        description: error.message || "An error occurred, please try again.",
-        status: "error",
-        duration: 5000,
-        isClosable: true,
-      });
-    }
+    window.location.href = `mailto:info@pfgeomatics.co.uk?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
   };
 
   return (
@@ -160,7 +135,6 @@ const ContactForm: React.FC = () => {
               </FormControl>
               <Button
                 mt={4}
-                isLoading={isSubmitting}
                 type="submit"
                 bg="brand.900"
                 leftIcon={<Icon as={FaEnvelope} />}
@@ -171,7 +145,7 @@ const ContactForm: React.FC = () => {
                 size="lg"
                 w="100%"
               >
-                Send Message
+                Open Email
               </Button>
             </VStack>
           </form>
