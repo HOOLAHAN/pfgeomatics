@@ -31,6 +31,7 @@ const About: React.FC = () => {
             <Image
               src="/PFG_LOGO_B2.png"
               alt="PF Geomatics Logo"
+              loading="lazy"
               maxH={{ base: '120px', md: '220px' }}
               mx="auto"
             />

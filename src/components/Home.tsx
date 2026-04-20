@@ -1,20 +1,29 @@
 // src/components/Home.tsx
 
-import { Box } from '@chakra-ui/react';
+import { lazy, Suspense } from 'react';
+import { Box, Center, Spinner } from '@chakra-ui/react';
 import CoverVideo from './layout/CoverVideo';
 import About from './sections/About/About';
-import Clients from './sections/Clients/Clients';
-import Projects from './sections/Projects/Projects';
-import MapComponent from './sections/Map/MapComponent';
-import Services from './sections/Services/Services';
-import ContactForm from './sections/Contact/ContactForm';
 import Footer from './layout/Footer';
-import BrochureDownload from './sections/Brochure/BrochureDownload';
 import AnimatedSection from './shared/AnimatedSection';
+import DeferredSection from './shared/DeferredSection';
+import { env } from '../config/env';
+
+const Services = lazy(() => import('./sections/Services/Services'));
+const Projects = lazy(() => import('./sections/Projects/Projects'));
+const MapComponent = lazy(() => import('./sections/Map/MapComponent'));
+const Clients = lazy(() => import('./sections/Clients/Clients'));
+const BrochureDownload = lazy(() => import('./sections/Brochure/BrochureDownload'));
+const ContactForm = lazy(() => import('./sections/Contact/ContactForm'));
+
+const sectionFallback = (
+  <Center minH="220px">
+    <Spinner color="brand.600" />
+  </Center>
+);
 
 const Home: React.FC = () => {
-  const cloudFrontBaseUrl = process.env.REACT_APP_CLOUDFRONT_BASE_URL;
-  const videoSrc = `${cloudFrontBaseUrl}/pfg720.mp4`;
+  const videoSrc = `${env.cloudFrontBaseUrl}/pfg720.mp4`;
 
   return (
       <Box minH="100vh">
@@ -29,29 +38,41 @@ const Home: React.FC = () => {
         <About />
       </AnimatedSection>
 
-      <AnimatedSection id="services">
-        <Services />
-      </AnimatedSection>
+      <DeferredSection id="services" minH="440px">
+        <Suspense fallback={sectionFallback}>
+          <Services />
+        </Suspense>
+      </DeferredSection>
 
-      <AnimatedSection id="projects">
-        <Projects />
-      </AnimatedSection>
+      <DeferredSection id="projects" minH="420px">
+        <Suspense fallback={sectionFallback}>
+          <Projects />
+        </Suspense>
+      </DeferredSection>
 
-      <AnimatedSection id="map">
-        <MapComponent />
-      </AnimatedSection>
+      <DeferredSection id="map" minH="420px">
+        <Suspense fallback={sectionFallback}>
+          <MapComponent />
+        </Suspense>
+      </DeferredSection>
 
-      <AnimatedSection id="clients">
-        <Clients />
-      </AnimatedSection>
+      <DeferredSection id="clients" minH="360px">
+        <Suspense fallback={sectionFallback}>
+          <Clients />
+        </Suspense>
+      </DeferredSection>
 
-      <AnimatedSection id="brochure-download" mt={10}>
-        <BrochureDownload />
-      </AnimatedSection>
+      <DeferredSection id="brochure-download" mt={10} minH="220px">
+        <Suspense fallback={sectionFallback}>
+          <BrochureDownload />
+        </Suspense>
+      </DeferredSection>
 
-      <AnimatedSection id="contact-form">
-        <ContactForm />
-      </AnimatedSection>
+      <DeferredSection id="contact-form" minH="520px">
+        <Suspense fallback={sectionFallback}>
+          <ContactForm />
+        </Suspense>
+      </DeferredSection>
 
       <Footer />
     </Box>

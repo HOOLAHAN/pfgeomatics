@@ -16,6 +16,7 @@ import {
   useToken,
 } from '@chakra-ui/react';
 import { FaLinkedin, FaEnvelope } from 'react-icons/fa';
+import { env } from '../../../config/env';
 
 interface FormValues {
   name: string;
@@ -37,7 +38,11 @@ const ContactForm: React.FC = () => {
 
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
     try {
-      const response = await fetch(process.env.REACT_APP_SEND_EMAIL_ENDPOINT!, {
+      if (!env.sendEmailEndpoint) {
+        throw new Error('Contact form endpoint is not configured');
+      }
+
+      const response = await fetch(env.sendEmailEndpoint, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data),

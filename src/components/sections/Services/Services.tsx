@@ -1,6 +1,6 @@
 // src/components/Services.tsx
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import {
   Box,
   Heading,
@@ -9,6 +9,7 @@ import {
   Spinner,
   Center,
   SimpleGrid,
+  useBreakpointValue,
 } from '@chakra-ui/react';
 import { servicesData } from '../../../data/servicesData';
 import ServiceModal from './ServiceModal';
@@ -28,8 +29,8 @@ const Services: React.FC = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [selectedService, setSelectedService] = useState<Service | null>(null);
   const [loadingImages, setLoadingImages] = useState<{ [key: string]: boolean }>({});
-  const [width, setWidth] = useState<number>(window.innerWidth);
   const carouselRef = useRef<ResponsiveCarousel>(null);
+  const carouselMode = useBreakpointValue({ base: 'mobile', md: 'tablet', lg: 'desktop' }) ?? 'mobile';
 
   const arrowStyles = {
     color: 'white',
@@ -40,15 +41,6 @@ const Services: React.FC = () => {
     _hover: { bg: 'brand.50', color: 'brand.600' },
     _active: { bg: 'brand.50', transform: 'scale(0.95)' },
   };
-
-  useEffect(() => {
-    const handleResize = () => setWidth(window.innerWidth);
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
-
-  const isDesktop = width >= 1000;
-  const isTablet = width >= 720 && width < 1000;
 
   const handleServiceClick = (service: Service) => {
     setSelectedService(service);
@@ -84,6 +76,7 @@ const Services: React.FC = () => {
           <Image
             src={imageUrl}
             alt={`${service.title} image`}
+            loading="lazy"
             objectFit="cover"
             w="100%"
             h="200px"
@@ -115,11 +108,11 @@ const Services: React.FC = () => {
           Our Services
         </Heading>
 
-        {isDesktop ? (
+        {carouselMode === 'desktop' ? (
           <SimpleGrid columns={{ base: 1, sm: 2, md: 3 }} spacing={6} justifyContent="center">
             {servicesData.map(renderServiceCard)}
           </SimpleGrid>
-        ) : isTablet ? (
+        ) : carouselMode === 'tablet' ? (
           <Carousel
             id="services-carousel"
             interval={5000}
@@ -177,6 +170,7 @@ const Services: React.FC = () => {
                         <Image
                           src={imageUrl}
                           alt={`${service.title} image`}
+                          loading="lazy"
                           objectFit="cover"
                           w="100%"
                           h="200px"

@@ -2,9 +2,10 @@ import { ColorModeScript } from "@chakra-ui/react";
 import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
-import "@fontsource/inter";
-import reportWebVitals from "./reportWebVitals";
-import * as serviceWorker from "./serviceWorker";
+import "@fontsource/inter/latin-400.css";
+import "@fontsource/inter/latin-500.css";
+import "@fontsource/inter/latin-600.css";
+import "@fontsource/inter/latin-700.css";
 
 const container = document.getElementById("root");
 if (!container) throw new Error('Failed to find the root element');
@@ -16,6 +17,3 @@ root.render(
     <App />
   </React.StrictMode>,
 );
-
-serviceWorker.unregister();
-reportWebVitals();

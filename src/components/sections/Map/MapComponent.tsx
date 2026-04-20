@@ -19,6 +19,7 @@ import { faExpand } from '@fortawesome/free-solid-svg-icons';
 import ProjectModal from '../Projects/ProjectModal';
 import { getMediaUrl } from '../../../utils/getMediaUrl';
 import ProjectMarker from './ProjectMarker';
+import { env } from '../../../config/env';
 
 export interface Project {
   name: string;
@@ -40,13 +41,19 @@ export type ProjectWithCoordinates = Project & {
   longitude: number;
 };
 
+type Coordinate = {
+  postcode: string;
+  latitude: number;
+  longitude: number;
+};
+
 const MapComponent: React.FC = () => {
   const height = useBreakpointValue({ base: '45vh', md: '45vh' });
-  const [isDarkMode, setIsDarkMode] = useState(true);
+  const [isDarkMode, setIsDarkMode] = useState(false);
 
   const mapStyle = isDarkMode
-    ? 'mapbox://styles/mapbox/streets-v11'
-    : 'mapbox://styles/mapbox/dark-v10';
+    ? 'mapbox://styles/mapbox/dark-v11'
+    : 'mapbox://styles/mapbox/streets-v12';
 
   const mapContainerRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<any>(null);
@@ -61,18 +68,27 @@ const MapComponent: React.FC = () => {
 
   const [projects, setProjects] = useState<ProjectWithCoordinates[]>([]);
   const [selectedProject, setSelectedProject] = useState<ProjectWithCoordinates | null>(null);
-  const [initialLoad, setInitialLoad] = useState(true);
   const [isProjectModalOpen, setProjectModalOpen] = useState(false);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    let cancelled = false;
+
     const fetchAndSetCoordinates = async () => {
       try {
         const postcodes = projectsData.map(p => p.postcode);
-        const coordinates = await fetchCoordinates(postcodes);
+        const cacheKey = `pfg:coordinates:${postcodes.join('|')}`;
+        const cached = sessionStorage.getItem(cacheKey);
+        const coordinates: Coordinate[] = cached
+          ? JSON.parse(cached)
+          : await fetchCoordinates(postcodes);
 
-        const updatedProjects: ProjectWithCoordinates[] = await Promise.all(
-          projectsData.map(async (project) => {
+        if (!cached) {
+          sessionStorage.setItem(cacheKey, JSON.stringify(coordinates));
+        }
+
+        const updatedProjects: ProjectWithCoordinates[] =
+          projectsData.map((project) => {
             const coordinate = coordinates.find(c => c.postcode === project.postcode);
             const thumbnail = getMediaUrl('projectImages', `${project.imageFolder}/1.png`);
 
@@ -82,24 +98,23 @@ const MapComponent: React.FC = () => {
               longitude: coordinate ? coordinate.longitude : 0,
               thumbnail
             };
-          })
-        );
+          });
 
+        if (cancelled) return;
         setProjects(updatedProjects);
-
-        if (initialLoad) {
-          fitBounds(updatedProjects);
-          setInitialLoad(false);
-        }
+        fitBounds(updatedProjects);
         setLoading(false);
       } catch (error) {
         console.error('Error fetching coordinates:', error);
-        setLoading(false);
+        if (!cancelled) setLoading(false);
       }
     };
 
     fetchAndSetCoordinates();
-  }, [initialLoad]);
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   useEffect(() => {
     if (mapContainerRef.current) {
@@ -169,7 +184,7 @@ const MapComponent: React.FC = () => {
                 ...evt.viewState
               }))
             }
-            mapboxAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
+            mapboxAccessToken={env.mapboxToken}
           >
             {projects.map((project, index) =>
               project.latitude !== 0 && project.longitude !== 0 ? (
@@ -210,7 +225,7 @@ const MapComponent: React.FC = () => {
             shadow="lg"
             size="sm"
           >
-            {isDarkMode ? "Dark Map" : "Light Map"}
+            {isDarkMode ? "Light Map" : "Dark Map"}
           </Button>
         </HStack>
         {selectedProject && (

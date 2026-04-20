@@ -32,6 +32,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
         <Image
           src={image.imageUrl}
           alt={title}
+          loading="lazy"
           objectFit="cover"
           w="100%"
           h="200px"

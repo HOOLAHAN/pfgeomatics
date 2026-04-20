@@ -1,7 +1,8 @@
 // src/components/CoverVideo.tsx
 
 import React, { useState } from 'react';
-import { Box, VStack, useBreakpointValue, Spinner, Center, Heading, Text } from '@chakra-ui/react';
+import { Box, Button, HStack, VStack, useBreakpointValue, Spinner, Center, Heading, Text } from '@chakra-ui/react';
+import { Link as ScrollLink } from 'react-scroll';
 
 const CoverVideo: React.FC<{ src: string }> = ({ src }) => {
   const height = useBreakpointValue({ base: '45vh', md: '75vh' });
@@ -44,7 +45,15 @@ const CoverVideo: React.FC<{ src: string }> = ({ src }) => {
           loop
           muted
           playsInline
+          preload="metadata"
           onCanPlay={handleVideoLoad}
+        />
+
+        <Box
+          position="absolute"
+          inset={0}
+          bgGradient="linear(to-b, blackAlpha.600, blackAlpha.300, blackAlpha.700)"
+          pointerEvents="none"
         />
 
         {/* Overlay */}
@@ -68,6 +77,18 @@ const CoverVideo: React.FC<{ src: string }> = ({ src }) => {
           >
             Precision Engineering & Surveying Services
           </Text>
+          <HStack spacing={3} pt={3} flexWrap="wrap" justify="center">
+            <ScrollLink to="projects" smooth duration={500} offset={-90}>
+              <Button bg="accent.100" color="brand.900" _hover={{ bg: 'accent.200' }}>
+                View Projects
+              </Button>
+            </ScrollLink>
+            <ScrollLink to="contact-form" smooth duration={500} offset={-90}>
+              <Button variant="outline" borderColor="white" color="white" _hover={{ bg: 'whiteAlpha.300' }}>
+                Request a Quote
+              </Button>
+            </ScrollLink>
+          </HStack>
         </VStack>
       </Box>
     </Box>

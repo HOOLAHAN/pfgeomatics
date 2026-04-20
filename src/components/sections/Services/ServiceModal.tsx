@@ -108,6 +108,7 @@ const ServiceModal: React.FC<ServiceModalProps> = ({ isOpen, onClose, selectedSe
                       <Image
                         src={src}
                         alt={`Slide ${index + 1} of ${selectedService.title}`}
+                        loading={index === 0 ? 'eager' : 'lazy'}
                         objectFit="cover"
                         w="100%"
                         h="100%"

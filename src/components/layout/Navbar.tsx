@@ -1,6 +1,6 @@
 // src/components/layout/Navbar.tsx
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import {
   Box,
   Flex,
@@ -10,6 +10,7 @@ import {
   Collapse,
   HStack,
   SimpleGrid,
+  useBreakpointValue,
 } from '@chakra-ui/react';
 import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
 import { Link } from 'react-scroll';
@@ -25,25 +26,12 @@ const navLinks = [
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
-  const [isNarrow, setIsNarrow] = useState(false);
-  const [isTiny, setIsTiny] = useState(false);
+  const isMobile = useBreakpointValue({ base: true, xl: false }) ?? true;
+  const isNarrow = useBreakpointValue({ base: false, xl: true, '2xl': false }) ?? false;
+  const logoHeight = useBreakpointValue({ base: '28px', sm: '40px', xl: isNarrow ? '32px' : '40px' });
 
   const brandBg = 'brand.600';
   const brandText = 'brand.50';
-
-  useEffect(() => {
-    const handleResize = () => {
-      const width = window.innerWidth;
-      setIsMobile(width < 1100);
-      setIsNarrow(width >= 1100 && width < 1450);
-      setIsTiny(width < 500);
-    };
-
-    handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
 
   const toggleMenu = () => setIsOpen(!isOpen);
 
@@ -84,7 +72,7 @@ const Navbar = () => {
             <Image
               src="/PFG_LOGO_B4.png"
               alt="PF Geomatics"
-              h={isTiny ? '28px' : isNarrow ? '32px' : '40px'}
+              h={logoHeight}
               transition="all 0.2s ease"
             />
           </Box>

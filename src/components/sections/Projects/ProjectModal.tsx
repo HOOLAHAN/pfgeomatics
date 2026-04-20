@@ -119,6 +119,7 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, isOpen, onClose })
                       <Image
                         src={src}
                         alt={`Slide ${index + 1} of ${project.name}`}
+                        loading={index === 0 ? 'eager' : 'lazy'}
                         objectFit="cover"
                         w="100%"
                         h="100%"

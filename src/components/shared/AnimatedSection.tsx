@@ -14,14 +14,10 @@ type MotionBoxProps = Omit<BoxProps, 'transition'>;
 const AnimatedSection: FC<PropsWithChildren<MotionBoxProps>> = ({ children, ...props }) => {
   const controls = useAnimation();
   const ref = useRef(null);
-  const inView = useInView(ref, { amount: 0.3 });
+  const inView = useInView(ref, { amount: 0.3, once: true });
 
   useEffect(() => {
-    if (inView) {
-      controls.start({ opacity: 1, y: 0 });
-    } else {
-      controls.start({ opacity: 0, y: 20 });
-    }
+    if (inView) controls.start({ opacity: 1, y: 0 });
   }, [inView, controls]);
 
   return (

@@ -1,12 +1,12 @@
 // src/components/Projects.tsx
 
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 import {
   Box,
   Heading,
   useDisclosure,
   Center,
-  Spinner,
+  useBreakpointValue,
 } from '@chakra-ui/react';
 import { projectsData } from '../../../data/projectsData';
 import ProjectModal from './ProjectModal';
@@ -30,38 +30,22 @@ interface Project {
 const Projects: React.FC = () => {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [isMobile, setIsMobile] = useState(false);
-  const [carouselItems, setCarouselItems] = useState<any[]>([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const checkScreenSize = () => {
-      setIsMobile(window.innerWidth < 720);
-    };
-
-    checkScreenSize();
-    window.addEventListener('resize', checkScreenSize);
-    return () => window.removeEventListener('resize', checkScreenSize);
-  }, []);
+  const isMobile = useBreakpointValue({ base: true, md: false }) ?? true;
+  const carouselRef = useRef<ResponsiveCarousel>(null);
 
   const handleProjectClick = useCallback((project: Project) => {
     setSelectedProject(project);
     onOpen();
   }, [onOpen]);
 
-  useEffect(() => {
-    const items = projectsData.map((project) => ({
-      title: project.name,
-      description: project.description,
-      image: {
-        imageUrl: getMediaUrl('projectImages', `${project.imageFolder}/1.png`),
-      },
-      onClick: () => handleProjectClick(project),
-    }));
-    setCarouselItems(items);
-    setLoading(false);
-  }, [handleProjectClick]);
-
+  const carouselItems = projectsData.map((project) => ({
+    title: project.name,
+    description: project.description,
+    image: {
+      imageUrl: getMediaUrl('projectImages', `${project.imageFolder}/1.png`),
+    },
+    onClick: () => handleProjectClick(project),
+  }));
 
   return (
     <Box py={5}>
@@ -70,11 +54,7 @@ const Projects: React.FC = () => {
           Featured Projects
         </Heading>
 
-        {loading ? (
-          <Center h="200px">
-            <Spinner size="xl" />
-          </Center>
-        ) : isMobile ? (
+        {isMobile ? (
           <>
             <ResponsiveCarousel
               showThumbs={false}
@@ -87,9 +67,7 @@ const Projects: React.FC = () => {
               showArrows={true}
               renderArrowPrev={() => null}
               renderArrowNext={() => null}
-              ref={(ref) => {
-                (window as any).__projectCarouselRef__ = ref;
-              }}
+              ref={carouselRef}
             >
               {carouselItems.map((item, index) => (
                 <Center key={index} py={2}>
@@ -109,11 +87,7 @@ const Projects: React.FC = () => {
                 <Box display="flex" gap={12} px={4}>
                   <Box
                     as="button"
-                    onClick={() =>
-                      (window as any).__projectCarouselRef__?.moveTo(
-                        (window as any).__projectCarouselRef__.state.selectedItem - 1
-                      )
-                    }
+                    onClick={() => carouselRef.current?.moveTo(carouselRef.current.state.selectedItem - 1)}
                     p={2}
                     px={4}
                     fontSize="24px"
@@ -130,11 +104,7 @@ const Projects: React.FC = () => {
                   </Box>
                   <Box
                     as="button"
-                    onClick={() =>
-                      (window as any).__projectCarouselRef__?.moveTo(
-                        (window as any).__projectCarouselRef__.state.selectedItem + 1
-                      )
-                    }
+                    onClick={() => carouselRef.current?.moveTo(carouselRef.current.state.selectedItem + 1)}
                     p={2}
                     px={4}
                     fontSize="24px"

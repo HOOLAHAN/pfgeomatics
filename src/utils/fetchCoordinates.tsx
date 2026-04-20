@@ -1,4 +1,5 @@
 // src/utils/fetchCoordinates.tsx
+import { env } from '../config/env';
 
 interface Coordinate {
   postcode: string;
@@ -8,7 +9,11 @@ interface Coordinate {
 
 export const fetchCoordinates = async (postcodes: string[]): Promise<Coordinate[]> => {
   try {
-    const response = await fetch('https://shzy66ugnl.execute-api.eu-west-2.amazonaws.com/dev/fetch-coordinates', {
+    if (!env.fetchCoordinatesEndpoint) {
+      throw new Error('Missing fetch coordinates endpoint');
+    }
+
+    const response = await fetch(env.fetchCoordinatesEndpoint, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

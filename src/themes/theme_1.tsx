@@ -38,8 +38,8 @@ export const theme_1 = extendTheme({
     },
   },
   fonts: {
-    heading: 'Poppins, sans-serif',
-    body: 'Poppins, sans-serif',
+    heading: 'Inter, sans-serif',
+    body: 'Inter, sans-serif',
     mono: 'Menlo, monospace',
   },
   styles: {

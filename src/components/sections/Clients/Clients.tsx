@@ -63,6 +63,7 @@ const Clients: React.FC = () => {
               <Image
                 src={getMediaUrl('clients', logo.filename)}
                 alt={`${logo.name} logo`}
+                loading="lazy"
                 objectFit="contain"
                 maxH={{ base: "60px", sm: "80px", md: "100px", lg: "120px" }}
               />
